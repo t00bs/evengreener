@@ -1,0 +1,8 @@
+/* EvenGreener webfonts. Causten is commercial (Trustha): only ExtraBold 800 was supplied.
+   Causten Bold 700 and Poppins 400 Italic are referenced in code/tokens.css but were not supplied; add them when licensed/available. */
+@font-face{font-family:"Causten";src:url("../assets/fonts/causten/Causten-ExtraBold.otf") format("opentype");font-weight:800;font-style:normal;font-display:swap}
+@font-face{font-family:"Poppins";src:url("../assets/fonts/poppins/Poppins_400Regular.ttf") format("truetype");font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:"Poppins";src:url("../assets/fonts/poppins/Poppins_500Medium.ttf") format("truetype");font-weight:500;font-style:normal;font-display:swap}
+@font-face{font-family:"Poppins";src:url("../assets/fonts/poppins/Poppins_600SemiBold.ttf") format("truetype");font-weight:600;font-style:normal;font-display:swap}
+@font-face{font-family:"Poppins";src:url("../assets/fonts/poppins/Poppins_700Bold.ttf") format("truetype");font-weight:700;font-style:normal;font-display:swap}
+@font-face{font-family:"Poppins";src:url("../assets/fonts/poppins/Poppins_700Bold_Italic.ttf") format("truetype");font-weight:700;font-style:italic;font-display:swap}

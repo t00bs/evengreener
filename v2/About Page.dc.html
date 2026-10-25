@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="_ds/evengreener-design-system-ede5a68e-3ce4-4c3a-82c1-af597595dcea/styles.css">
+<script src="_ds/evengreener-design-system-ede5a68e-3ce4-4c3a-82c1-af597595dcea/_ds_bundle.js"></script>
+<script src="eg-shared.js"></script>
+<style>body{margin:0;background:#fff}a{color:var(--eg-color-link)}a:hover{color:var(--eg-color-link-hover)}</style>
+</helmet>
+<div style="position:relative;background:var(--eg-white);color:var(--eg-color-text)">
+  <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.AnnouncementBar" hint-size="100%,32px"></x-import>
+  <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.Header" nav="{{ nav }}" utility-links="{{ utility }}" search-scopes="{{ scopes }}" bag-count="{{ bagCount }}" bag-total="{{ bagTotal }}" on-bag="{{ openDrawer }}" hint-size="100%,60px"></x-import>
+  <main>
+    <section aria-labelledby="about-title" style="padding-block:{{ L.heroPad }}">
+      <div style="max-width:var(--eg-container-max);margin-inline:auto;padding-inline:{{ gut }};display:grid;grid-template-columns:{{ L.heroCols }};gap:{{ L.heroGap }};align-items:center">
+        <div style="display:grid;gap:{{ L.copyGap }};justify-items:start">
+          <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.Breadcrumb" items="{{ crumbs }}" hint-size="160px,20px"></x-import>
+          <h1 id="about-title" class="eg-display" style="margin:0;font-size:{{ L.h1 }}">Making sustainable living easy since 2001</h1>
+          <p class="eg-muted" style="margin:0;font-size:{{ L.standfirst }};text-wrap:pretty">We are a Yorkshire team who know composters and water butts inside out. Whether you live in a flat or have acres of garden, we will help you find the one that fits how you live.</p>
+        </div>
+        <div class="eg-media eg-media--lifestyle eg-media--leaf-lg" role="img" aria-label="The EvenGreener team in the warehouse" style="aspect-ratio:auto;height:{{ L.heroImg }}">Team photo, leaf-lg</div>
+      </div>
+    </section>
+
+    <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.UspBar" items="{{ usps }}" hint-size="100%,88px"></x-import>
+
+    <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.FeatureSplit" eyebrow="Our story" title="Started online, still the friendly expert" text="We began selling composters online in 2001 from our base near Leeds. Today we help households, schools and councils right across the UK compost more and waste less. The range has grown, but the idea has not: practical, honest advice first, and products we would use ourselves." image-label="Warehouse and packing area" hint-size="100%,520px"></x-import>
+
+    <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.FeatureSplit" eyebrow="What we stock" title="Brands gardeners rely on" text="From HOTBIN and Green Johanna to Graf, Maze and Straight, we choose products that last. Many of our bestsellers are made in Britain from recycled plastic." points="{{ points }}" cta="{{ shopCta }}" image-label="Composters on an allotment" reverse="{{ true }}" tone="alt" hint-size="100%,520px"></x-import>
+
+    <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.Reviews" average="{{ 4.8 }}" count="{{ 1240 }}" reviews="{{ reviews }}" hint-size="100%,520px"></x-import>
+
+    <section aria-labelledby="hello-title" style="background:var(--eg-color-bg-tint);border-top:1px solid var(--eg-color-border-on-tint);padding-block:{{ secPad }}">
+      <div style="max-width:var(--eg-container-max);margin-inline:auto;padding-inline:{{ gut }};display:grid;gap:{{ L.headGap }}">
+        <h2 id="hello-title" class="eg-h2" style="margin:0">Say hello</h2>
+        <div style="display:grid;grid-template-columns:{{ L.cols }};gap:{{ L.cardGap }}">
+          <sc-for list="{{ contacts }}" as="c" hint-placeholder-count="3">
+            <div style="display:grid;gap:8px;align-content:start;padding-top:20px;border-top:1px solid var(--eg-color-border-on-tint)">
+              <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.Icon" name="{{ c.icon }}" size="{{ 24 }}" style="color:var(--eg-leaf-600)" hint-size="24px,24px"></x-import>
+              <h3 class="eg-h4" style="margin:0">{{ c.title }}</h3>
+              <p style="margin:0;font-size:var(--eg-text-body-sm);line-height:1.6;color:var(--eg-color-text-muted)">{{ c.text }}</p>
+              <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.LinkCta" href="{{ c.href }}" hint-size="120px,24px">{{ c.cta }}</x-import>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </section>
+  </main>
+  <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.Newsletter" hint-size="100%,320px"></x-import>
+  <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.Footer" columns="{{ footerCols }}" hint-size="100%,520px"></x-import>
+  <sc-if value="{{ drawerOpen }}" hint-placeholder-val="{{ false }}">
+    <dc-import name="Cart Drawer" open="{{ true }}" items="{{ drawerItems }}" on-close="{{ closeDrawer }}" hint-size="0px,0px"></dc-import>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { w: window.innerWidth, ready: !!window.EGData };
+  componentDidMount() {
+    this.onR = () => this.setState({ w: window.innerWidth });
+    window.addEventListener('resize', this.onR);
+    this.t = setInterval(() => { if (!this.state.ready && window.EGData) this.setState({ ready: true }); }, 300);
+  }
+  componentWillUnmount() { clearInterval(this.t); window.removeEventListener('resize', this.onR); }
+  renderVals() {
+    const D = window.EGData || {}; const S = window.EGUtil ? window.EGUtil.shell(this) : {};
+    const m = this.state.w < 900;
+    return Object.assign(S, {
+      L: {
+        heroPad: m ? '20px 32px' : '48px 72px', heroCols: m ? 'minmax(0,1fr)' : 'minmax(0,6fr) minmax(0,6fr)', heroGap: m ? '20px' : '64px', copyGap: m ? '12px' : '20px',
+        h1: m ? '40px' : '64px', standfirst: m ? 'var(--eg-text-body)' : 'var(--eg-text-body-lg)', heroImg: m ? '220px' : '460px',
+        headGap: m ? '20px' : '32px', cols: m ? 'minmax(0,1fr)' : 'repeat(3,minmax(0,1fr))', cardGap: m ? '24px' : 'var(--eg-grid-gap)',
+      },
+      crumbs: [{ label: 'Home', href: 'Home Page.dc.html' }, { label: 'About us' }],
+      usps: [
+        { title: 'Free UK delivery', text: 'On orders over £65' },
+        { title: 'Made in Britain', text: 'Bestsellers from recycled plastic' },
+        { title: 'Expert Customer Care Team', text: 'Friendly help before and after you buy' },
+        { title: 'Online since 2001', text: 'Helping UK homes for 25 years' },
+      ],
+      points: ['Made in Britain from recycled plastic', 'Honest advice on what suits your space', 'Spare parts and help after you buy'],
+      shopCta: { label: 'Shop all collections', href: 'Collections List Page.dc.html', variant: 'secondary' },
+      reviews: D.homeReviews || [],
+      contacts: [
+        { icon: 'mail', title: 'Customer Care Team', text: 'Questions about an order or which product to choose. We reply within 1 working day, Monday to Friday.', cta: 'Contact us', href: 'Contact Page.dc.html' },
+        { icon: 'users', title: 'Bulk enquiries', text: 'Buying for a school, council or business? Ask for volume pricing and multi-site delivery.', cta: 'Request a quote', href: 'Bulk Enquiry Page.dc.html' },
+        { icon: 'map-pin', title: 'Where we are', text: 'Brookfield Court, Selby Road, Leeds LS25 1NB. A Yorkshire business, delivering across the UK.', cta: 'Delivery information', href: 'FAQ Page.dc.html' },
+      ],
+    });
+  }
+}
+</script>
+</body>
+</html>

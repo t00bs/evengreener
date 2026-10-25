@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="_ds/evengreener-design-system-ede5a68e-3ce4-4c3a-82c1-af597595dcea/styles.css">
+<script src="_ds/evengreener-design-system-ede5a68e-3ce4-4c3a-82c1-af597595dcea/_ds_bundle.js"></script>
+<script src="eg-shared.js"></script>
+<style>body{margin:0;background:#fff}a{color:var(--eg-color-link)}a:hover{color:var(--eg-color-link-hover)}</style>
+</helmet>
+<div style="position:relative;background:var(--eg-white);color:var(--eg-color-text)">
+  <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.AnnouncementBar" hint-size="100%,32px"></x-import>
+  <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.Header" nav="{{ nav }}" utility-links="{{ utility }}" search-scopes="{{ scopes }}" bag-count="{{ bagCount }}" bag-total="{{ bagTotal }}" on-bag="{{ openDrawer }}" hint-size="100%,60px"></x-import>
+
+  <main>
+    <section style="background:var(--eg-color-bg-tint);border-bottom:1px solid var(--eg-color-border-on-tint);padding-block:{{ L.headPad }}">
+      <div style="max-width:var(--eg-container-max);margin-inline:auto;padding-inline:{{ gut }};display:grid;gap:16px">
+        <h1 class="eg-h2" style="margin:0">{{ heading }}</h1>
+        <form role="search" onSubmit="{{ submit }}" style="display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:end;max-width:720px">
+          <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.Input" label="Search the store" name="q" type="search" default-value="{{ q }}" key="{{ q }}" autocomplete="off" hint-size="100%,74px"></x-import>
+          <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.Button" type="submit" icon-start="search" hint-size="110px,48px">Search</x-import>
+        </form>
+      </div>
+    </section>
+
+    <sc-if value="{{ hasResults }}" hint-placeholder-val="{{ true }}">
+      <section style="padding-block:{{ L.bodyPad }}">
+        <div style="max-width:var(--eg-container-max);margin-inline:auto;padding-inline:{{ gut }};display:grid;gap:{{ L.gap }}">
+          <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.CollectionLinks" items="{{ tabs }}" current="{{ tab }}" on-select="{{ pickTab }}" label="Result types" hint-size="100%,44px"></x-import>
+
+          <sc-if value="{{ showProducts }}" hint-placeholder-val="{{ true }}">
+            <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.ProductGrid" products="{{ products }}" facets="{{ facets }}" filter-fn="{{ filterFn }}" sorts="{{ sorts }}" compare="{{ false }}" on-add="{{ quickAdd }}" hint-size="100%,900px"></x-import>
+          </sc-if>
+
+          <sc-if value="{{ showGuides }}" hint-placeholder-val="{{ false }}">
+            <div style="display:grid;grid-template-columns:{{ L.postCols }};gap:{{ L.cardGap }}">
+              <sc-for list="{{ guides }}" as="p" hint-placeholder-count="3">
+                <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.PostCard" title="{{ p.title }}" excerpt="{{ p.excerpt }}" meta="{{ p.meta }}" href="Article Page.dc.html" hint-size="100%,380px"></x-import>
+              </sc-for>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ showPages }}" hint-placeholder-val="{{ false }}">
+            <ul role="list" style="list-style:none;margin:0;padding:0;max-width:720px">
+              <sc-for list="{{ pages }}" as="p" hint-placeholder-count="2">
+                <li style="padding-block:20px;border-top:1px solid var(--eg-color-border);display:grid;gap:4px">
+                  <a href="{{ p.href }}" class="eg-h4" style="color:var(--eg-color-text);text-decoration:none">{{ p.title }}</a>
+                  <p class="eg-muted" style="margin:0;font-size:var(--eg-text-body-sm)">{{ p.text }}</p>
+                </li>
+              </sc-for>
+            </ul>
+          </sc-if>
+        </div>
+      </section>
+    </sc-if>
+
+    <sc-if value="{{ noResults }}" hint-placeholder-val="{{ false }}">
+      <section style="padding-block:{{ L.bodyPad }}">
+        <div style="max-width:var(--eg-container-max);margin-inline:auto;padding-inline:{{ gut }};display:grid;gap:{{ L.gap }}">
+          <div style="display:grid;gap:12px;max-width:640px">
+            <p style="margin:0;text-wrap:pretty">Check the spelling, or try a broader word like composter or water butt.</p>
+            <p class="eg-label" style="margin:8px 0 0">Popular searches</p>
+            <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.CollectionLinks" items="{{ popular }}" on-select="{{ pickPopular }}" label="Popular searches" hint-size="100%,44px"></x-import>
+            <p style="margin:8px 0 0;display:flex;gap:8px;align-items:flex-start;font-size:var(--eg-text-body-sm);line-height:1.5"><x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.Icon" name="mail" size="{{ 20 }}" style="color:var(--eg-leaf-600);flex:none" hint-size="20px,20px"></x-import><span>Still stuck? Our Customer Care Team knows the range inside out. Email <a href="mailto:customer.care@evengreener.com">customer.care@evengreener.com</a>.</span></p>
+          </div>
+          <div style="display:grid;gap:{{ L.headGap }};padding-top:{{ L.gap }};border-top:1px solid var(--eg-color-border)">
+            <h2 class="eg-h3" style="margin:0">Our bestsellers</h2>
+            <div style="display:grid;grid-template-columns:{{ L.prodCols }};gap:{{ L.cardGap }}">
+              <sc-for list="{{ best }}" as="p" hint-placeholder-count="4">
+                <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.ProductCard" product="{{ p }}" variant="detailed" on-add="{{ quickAdd }}" hint-size="100%,420px"></x-import>
+              </sc-for>
+            </div>
+          </div>
+        </div>
+      </section>
+    </sc-if>
+  </main>
+
+  <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.Footer" columns="{{ footerCols }}" hint-size="100%,520px"></x-import>
+  <sc-if value="{{ drawerOpen }}" hint-placeholder-val="{{ false }}">
+    <dc-import name="Cart Drawer" open="{{ true }}" items="{{ drawerItems }}" on-close="{{ closeDrawer }}" hint-size="0px,0px"></dc-import>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { w: window.innerWidth, ready: !!window.EGData, q: null, tab: 'Products' };
+  componentDidMount() {
+    this.onR = () => this.setState({ w: window.innerWidth });
+    window.addEventListener('resize', this.onR);
+    this.t = setInterval(() => {
+      if (!this.state.ready && window.EGData) this.setState({ ready: true });
+      if (this.state.q == null && window.EGUtil) this.setState({ q: window.EGUtil.param('q') || 'water butt' });
+    }, 300);
+  }
+  componentWillUnmount() { clearInterval(this.t); window.removeEventListener('resize', this.onR); }
+  renderVals() {
+    const D = window.EGData || {}; const S = window.EGUtil ? window.EGUtil.shell(this) : {};
+    const m = this.state.w < 900;
+    const q = this.state.q || '';
+    const toks = q.toLowerCase().split(/\s+/).filter((t) => t.length > 2).map((t) => t.replace(/s$/, ''));
+    const hit = (s) => toks.length > 0 && toks.every((t) => s.toLowerCase().indexOf(t) > -1);
+    const sitePages = [
+      { title: 'Delivery and returns', text: 'Free UK delivery over £65, timings and how to return an item.', href: 'FAQ Page.dc.html' },
+      { title: 'Bulk enquiries', text: 'Volume pricing for schools, councils and businesses.', href: 'Bulk Enquiry Page.dc.html' },
+      { title: 'Contact us', text: 'Our Customer Care Team is here to help, Monday to Friday.', href: 'Contact Page.dc.html' },
+      { title: 'Water butt FAQs', text: 'Fitting a diverter, overflow, winter care and more.', href: 'FAQ Page.dc.html' },
+      { title: 'Composting FAQs', text: 'Smells, cooked food, sizes and timings.', href: 'FAQ Page.dc.html' },
+    ];
+    const products = (D.catalogue || []).filter((p) => hit(p.title + ' ' + p.type));
+    const guides = (D.posts || []).filter((p) => hit(p.title + ' ' + p.excerpt + ' ' + p.topic));
+    const pages = sitePages.filter((p) => hit(p.title + ' ' + p.text));
+    const total = products.length + guides.length + pages.length;
+    const tabs = [{ label: 'Products', count: products.length }, { label: 'Guides', count: guides.length }, { label: 'Pages', count: pages.length }].filter((t) => t.count > 0);
+    const tab = tabs.some((t) => t.label === this.state.tab) ? this.state.tab : (tabs[0] || {}).label;
+    const types = Array.from(new Set(products.map((p) => p.type)));
+    const ready = this.state.q != null;
+    return Object.assign(S, {
+      L: {
+        headPad: m ? '20px' : '40px', bodyPad: m ? '24px 48px' : '40px 96px', gap: m ? '24px' : '32px', headGap: m ? '16px' : '24px', cardGap: m ? '16px' : 'var(--eg-grid-gap)',
+        postCols: m ? 'minmax(0,1fr)' : 'repeat(3,minmax(0,1fr))', prodCols: m ? 'repeat(2,minmax(0,1fr))' : 'repeat(4,minmax(0,1fr))',
+      },
+      q: q,
+      heading: !ready ? 'Search' : total ? total + (total === 1 ? ' result' : ' results') + ' for \u201c' + q + '\u201d' : 'No results for \u201c' + q + '\u201d',
+      submit: (e) => { e.preventDefault(); const v = (e.target.elements.q.value || '').trim(); if (v) this.setState({ q: v, tab: 'Products' }); },
+      hasResults: ready && total > 0, noResults: ready && total === 0,
+      tabs: tabs, tab: tab, pickTab: (t) => this.setState({ tab: t.label }),
+      showProducts: tab === 'Products', showGuides: tab === 'Guides', showPages: tab === 'Pages',
+      products: products, guides: guides, pages: pages,
+      facets: D.facetsFor ? D.facetsFor(products, [
+        { title: 'Type', options: types, test: (p, o) => p.type === o },
+        { title: 'Price', options: ['Under £50', '£50 to £200', 'Over £200'], test: D.priceTest },
+      ]) : [],
+      filterFn: D.filterFn,
+      sorts: ['Relevance', 'Best selling', 'Price, low to high', 'Price, high to low'],
+      popular: ['Water butt', 'Hot composter', 'Kitchen caddy', 'Bokashi', 'Wormery'].map((l) => ({ label: l })),
+      pickPopular: (p) => this.setState({ q: p.label.toLowerCase(), tab: 'Products' }),
+      best: (D.bestsellers || []).slice(0, 4),
+    });
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="_ds/evengreener-design-system-ede5a68e-3ce4-4c3a-82c1-af597595dcea/styles.css">
+<script src="_ds/evengreener-design-system-ede5a68e-3ce4-4c3a-82c1-af597595dcea/_ds_bundle.js"></script>
+<script src="eg-shared.js"></script>
+<style>body{margin:0;background:#fff}a{color:var(--eg-color-link)}a:hover{color:var(--eg-color-link-hover)}</style>
+</helmet>
+<div style="position:relative;background:var(--eg-white);color:var(--eg-color-text)">
+  <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.AnnouncementBar" hint-size="100%,32px"></x-import>
+  <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.Header" nav="{{ nav }}" current="Knowledge hub" utility-links="{{ utility }}" search-scopes="{{ scopes }}" bag-count="{{ bagCount }}" bag-total="{{ bagTotal }}" on-bag="{{ openDrawer }}" hint-size="100%,60px"></x-import>
+
+  <main>
+    <section style="padding-block:{{ L.headPad }}">
+      <div style="max-width:var(--eg-container-max);margin-inline:auto;padding-inline:{{ gut }};display:grid;gap:{{ L.headGap }}">
+        <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.Breadcrumb" items="{{ crumbs }}" hint-size="200px,20px"></x-import>
+        <div style="display:grid;gap:8px;max-width:760px">
+          <h1 class="eg-h1" style="margin:0">Knowledge hub</h1>
+          <p class="eg-muted" style="margin:0;font-size:{{ L.standfirst }};text-wrap:pretty">Practical, tried-and-tested advice from our team on composting, saving water and cutting food waste.</p>
+        </div>
+      </div>
+    </section>
+
+    <section style="padding-bottom:{{ secPad }}">
+      <div style="max-width:var(--eg-container-max);margin-inline:auto;padding-inline:{{ gut }};display:grid;gap:{{ L.gap }}">
+        <a href="Article Page.dc.html" style="display:grid;grid-template-columns:{{ L.featCols }};gap:{{ L.featGap }};align-items:center;color:inherit;text-decoration:none">
+          <div class="eg-media eg-media--lifestyle eg-media--leaf-lg" role="img" aria-label="Compost bin in a vegetable garden" style="aspect-ratio:3/2">Lifestyle photo, leaf-lg</div>
+          <div style="display:grid;gap:12px;justify-items:start">
+            <p class="eg-eyebrow" style="margin:0">Start here · {{ featured.meta }}</p>
+            <h2 class="eg-h2" style="margin:0">{{ featured.title }}</h2>
+            <p class="eg-muted" style="margin:0;text-wrap:pretty">{{ featured.excerpt }}</p>
+            <span class="eg-link-cta">Read the guide</span>
+          </div>
+        </a>
+
+        <div style="display:grid;gap:{{ L.headGap }};padding-top:{{ L.gap }};border-top:1px solid var(--eg-color-border)">
+          <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:16px">
+            <h2 class="eg-h3" style="margin:0">{{ listTitle }}</h2>
+          </div>
+          <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.CollectionLinks" items="{{ topics }}" current="{{ topic }}" on-select="{{ pickTopic }}" label="Topics" hint-size="100%,44px"></x-import>
+          <div style="display:grid;grid-template-columns:{{ L.cols }};gap:{{ L.cardGap }}">
+            <sc-for list="{{ posts }}" as="p" hint-placeholder-count="6">
+              <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.PostCard" title="{{ p.title }}" excerpt="{{ p.excerpt }}" meta="{{ p.meta }}" href="Article Page.dc.html" hint-size="100%,380px"></x-import>
+            </sc-for>
+          </div>
+          <nav class="eg-pagination" aria-label="Pagination" style="margin-top:8px">
+            <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.IconButton" icon="chevron-left" label="Previous page" disabled="{{ true }}" hint-size="48px,48px"></x-import>
+            <span>Page 1 of 3</span>
+            <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.IconButton" icon="chevron-right" label="Next page" hint-size="48px,48px"></x-import>
+          </nav>
+        </div>
+      </div>
+    </section>
+
+    <section style="background:var(--eg-color-bg-tint);border-block:1px solid var(--eg-color-border-on-tint);padding-block:{{ L.stripPad }}">
+      <div style="max-width:var(--eg-container-max);margin-inline:auto;padding-inline:{{ gut }};display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px 32px">
+        <div style="display:grid;gap:4px;flex:1 1 320px">
+          <h2 class="eg-h4" style="margin:0">Got a question we have not covered?</h2>
+          <p style="margin:0;font-size:var(--eg-text-body-sm);color:var(--eg-color-text-muted)">Browse our FAQs or ask the Customer Care Team. We reply within 1 working day.</p>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:12px">
+          <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.Button" variant="secondary" href="FAQ Page.dc.html" hint-size="120px,48px">Read the FAQs</x-import>
+          <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.Button" href="Contact Page.dc.html" hint-size="120px,48px">Contact us</x-import>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.Newsletter" hint-size="100%,320px"></x-import>
+  <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.Footer" columns="{{ footerCols }}" hint-size="100%,520px"></x-import>
+  <sc-if value="{{ drawerOpen }}" hint-placeholder-val="{{ false }}">
+    <dc-import name="Cart Drawer" open="{{ true }}" items="{{ drawerItems }}" on-close="{{ closeDrawer }}" hint-size="0px,0px"></dc-import>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { w: window.innerWidth, ready: !!window.EGData, topic: 'All topics' };
+  componentDidMount() {
+    this.onR = () => this.setState({ w: window.innerWidth });
+    window.addEventListener('resize', this.onR);
+    this.t = setInterval(() => { if (!this.state.ready && window.EGData) this.setState({ ready: true }); }, 300);
+  }
+  componentWillUnmount() { clearInterval(this.t); window.removeEventListener('resize', this.onR); }
+  renderVals() {
+    const D = window.EGData || {}; const S = window.EGUtil ? window.EGUtil.shell(this) : {};
+    const m = this.state.w < 900;
+    const all = D.posts || [];
+    const rest = all.slice(1);
+    const names = ['Composting', 'Water saving', 'Food waste', 'Gardening'];
+    const topics = [{ label: 'All topics', count: rest.length }].concat(names.map((n) => ({ label: n, count: rest.filter((p) => p.topic === n).length })));
+    const t = this.state.topic;
+    return Object.assign(S, {
+      L: {
+        headPad: m ? '20px 24px' : '40px 48px', headGap: m ? '16px' : '24px', standfirst: m ? 'var(--eg-text-body)' : 'var(--eg-text-body-lg)', gap: m ? '32px' : '56px',
+        featCols: m ? 'minmax(0,1fr)' : 'minmax(0,7fr) minmax(0,5fr)', featGap: m ? '16px' : '56px',
+        cols: m ? 'minmax(0,1fr)' : 'repeat(3,minmax(0,1fr))', cardGap: m ? '32px' : 'var(--eg-grid-gap)', stripPad: m ? '24px' : '40px',
+      },
+      crumbs: [{ label: 'Home', href: 'Home Page.dc.html' }, { label: 'Knowledge hub' }],
+      featured: all[0] || { title: '', meta: '', excerpt: '' },
+      listTitle: t === 'All topics' ? 'All guides' : t + ' guides',
+      topics: topics, topic: t, pickTopic: (x) => this.setState({ topic: x.label }),
+      posts: t === 'All topics' ? rest : rest.filter((p) => p.topic === t),
+    });
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="_ds/evengreener-design-system-ede5a68e-3ce4-4c3a-82c1-af597595dcea/styles.css">
+<script src="_ds/evengreener-design-system-ede5a68e-3ce4-4c3a-82c1-af597595dcea/_ds_bundle.js"></script>
+<script src="eg-shared.js"></script>
+<style>body{margin:0;background:#fff}a{color:var(--eg-color-link)}a:hover{color:var(--eg-color-link-hover)}</style>
+</helmet>
+<div style="position:relative;background:var(--eg-white);color:var(--eg-color-text)">
+  <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.AnnouncementBar" hint-size="100%,32px"></x-import>
+  <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.Header" nav="{{ nav }}" current="Composting" utility-links="{{ utility }}" search-scopes="{{ scopes }}" bag-count="{{ bagCount }}" bag-total="{{ bagTotal }}" on-bag="{{ openDrawer }}" hint-size="100%,60px"></x-import>
+
+  <main>
+    <section style="padding-block:{{ L.headPad }}">
+      <div style="max-width:var(--eg-container-max);margin-inline:auto;padding-inline:{{ gut }};display:grid;gap:{{ L.headGap }}">
+        <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.Breadcrumb" items="{{ crumbs }}" hint-size="200px,20px"></x-import>
+        <div style="display:grid;gap:8px;max-width:760px">
+          <h1 class="eg-h1" style="margin:0">{{ title }}</h1>
+          <p class="eg-muted" style="margin:0;font-size:{{ L.standfirst }};text-wrap:pretty">{{ intro }}</p>
+        </div>
+        <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.CollectionLinks" items="{{ subs }}" current="{{ sub }}" on-select="{{ pickSub }}" label="Composting collections" hint-size="100%,44px"></x-import>
+      </div>
+    </section>
+
+    <section style="padding-bottom:{{ secPad }}">
+      <div style="max-width:var(--eg-container-max);margin-inline:auto;padding-inline:{{ gut }}">
+        <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.ProductGrid" products="{{ products }}" facets="{{ facets }}" filter-fn="{{ filterFn }}" sorts="{{ sorts }}" on-add="{{ quickAdd }}" on-compare="{{ toCompare }}" promo="{{ promo }}" hint-size="100%,1400px"></x-import>
+      </div>
+    </section>
+
+    <section ref="{{ compareRef }}" style="background:var(--eg-color-bg-alt);padding-block:{{ secPad }}">
+      <div style="max-width:var(--eg-container-max);margin-inline:auto;padding-inline:{{ gut }}">
+        <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.ComparisonTable" title="Compare our bestselling composters" highlight="{{ 1 }}" rows="{{ compareRows }}" products="{{ compare }}" hint-size="100%,520px"></x-import>
+      </div>
+    </section>
+
+    <section style="padding-block:{{ secPad }}">
+      <div style="max-width:var(--eg-container-max);margin-inline:auto;padding-inline:{{ gut }};display:grid;grid-template-columns:{{ L.faqCols }};gap:{{ L.faqGap }};align-items:start">
+        <div style="display:grid;gap:12px;justify-items:start">
+          <h2 class="eg-h2" style="margin:0">Composting questions</h2>
+          <p class="eg-muted" style="margin:0;text-wrap:pretty">Still not sure which bin suits you? Our Customer Care Team has tried them all.</p>
+          <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.LinkCta" href="Contact Page.dc.html" hint-size="120px,24px">Ask our team</x-import>
+        </div>
+        <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.Accordion" items="{{ faqs }}" hint-size="100%,280px"></x-import>
+      </div>
+    </section>
+  </main>
+
+  <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.Newsletter" hint-size="100%,320px"></x-import>
+  <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.Footer" columns="{{ footerCols }}" hint-size="100%,520px"></x-import>
+  <sc-if value="{{ drawerOpen }}" hint-placeholder-val="{{ false }}">
+    <dc-import name="Cart Drawer" open="{{ true }}" items="{{ drawerItems }}" on-close="{{ closeDrawer }}" hint-size="0px,0px"></dc-import>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { w: window.innerWidth, ready: !!window.EGData, sub: 'All composting' };
+  compareRef = React.createRef();
+  componentDidMount() {
+    this.onR = () => this.setState({ w: window.innerWidth });
+    window.addEventListener('resize', this.onR);
+    this.t = setInterval(() => { if (!this.state.ready && window.EGData) this.setState({ ready: true }); }, 300);
+  }
+  componentWillUnmount() { clearInterval(this.t); window.removeEventListener('resize', this.onR); }
+  renderVals() {
+    const D = window.EGData || {}; const S = window.EGUtil ? window.EGUtil.shell(this) : {};
+    const m = this.state.w < 900;
+    const all = D.composting || [];
+    const subMap = { 'Hot composters': 'Hot', 'Standard composters': 'Standard', 'Wooden composters': 'Wooden', 'Tumblers': 'Tumbler', 'Electric composters': 'Electric', 'Bokashi composters': 'Bokashi', 'Worm composters': 'Worm' };
+    const subs = [{ label: 'All composting', count: all.length }].concat(Object.keys(subMap).map((k) => ({ label: k, count: all.filter((p) => p.type === subMap[k]).length })));
+    const t = subMap[this.state.sub];
+    const products = t ? all.filter((p) => p.type === t) : all;
+    const title = t ? this.state.sub : 'Composting';
+    return Object.assign(S, {
+      L: {
+        headPad: m ? '20px 24px' : '40px 40px', headGap: m ? '12px' : '20px', standfirst: m ? 'var(--eg-text-body)' : 'var(--eg-text-body-lg)',
+        faqCols: m ? 'minmax(0,1fr)' : 'minmax(0,4fr) minmax(0,7fr)', faqGap: m ? '24px' : '64px',
+      },
+      crumbs: [{ label: 'Home', href: 'Home Page.dc.html' }, { label: 'Composting', href: '#' }].concat(t ? [{ label: this.state.sub }] : []),
+      title: title,
+      intro: 'Whether you have a small patio or a busy allotment, there is a composter that fits how you live. Most of our bestsellers are made in Britain from recycled plastic.',
+      subs: subs, sub: this.state.sub, pickSub: (s) => this.setState({ sub: s.label }),
+      products: products,
+      facets: D.facetsFor && t ? D.compostFacets.filter((f) => f.title !== 'Type') : D.compostFacets,
+      filterFn: D.filterFn,
+      sorts: ['Best selling', 'Price, low to high', 'Price, high to low', 'Top rated', 'Newest'],
+      promo: { title: 'Not sure which composter?', cta: 'Take the 3 question quiz', href: 'Home Page.dc.html#finder' },
+      compareRef: this.compareRef,
+      toCompare: () => { const el = this.compareRef.current; if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 80, behavior: 'smooth' }); },
+      compareRows: ['Capacity', 'Compost in', 'Cooked food', 'Material', 'Made in Britain'],
+      compare: [
+        { title: 'Straight 330L Compost Converter', price: 39.99, specs: { 'Capacity': '330L', 'Compost in': '6 to 12 months', 'Cooked food': false, 'Material': 'Recycled plastic', 'Made in Britain': true } },
+        { title: 'HOTBIN Mega 450L', price: 480, specs: { 'Capacity': '450L', 'Compost in': '1 to 3 months', 'Cooked food': true, 'Material': 'Recycled plastic', 'Made in Britain': true } },
+        { title: 'Green Johanna 330L', price: 124.99, specs: { 'Capacity': '330L', 'Compost in': '3 to 6 months', 'Cooked food': true, 'Material': 'Recycled plastic', 'Made in Britain': false } },
+        { title: 'Maze 180L Tumbler', price: 185.99, specs: { 'Capacity': '180L', 'Compost in': '4 to 8 weeks', 'Cooked food': false, 'Material': 'Recycled plastic', 'Made in Britain': false } },
+      ],
+      faqs: [
+        { title: 'Will my composter smell?', content: 'Not if the mix is right. Balance wet greens like peelings with dry browns like cardboard, and keep the lid on. Bokashi and electric composters are sealed, so they suit kitchens and flats.' },
+        { title: 'Which composters take cooked food?', content: 'Hot composters such as HOTBIN and Green Johanna, bokashi bins and electric composters all take cooked food, meat and dairy. Standard bins are best for garden waste and raw peelings.' },
+        { title: 'What size do I need?', content: 'For a small garden or a household of 1 to 2, 220 to 330 litres is plenty. Families and keen gardeners usually go for 330 litres or more, or two bins so one can mature.' },
+        { title: 'How long until I have compost?', content: 'A standard bin takes 6 to 12 months. Tumblers take 4 to 8 weeks with regular turning, and hot composters 1 to 3 months.' },
+      ],
+    });
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/evengreener-design-system-ede5a68e-3ce4-4c3a-82c1-af597595dcea/styles.css">
+<script src="_ds/evengreener-design-system-ede5a68e-3ce4-4c3a-82c1-af597595dcea/_ds_bundle.js"></script>
+<script src="eg-shared.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@800&amp;family=Poppins:wght@400;500;600&amp;display=swap">
+<style>html:root{--eg-font-display:"Outfit","Poppins",system-ui,sans-serif;--eg-font-body:"Poppins",system-ui,sans-serif}body{margin:0;background:#143324}a{color:#296647}a:hover{color:#143324}</style>
+</helmet>
+<x-import component-from-global-scope="deck-stage" from="./deck-stage.js" width="1920" height="1080" hint-size="100%,100%" data-uneditable="">
+
+<section data-label="Title" data-speaker-notes="This is a conversion redesign of three templates: product page, homepage and cart. It is driven by Hotjar scroll and click data, not a visual refresh. Everything you will see uses the published EvenGreener design system unchanged. What moves is layout, order and hierarchy." style="background:#143324;color:#fff;padding:100px 120px 80px;display:flex;flex-direction:column;justify-content:space-between;font-family:var(--eg-font-body)" data-om-slide-id="984ba31a">
+  <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.Logo" variant="white" width="{{ 280 }}" hint-size="280px,66px"></x-import>
+  <div style="display:grid;gap:40px;max-width:1500px">
+    <p style="margin:0;font:500 28px/1.2 var(--eg-font-body);letter-spacing:.1em;text-transform:uppercase;color:#ABD921">Conversion redesign · Revised 28 October 2026</p>
+    <h1 style="margin:0;font:800 112px/1.05 var(--eg-font-display);letter-spacing:-0.025em;text-wrap:balance">Product page, homepage and cart, reordered by what visitors actually do</h1>
+    <p style="margin:0;font-size:36px;line-height:1.4;max-width:1200px">Hotjar scroll and click findings, designed mobile first at 360px</p>
+  </div>
+  <p style="margin:0;font-size:24px;opacity:.9">Prepared for EvenGreener, Leeds</p>
+</section>
+
+
+<section data-label="Revisions" data-speaker-notes="Before we go back through the templates, here is what has changed since the last review, using the feedback Natalie collated on 23 October." style="background:#296647;color:#fff;padding:100px 120px 80px;display:flex;flex-direction:column;justify-content:flex-end;gap:32px;font-family:var(--eg-font-body)" data-om-slide-id="r0a1b2c3">
+  <span style="font:800 200px/1 var(--eg-font-display);color:#ABD921">New</span>
+  <h2 style="margin:0;font:800 112px/1.05 var(--eg-font-display);letter-spacing:-0.025em">Since the last review</h2>
+  <p style="margin:0;font-size:36px;line-height:1.4">Your feedback from 23 October, worked through</p>
+</section>
+
+<section data-label="Feedback and changes" data-speaker-notes="Seven points came back. Four are done: food waste composting is in the menu, there is a bulk buy link on the homepage, New in is out of the menu, and 2001 is used everywhere. Two need a decision today: which navigation pattern, and where the finders sit. The reviews platform is still with you." style="background:#fff;color:#143324;padding:100px 120px 80px;display:flex;flex-direction:column;gap:56px;font-family:var(--eg-font-body)" data-om-slide-id="r1a1b2c3">
+  <div style="display:grid;gap:20px">
+    <p style="margin:0;font:500 24px/1.2 var(--eg-font-body);letter-spacing:.1em;text-transform:uppercase;color:#296647">Since the last review</p>
+    <h2 style="margin:0;font:800 72px/1.1 var(--eg-font-display);letter-spacing:-0.015em">Your feedback, and what changed</h2>
+  </div>
+  <ol style="list-style:none;margin:0;padding:0;display:grid;border-top:2px solid #143324">
+    <li style="display:grid;grid-template-columns:72px 520px 1fr 240px;gap:24px;align-items:center;padding:18px 0;border-bottom:1px solid #C8CCCA;font-size:28px"><span style="font:800 36px/1 var(--eg-font-display);color:#296647">1</span><span style="font-weight:600">Navigation</span><span style="color:#646665">Two options, A and B, built for mobile and desktop</span><span style="justify-self:end;padding:4px 14px;border-radius:0 12px;background:#C8285E;color:#fff;font-size:22px;letter-spacing:.06em;text-transform:uppercase">Your call</span></li>
+    <li style="display:grid;grid-template-columns:72px 520px 1fr 240px;gap:24px;align-items:center;padding:18px 0;border-bottom:1px solid #C8CCCA;font-size:28px"><span style="font:800 36px/1 var(--eg-font-display);color:#296647">2</span><span style="font-weight:600">Water butt finder</span><span style="color:#646665">Built, with two ways to place it</span><span style="justify-self:end;padding:4px 14px;border-radius:0 12px;background:#C8285E;color:#fff;font-size:22px;letter-spacing:.06em;text-transform:uppercase">Your call</span></li>
+    <li style="display:grid;grid-template-columns:72px 520px 1fr 240px;gap:24px;align-items:center;padding:18px 0;border-bottom:1px solid #C8CCCA;font-size:28px"><span style="font:800 36px/1 var(--eg-font-display);color:#296647">3</span><span style="font-weight:600">Food waste composting</span><span style="color:#646665">Added to the Composting menu</span><span style="justify-self:end;padding:4px 14px;border-radius:0 12px;background:#EAF0ED;color:#296647;font-size:22px;letter-spacing:.06em;text-transform:uppercase">Done</span></li>
+    <li style="display:grid;grid-template-columns:72px 520px 1fr 240px;gap:24px;align-items:center;padding:18px 0;border-bottom:1px solid #C8CCCA;font-size:28px"><span style="font:800 36px/1 var(--eg-font-display);color:#296647">4</span><span style="font-weight:600">Bulk buy</span><span style="color:#646665">A plain link on the homepage, under the categories</span><span style="justify-self:end;padding:4px 14px;border-radius:0 12px;background:#EAF0ED;color:#296647;font-size:22px;letter-spacing:.06em;text-transform:uppercase">Done</span></li>
+    <li style="display:grid;grid-template-columns:72px 520px 1fr 240px;gap:24px;align-items:center;padding:18px 0;border-bottom:1px solid #C8CCCA;font-size:28px"><span style="font:800 36px/1 var(--eg-font-display);color:#296647">5</span><span style="font-weight:600">New in</span><span style="color:#646665">Out of the menu. Link to it from your e-shots</span><span style="justify-self:end;padding:4px 14px;border-radius:0 12px;background:#EAF0ED;color:#296647;font-size:22px;letter-spacing:.06em;text-transform:uppercase">Done</span></li>
+    <li style="display:grid;grid-template-columns:72px 520px 1fr 240px;gap:24px;align-items:center;padding:18px 0;border-bottom:1px solid #C8CCCA;font-size:28px"><span style="font:800 36px/1 var(--eg-font-display);color:#296647">6</span><span style="font-weight:600">Founding year</span><span style="color:#646665">2001 on every page</span><span style="justify-self:end;padding:4px 14px;border-radius:0 12px;background:#EAF0ED;color:#296647;font-size:22px;letter-spacing:.06em;text-transform:uppercase">Done</span></li>
+    <li style="display:grid;grid-template-columns:72px 520px 1fr 240px;gap:24px;align-items:center;padding:18px 0;border-bottom:1px solid #C8CCCA;font-size:28px"><span style="font:800 36px/1 var(--eg-font-display);color:#296647">7</span><span style="font-weight:600">Reviews platform</span><span style="color:#646665">The design has a slot for short review quotes, whichever tool you pick</span><span style="justify-self:end;padding:4px 14px;border:1px solid #C8CCCA;border-radius:0 12px;color:#646665;font-size:22px;letter-spacing:.06em;text-transform:uppercase">With you</span></li>
+  </ol>
+</section>
+
+<section data-label="Navigation option A" data-speaker-notes="Option A is the pattern Great Green Systems and SaveWater use. On mobile, a burger opens the full menu with every sub-collection. On desktop, all six categories sit across the top. It keeps the first mobile screen for the hero and the category tiles, which already lead with Water butts and tanks." style="background:#F1EFE7;color:#143324;padding:100px 120px 80px;display:grid;grid-template-columns:minmax(0,1fr) 432px 432px;gap:56px;font-family:var(--eg-font-body)" data-om-slide-id="r2a1b2c3">
+  <div style="display:flex;flex-direction:column;gap:48px">
+    <div style="display:grid;gap:20px">
+      <p style="margin:0;font:500 24px/1.2 var(--eg-font-body);letter-spacing:.1em;text-transform:uppercase;color:#296647">Navigation · Option A</p>
+      <h2 style="margin:0;font:800 72px/1.1 var(--eg-font-display);letter-spacing:-0.015em">Burger on mobile, full bar on desktop</h2>
+    </div>
+    <ul style="list-style:none;margin:0;padding:0;display:grid;gap:28px;font-size:28px;line-height:1.4">
+      <li style="display:grid;grid-template-columns:28px 1fr;gap:16px"><span style="color:#296647">●</span><span>The same pattern as Great Green Systems and SaveWater</span></li>
+      <li style="display:grid;grid-template-columns:28px 1fr;gap:16px"><span style="color:#296647">●</span><span>One tap opens every category and sub-collection</span></li>
+      <li style="display:grid;grid-template-columns:28px 1fr;gap:16px"><span style="color:#296647">●</span><span>The first screen stays for the hero and the category tiles</span></li>
+      <li style="display:grid;grid-template-columns:28px 1fr;gap:16px"><span style="color:#296647">●</span><span>Desktop: all six categories across the top, with the mega menus</span></li>
+    </ul>
+  </div>
+  <div style="display:grid;gap:16px;align-content:start">
+    <div style="width:432px;height:768px;overflow:hidden;background:#fff;outline:2px solid #E4DBC4">
+      <iframe data-src="Home Page.dc.html?nav=a" title="Option A, first mobile screen" style="display:block;width:360px;height:640px;border:0;transform:scale(1.2);transform-origin:0 0"></iframe>
+    </div>
+    <span style="font-size:22px;color:#646665">First screen</span>
+  </div>
+  <div style="display:grid;gap:16px;align-content:start">
+    <div style="width:432px;height:768px;overflow:hidden;background:#fff;outline:2px solid #E4DBC4">
+      <iframe data-src="Home Page.dc.html?nav=a" data-click=".eg-header__menu-btn" title="Option A, menu open" style="display:block;width:360px;height:640px;border:0;transform:scale(1.2);transform-origin:0 0"></iframe>
+    </div>
+    <span style="font-size:22px;color:#646665">Menu open</span>
+  </div>
+</section>
+
+<section data-label="Navigation option B" data-speaker-notes="Option B answers the other camp. Your GA4 data shows 65 plus and 25 to 34 neck and neck, at 3.72 and 3.75 percent of known users. So on mobile, all six categories sit under the header as large buttons in two rows. Nothing to swipe, nothing hidden, and the burger stays for the full menu. The cost is about 100 pixels of the first screen. Desktop is the same as option A." style="background:#F1EFE7;color:#143324;padding:100px 120px 80px;display:grid;grid-template-columns:minmax(0,1fr) 432px 432px;gap:56px;font-family:var(--eg-font-body)" data-om-slide-id="r3a1b2c3">
+  <div style="display:flex;flex-direction:column;gap:48px">
+    <div style="display:grid;gap:20px">
+      <p style="margin:0;font:500 24px/1.2 var(--eg-font-body);letter-spacing:.1em;text-transform:uppercase;color:#296647">Navigation · Option B</p>
+      <h2 style="margin:0;font:800 72px/1.1 var(--eg-font-display);letter-spacing:-0.015em">Every category visible on mobile</h2>
+    </div>
+    <div style="display:grid;gap:8px;padding:28px 32px;background:#fff">
+      <span style="font:500 22px/1.2 var(--eg-font-body);letter-spacing:.1em;text-transform:uppercase;color:#646665">GA4, last 90 days, known ages</span>
+      <span style="font:600 30px/1.3 var(--eg-font-body)">65+ 3.72% · 25 to 34 3.75%</span>
+      <span style="font-size:24px;line-height:1.4;color:#646665">Your oldest and youngest shoppers are neck and neck</span>
+    </div>
+    <ul style="list-style:none;margin:0;padding:0;display:grid;gap:24px;font-size:28px;line-height:1.4">
+      <li style="display:grid;grid-template-columns:28px 1fr;gap:16px"><span style="color:#296647">●</span><span>Six large buttons in two rows. Nothing to swipe</span></li>
+      <li style="display:grid;grid-template-columns:28px 1fr;gap:16px"><span style="color:#296647">●</span><span>The burger stays for the full menu</span></li>
+      <li style="display:grid;grid-template-columns:28px 1fr;gap:16px"><span style="color:#296647">●</span><span>Costs about 100px of the first screen. Desktop is the same as A</span></li>
+    </ul>
+  </div>
+  <div style="display:grid;gap:16px;align-content:start">
+    <div style="width:432px;height:768px;overflow:hidden;background:#fff;outline:2px solid #E4DBC4">
+      <iframe data-src="Home Page.dc.html?nav=b&amp;notes=N1" title="Option B, first mobile screen" style="display:block;width:360px;height:640px;border:0;transform:scale(1.2);transform-origin:0 0"></iframe>
+    </div>
+    <span style="font-size:22px;color:#646665">Option B, first screen</span>
+  </div>
+  <div style="display:grid;gap:16px;align-content:start">
+    <div style="width:432px;height:768px;overflow:hidden;background:#fff;outline:2px solid #E4DBC4">
+      <iframe data-src="Home Page.dc.html?nav=a" title="Option A, first mobile screen, for comparison" style="display:block;width:360px;height:640px;border:0;transform:scale(1.2);transform-origin:0 0"></iframe>
+    </div>
+    <span style="font-size:22px;color:#646665">Option A, for comparison</span>
+  </div>
+</section>
+
+<section data-label="Shorter labels" data-speaker-notes="On the worry that the desktop bar gets cluttered. The full labels fit comfortably from 1280 pixels wide, shown on top. Underneath is the same bar with shorter names. Below 1280 the header currently switches to the burger, so shorter names would also let the bar stay on screen on landscape tablets. We would only shorten the menu labels; collection page titles keep their full names." style="background:#fff;color:#143324;padding:80px 120px 60px;display:flex;flex-direction:column;gap:36px;font-family:var(--eg-font-body)" data-om-slide-id="r4a1b2c3">
+  <div style="display:flex;justify-content:space-between;align-items:baseline;gap:48px">
+    <h2 style="margin:0;font:800 72px/1.1 var(--eg-font-display);letter-spacing:-0.015em">If the desktop bar feels busy</h2>
+    <p style="margin:0;font:500 24px/1.2 var(--eg-font-body);letter-spacing:.1em;text-transform:uppercase;color:#296647">1280px · Live frame</p>
+  </div>
+  <div style="display:grid;gap:12px">
+    <span style="font:500 22px/1.2 var(--eg-font-body);letter-spacing:.1em;text-transform:uppercase;color:#646665">Full labels</span>
+    <div style="width:1664px;height:182px;overflow:hidden;background:#fff;outline:2px solid #E4DBC4">
+      <iframe data-src="Home Page.dc.html" title="Header with full labels" style="display:block;width:1280px;height:140px;border:0;transform:scale(1.3);transform-origin:0 0"></iframe>
+    </div>
+  </div>
+  <div style="display:grid;gap:12px">
+    <span style="font:500 22px/1.2 var(--eg-font-body);letter-spacing:.1em;text-transform:uppercase;color:#646665">Shorter labels</span>
+    <div style="width:1664px;height:182px;overflow:hidden;background:#fff;outline:2px solid #E4DBC4">
+      <iframe data-src="Home Page.dc.html?labels=short" title="Header with shorter labels" style="display:block;width:1280px;height:140px;border:0;transform:scale(1.3);transform-origin:0 0"></iframe>
+    </div>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:32px;padding-top:8px">
+    <div style="display:grid;gap:6px;font-size:26px;line-height:1.3"><span style="color:#646665">Water butts and tanks</span><span style="font-weight:600">Water butts</span></div>
+    <div style="display:grid;gap:6px;font-size:26px;line-height:1.3"><span style="color:#646665">Indoor and kitchen</span><span style="font-weight:600">Kitchen</span></div>
+    <div style="display:grid;gap:6px;font-size:26px;line-height:1.3"><span style="color:#646665">In the garden</span><span style="font-weight:600">Garden</span></div>
+    <div style="display:grid;gap:6px;font-size:26px;line-height:1.3"><span style="color:#646665">Knowledge hub</span><span style="font-weight:600">Guides</span></div>
+  </div>
+  <p style="margin:0;max-width:1400px;font-size:26px;line-height:1.4;color:#646665">The full labels fit from 1280px wide. Below that the header switches to the burger, so shorter labels would also keep the bar on screen on landscape tablets. Collection pages keep their full names either way.</p>
+</section>
+
+<section data-label="Food waste composting" data-speaker-notes="Food waste composting is now a sub-collection under Composting, shown here hovered. It holds the composters that take cooked food: Green Johanna, Green Cone, bokashi and Reencle. The products are placeholders until the full collections review comes through." style="background:#F1EFE7;color:#143324;padding:80px 120px 60px;display:flex;flex-direction:column;gap:40px;font-family:var(--eg-font-body)" data-om-slide-id="r5a1b2c3">
+  <div style="display:flex;justify-content:space-between;align-items:baseline;gap:48px">
+    <h2 style="margin:0;font:800 72px/1.1 var(--eg-font-display);letter-spacing:-0.015em">Food waste composting, under Composting</h2>
+  </div>
+  <div data-hover="Food waste composting" style="width:1680px;height:720px;overflow:hidden;background:#fff;outline:2px solid #E4DBC4">
+    <div style="width:1527px;transform:scale(1.1);transform-origin:0 0">
+      <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.MegaMenu" item="{{ composting }}" inline="{{ true }}" hint-size="1440px,600px"></x-import>
+    </div>
+  </div>
+</section>
+
+<section data-label="Water butt finder" data-speaker-notes="The water butt finder uses the same component you liked for composters. Three questions: what you will water, how much space there is by the downpipe, and what matters most. It returns the best-fit water butt, a second option, and the diverter or stand you will need. The capacity bands are our estimates for now; we will set them from your product data. If you want roof area in there, it becomes a fourth question." style="background:#F1EFE7;color:#143324;padding:100px 120px 80px;display:grid;grid-template-columns:minmax(0,1fr) 432px 432px;gap:56px;font-family:var(--eg-font-body)" data-om-slide-id="r6a1b2c3">
+  <div style="display:flex;flex-direction:column;gap:44px">
+    <div style="display:grid;gap:20px">
+      <p style="margin:0;font:500 24px/1.2 var(--eg-font-body);letter-spacing:.1em;text-transform:uppercase;color:#296647">Guide finder · Water</p>
+      <h2 style="margin:0;font:800 72px/1.1 var(--eg-font-display);letter-spacing:-0.015em">Which water butt is right for me?</h2>
+    </div>
+    <ol style="list-style:none;margin:0;padding:0;display:grid;gap:24px">
+      <li style="display:grid;grid-template-columns:52px 1fr;gap:20px;align-items:start"><span style="font:800 40px/1 var(--eg-font-display);color:#296647">1</span><div style="display:grid;gap:4px"><span style="font:600 28px/1.3 var(--eg-font-body)">What will you water?</span><span style="font-size:24px;line-height:1.4;color:#646665">Pots, beds and borders, or a large garden. Sets the capacity</span></div></li>
+      <li style="display:grid;grid-template-columns:52px 1fr;gap:20px;align-items:start"><span style="font:800 40px/1 var(--eg-font-display);color:#296647">2</span><div style="display:grid;gap:4px"><span style="font:600 28px/1.3 var(--eg-font-body)">How much space by the downpipe?</span><span style="font-size:24px;line-height:1.4;color:#646665">Narrow gap, a stretch of wall, or plenty of room. Sets the style</span></div></li>
+      <li style="display:grid;grid-template-columns:52px 1fr;gap:20px;align-items:start"><span style="font:800 40px/1 var(--eg-font-display);color:#296647">3</span><div style="display:grid;gap:4px"><span style="font:600 28px/1.3 var(--eg-font-body)">What matters most?</span><span style="font-size:24px;line-height:1.4;color:#646665">Value, a neat look, or filling a watering can</span></div></li>
+    </ol>
+    <p style="margin:0;padding:24px 28px;background:#fff;font-size:24px;line-height:1.4">Capacity bands are our estimates for now. Want roof area in there too? It becomes a fourth question.</p>
+  </div>
+  <div style="display:grid;gap:16px;align-content:start">
+    <div style="width:432px;height:768px;overflow:hidden;background:#fff;outline:2px solid #E4DBC4">
+      <iframe data-src="Home Page.dc.html?finder=water" data-scroll="#finder" data-offset="20" title="Water butt finder, first question" style="display:block;width:360px;height:640px;border:0;transform:scale(1.2);transform-origin:0 0"></iframe>
+    </div>
+    <span style="font-size:22px;color:#646665">First question</span>
+  </div>
+  <div style="display:grid;gap:16px;align-content:start">
+    <div style="width:432px;height:768px;overflow:hidden;background:#fff;outline:2px solid #E4DBC4">
+      <iframe data-src="Home Page.dc.html?finder=water" data-click="#finder .eg-finder__option:nth-child(2)|#finder .eg-finder__option:nth-child(2)|#finder .eg-finder__option:nth-child(3)" data-scroll="#finder" data-offset="-150" title="Water butt finder, results" style="display:block;width:360px;height:640px;border:0;transform:scale(1.2);transform-origin:0 0"></iframe>
+    </div>
+    <span style="font-size:22px;color:#646665">Result: beds, a stretch of wall, watering can</span>
+  </div>
+</section>
+
+<section data-label="Where the finders live" data-speaker-notes="Two ways to place it. Option one keeps a single finder on the homepage with a Composters and Water butts switch, so both are one tap apart. Option two puts each finder on its own collection pages, so people browsing water butts meet the water butt finder at the point they are choosing. It is the same component, so you can also have both." style="background:#fff;color:#143324;padding:100px 120px 80px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:96px;font-family:var(--eg-font-body)" data-om-slide-id="r7a1b2c3">
+  <div style="display:flex;flex-direction:column;gap:40px">
+    <div style="display:grid;gap:20px">
+      <p style="margin:0;font:500 24px/1.2 var(--eg-font-body);letter-spacing:.1em;text-transform:uppercase;color:#296647">Finder placement</p>
+      <h2 style="margin:0;font:800 72px/1.1 var(--eg-font-display);letter-spacing:-0.015em">Where the finders live</h2>
+    </div>
+    <div style="display:grid;gap:12px;padding:32px;border-top:4px solid #296647;background:#F1EFE7">
+      <span style="font:500 22px/1.2 var(--eg-font-body);letter-spacing:.1em;text-transform:uppercase;color:#296647">Option 1 · shown right</span>
+      <span style="font:600 32px/1.3 var(--eg-font-body)">One finder on the homepage, with a switch</span>
+      <span style="font-size:26px;line-height:1.4;color:#646665">Composters and Water butts, one tap apart. No extra homepage length</span>
+    </div>
+    <div style="display:grid;gap:12px;padding:32px;border-top:4px solid #C8CCCA;background:#F1EFE7">
+      <span style="font:500 22px/1.2 var(--eg-font-body);letter-spacing:.1em;text-transform:uppercase;color:#646665">Option 2</span>
+      <span style="font:600 32px/1.3 var(--eg-font-body)">Each finder on its own collection pages</span>
+      <span style="font-size:26px;line-height:1.4;color:#646665">Water butt finder on Water butts and tanks, composter finder on Composting. People meet it while they are choosing</span>
+    </div>
+    <p style="margin:0;font-size:26px;line-height:1.4">It is one component, so it can be both.</p>
+  </div>
+  <div style="display:grid;gap:16px;align-content:start;justify-items:center">
+    <div style="width:486px;height:864px;overflow:hidden;background:#fff;outline:2px solid #E4DBC4">
+      <iframe data-src="Home Page.dc.html?tab=water&amp;notes=F1" data-scroll="#finder" data-offset="70" title="Homepage finder with the Composters and Water butts switch" style="display:block;width:360px;height:640px;border:0;transform:scale(1.35);transform-origin:0 0"></iframe>
+    </div>
+  </div>
+</section>
+
+<section data-label="Bulk buy on the homepage" data-speaker-notes="Bulk buy gets a plain, always-visible link on the homepage, straight after Shop by category, going to the bulk enquiry page. Everyone who reaches the categories passes it, and it gives builders and developers one obvious route ahead of the Severn Trent work next year. New in has come out of the menu, so link to it from your e-shots." style="background:#F1EFE7;color:#143324;padding:100px 120px 80px;display:grid;grid-template-columns:minmax(0,1fr) 468px;gap:96px;font-family:var(--eg-font-body)" data-om-slide-id="r8a1b2c3">
+  <div style="display:flex;flex-direction:column;gap:48px">
+    <div style="display:grid;gap:20px">
+      <p style="margin:0;font:500 24px/1.2 var(--eg-font-body);letter-spacing:.1em;text-transform:uppercase;color:#296647">Homepage · Mobile</p>
+      <h2 style="margin:0;font:800 72px/1.1 var(--eg-font-display);letter-spacing:-0.015em">Bulk buy, in plain sight</h2>
+    </div>
+    <ul style="list-style:none;margin:0;padding:0;display:grid;gap:28px;font-size:28px;line-height:1.4">
+      <li style="display:grid;grid-template-columns:28px 1fr;gap:16px"><span style="color:#296647">●</span><span>Straight after Shop by category, on mobile and desktop</span></li>
+      <li style="display:grid;grid-template-columns:28px 1fr;gap:16px"><span style="color:#296647">●</span><span>Goes to the bulk enquiry page</span></li>
+      <li style="display:grid;grid-template-columns:28px 1fr;gap:16px"><span style="color:#296647">●</span><span>One obvious route for builders and developers before the Severn Trent work next year</span></li>
+      <li style="display:grid;grid-template-columns:28px 1fr;gap:16px"><span style="color:#296647">●</span><span>New in is out of the menu. Link to it from your e-shots</span></li>
+    </ul>
+  </div>
+  <div style="display:grid;gap:16px;align-content:start">
+    <div style="width:468px;height:832px;overflow:hidden;background:#fff;outline:2px solid #E4DBC4">
+      <iframe data-src="Home Page.dc.html?notes=B1" data-scroll="[data-note=&quot;B1&quot;]" data-offset="300" title="Homepage, bulk buy link" style="display:block;width:360px;height:640px;border:0;transform:scale(1.3);transform-origin:0 0"></iframe>
+    </div>
+  </div>
+</section>
+
+<section data-label="Decisions for today" data-speaker-notes="Four things to settle. Which navigation, A or B. Where the finders sit: homepage switch, collection pages, or both. Whether the water butt finder questions are right, and if roof area should be added. And the reviews platform, which decides where the review quotes come from. New in and the founding year are settled." style="background:#fff;color:#143324;padding:100px 120px 80px;display:flex;flex-direction:column;gap:56px;font-family:var(--eg-font-body)" data-om-slide-id="r9a1b2c3">
+  <div style="display:grid;gap:20px">
+    <p style="margin:0;font:500 24px/1.2 var(--eg-font-body);letter-spacing:.1em;text-transform:uppercase;color:#296647">Since the last review</p>
+    <h2 style="margin:0;font:800 72px/1.1 var(--eg-font-display);letter-spacing:-0.015em">Decisions for today</h2>
+  </div>
+  <ol style="list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:40px 96px">
+    <li style="display:grid;grid-template-columns:72px 1fr;gap:20px;align-items:start;padding-top:24px;border-top:1px solid #C8CCCA"><span style="font:800 48px/1 var(--eg-font-display);color:#296647">1</span><div style="display:grid;gap:8px"><span style="font:600 30px/1.3 var(--eg-font-body)">Navigation: A or B?</span><span style="font-size:26px;line-height:1.4;color:#646665">Burger only, or every category visible on mobile</span></div></li>
+    <li style="display:grid;grid-template-columns:72px 1fr;gap:20px;align-items:start;padding-top:24px;border-top:1px solid #C8CCCA"><span style="font:800 48px/1 var(--eg-font-display);color:#296647">2</span><div style="display:grid;gap:8px"><span style="font:600 30px/1.3 var(--eg-font-body)">Where the finders sit</span><span style="font-size:26px;line-height:1.4;color:#646665">Homepage switch, collection pages, or both</span></div></li>
+    <li style="display:grid;grid-template-columns:72px 1fr;gap:20px;align-items:start;padding-top:24px;border-top:1px solid #C8CCCA"><span style="font:800 48px/1 var(--eg-font-display);color:#296647">3</span><div style="display:grid;gap:8px"><span style="font:600 30px/1.3 var(--eg-font-body)">Water butt finder questions</span><span style="font-size:26px;line-height:1.4;color:#646665">Are the capacity bands right? Add roof area?</span></div></li>
+    <li style="display:grid;grid-template-columns:72px 1fr;gap:20px;align-items:start;padding-top:24px;border-top:1px solid #C8CCCA"><span style="font:800 48px/1 var(--eg-font-display);color:#296647">4</span><div style="display:grid;gap:8px"><span style="font:600 30px/1.3 var(--eg-font-body)">Reviews platform</span><span style="font-size:26px;line-height:1.4;color:#646665">Decides where the short review quotes come from</span></div></li>
+  </ol>
+  <p style="margin:0;font-size:26px;line-height:1.4;color:#646665">Settled: New in comes out of the menu and is linked from e-shots. 2001 is the founding year everywhere.</p>
+</section>
+
+
+
+<section data-label="01 Product page" data-speaker-notes="First, the product page, using the Green Johanna 330L Compost Bin as the example." style="background:#296647;color:#fff;padding:100px 120px 80px;display:flex;flex-direction:column;justify-content:flex-end;gap:32px;font-family:var(--eg-font-body)" data-om-slide-id="9a153423">
+  <span style="font:800 200px/1 var(--eg-font-display);color:#ABD921">01</span>
+  <h2 style="margin:0;font:800 112px/1.05 var(--eg-font-display);letter-spacing:-0.025em">Product page</h2>
+  <p style="margin:0;font-size:36px;line-height:1.4">Green Johanna 330L Compost Bin</p>
+</section>
+
+<section data-label="Product page findings" data-speaker-notes="The headline is that 63 percent of mobile visitors leave without ever being offered the chance to buy. Before Add to bag they had to get through the gallery, a rating badge, title, price, short description and a cross-sell carousel. Meanwhile people clearly want detail: the short description and the details accordion are among the most clicked things on the page, but they sit where people drop off or below where most people reach. The small rating badge is seen by almost everyone and clicked by almost no one, and the related products carousel gets zero clicks." style="background:#F1EFE7;color:#143324;padding:100px 120px 80px;display:flex;flex-direction:column;gap:56px;font-family:var(--eg-font-body)" data-om-slide-id="9236a91b">
+  <div style="display:grid;gap:20px">
+    <p style="margin:0;font:500 24px/1.2 var(--eg-font-body);letter-spacing:.1em;text-transform:uppercase;color:#296647">Product page</p>
+    <h2 style="margin:0;font:800 72px/1.1 var(--eg-font-display);letter-spacing:-0.015em">Product page findings</h2>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:32px">
+    <div style="background:#fff;padding:40px;display:grid;gap:12px;align-content:start"><span style="font:800 96px/1 var(--eg-font-display)">37%</span><span style="font-size:28px;line-height:1.4">of mobile visitors scroll far enough to see Add to bag</span></div>
+    <div style="background:#fff;padding:40px;display:grid;gap:12px;align-content:start"><span style="font:800 96px/1 var(--eg-font-display)">63%</span><span style="font-size:28px;line-height:1.4">leave without ever being offered the chance to buy</span></div>
+    <div style="background:#fff;padding:40px;display:grid;gap:12px;align-content:start"><span style="font:800 96px/1 var(--eg-font-display)">25%</span><span style="font-size:28px;line-height:1.4">attractiveness for the short description, right at the drop-off point</span></div>
+    <div style="background:#fff;padding:40px;display:grid;gap:12px;align-content:start"><span style="font:800 96px/1 var(--eg-font-display)">40%</span><span style="font-size:28px;line-height:1.4">attractiveness for product details, but only 37% ever reach them</span></div>
+    <div style="background:#fff;padding:40px;display:grid;gap:12px;align-content:start"><span style="font:800 96px/1 var(--eg-font-display)">14%</span><span style="font-size:28px;line-height:1.4">see the reviews summary. The rating badge is seen by 94% and rarely clicked</span></div>
+    <div style="background:#fff;padding:40px;display:grid;gap:12px;align-content:start"><span style="font:800 96px/1 var(--eg-font-display)">0 clicks</span><span style="font-size:28px;line-height:1.4">on the related products carousel, seen by 44%</span></div>
+  </div>
+</section>
+
+<section data-label="New product page order" data-speaker-notes="Here is the new order. The purchase action moves up: title, rating summary, price, a review excerpt, then capacity and colour, then quantity and Add to bag. Badges, the short description and the extras now come after the button, so nothing can push it down. Below the buy box, the related carousel is gone. Its slot shows product details inline, delivery and FAQs stay as accordions, and the full reviews follow directly. On mobile a sticky Add to bag bar takes over once the main button scrolls away." style="background:#fff;color:#143324;padding:100px 120px 80px;display:flex;flex-direction:column;gap:48px;font-family:var(--eg-font-body)" data-om-slide-id="bf681a47">
+  <div style="display:grid;gap:20px">
+    <p style="margin:0;font:500 24px/1.2 var(--eg-font-body);letter-spacing:.1em;text-transform:uppercase;color:#296647">Product page</p>
+    <h2 style="margin:0;font:800 72px/1.1 var(--eg-font-display);letter-spacing:-0.015em">New product page order</h2>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:96px;align-items:start">
+    <ol style="list-style:none;margin:0;padding:0;display:grid;border-top:2px solid #143324">
+      <li style="display:flex;justify-content:space-between;align-items:center;gap:24px;padding:10px 0;border-bottom:1px solid #C8CCCA;font-size:28px"><span>Gallery, shorter and swipeable</span><span style="padding:4px 14px;border-radius:0 12px;background:#EAF0ED;color:#296647;font-size:24px;letter-spacing:.06em;text-transform:uppercase">Changed</span></li>
+      <li style="display:flex;justify-content:space-between;align-items:center;gap:24px;padding:10px 0;border-bottom:1px solid #C8CCCA;font-size:28px"><span>Breadcrumb and title</span><span style="padding:4px 14px;border:1px solid #C8CCCA;border-radius:0 12px;color:#646665;font-size:24px;letter-spacing:.06em;text-transform:uppercase">Kept</span></li>
+      <li style="display:flex;justify-content:space-between;align-items:center;gap:24px;padding:10px 0;border-bottom:1px solid #C8CCCA;font-size:28px"><span>Rating summary, linked to reviews</span><span style="padding:4px 14px;border-radius:0 12px;background:#EAF0ED;color:#296647;font-size:24px;letter-spacing:.06em;text-transform:uppercase">Changed</span></li>
+      <li style="display:flex;justify-content:space-between;align-items:center;gap:24px;padding:10px 0;border-bottom:1px solid #C8CCCA;font-size:28px"><span>Price</span><span style="padding:4px 14px;border:1px solid #C8CCCA;border-radius:0 12px;color:#646665;font-size:24px;letter-spacing:.06em;text-transform:uppercase">Kept</span></li>
+      <li style="display:flex;justify-content:space-between;align-items:center;gap:24px;padding:10px 0;border-bottom:1px solid #C8CCCA;font-size:28px"><span>Review excerpts</span><span style="padding:4px 14px;border-radius:0 12px;background:#EEF7D2;color:#143324;font-size:24px;letter-spacing:.06em;text-transform:uppercase">New</span></li>
+      <li style="display:flex;justify-content:space-between;align-items:center;gap:24px;padding:10px 0;border-bottom:1px solid #C8CCCA;font-size:28px"><span>Capacity and colour</span><span style="padding:4px 14px;border-radius:0 12px;background:#EAF0ED;color:#296647;font-size:24px;letter-spacing:.06em;text-transform:uppercase">Moved up</span></li>
+      <li style="display:flex;justify-content:space-between;align-items:center;gap:24px;padding:10px 16px;margin-inline:-16px;background:#296647;color:#fff;font-size:28px;font-weight:600"><span>Quantity and Add to bag</span><span style="padding:4px 14px;border-radius:0 12px;background:#fff;color:#143324;font-size:24px;font-weight:500;letter-spacing:.06em;text-transform:uppercase">Moved up</span></li>
+      <li style="display:flex;justify-content:space-between;align-items:center;gap:24px;padding:10px 0;border-bottom:1px solid #C8CCCA;font-size:28px"><span>Stock and delivery note</span><span style="padding:4px 14px;border:1px solid #C8CCCA;border-radius:0 12px;color:#646665;font-size:24px;letter-spacing:.06em;text-transform:uppercase">Kept</span></li>
+      <li style="display:flex;justify-content:space-between;align-items:center;gap:24px;padding:10px 0;border-bottom:1px solid #C8CCCA;font-size:28px"><span>Short description, 3 lines</span><span style="padding:4px 14px;border-radius:0 12px;background:#F1EFE7;color:#143324;font-size:24px;letter-spacing:.06em;text-transform:uppercase">Moved down</span></li>
+      <li style="display:flex;justify-content:space-between;align-items:center;gap:24px;padding:10px 0;border-bottom:1px solid #C8CCCA;font-size:28px"><span>Add these extras, 2 items</span><span style="padding:4px 14px;border-radius:0 12px;background:#F1EFE7;color:#143324;font-size:24px;letter-spacing:.06em;text-transform:uppercase">Moved down</span></li>
+      <li style="display:flex;justify-content:space-between;align-items:center;gap:24px;padding:10px 0;border-bottom:1px solid #C8CCCA;font-size:28px"><span>Badges</span><span style="padding:4px 14px;border-radius:0 12px;background:#F1EFE7;color:#143324;font-size:24px;letter-spacing:.06em;text-transform:uppercase">Moved down</span></li>
+    </ol>
+    <div style="display:grid;gap:40px">
+      <ol style="list-style:none;margin:0;padding:0;display:grid;border-top:2px solid #143324">
+        <li style="display:flex;justify-content:space-between;align-items:center;gap:24px;padding:10px 0;border-bottom:1px solid #C8CCCA;font-size:28px"><span>Product details, shown inline</span><span style="padding:4px 14px;border-radius:0 12px;background:#EAF0ED;color:#296647;font-size:24px;letter-spacing:.06em;text-transform:uppercase">Changed</span></li>
+        <li style="display:flex;justify-content:space-between;align-items:center;gap:24px;padding:10px 0;border-bottom:1px solid #C8CCCA;font-size:28px"><span>Delivery and returns, FAQs</span><span style="padding:4px 14px;border:1px solid #C8CCCA;border-radius:0 12px;color:#646665;font-size:24px;letter-spacing:.06em;text-transform:uppercase">Kept</span></li>
+        <li style="display:flex;justify-content:space-between;align-items:center;gap:24px;padding:10px 0;border-bottom:1px solid #C8CCCA;font-size:28px"><span>Full reviews</span><span style="padding:4px 14px;border-radius:0 12px;background:#EAF0ED;color:#296647;font-size:24px;letter-spacing:.06em;text-transform:uppercase">Moved up</span></li>
+        <li style="display:flex;justify-content:space-between;align-items:center;gap:24px;padding:10px 0;border-bottom:1px solid #C8CCCA;font-size:28px"><span>Sticky Add to bag bar, mobile</span><span style="padding:4px 14px;border-radius:0 12px;background:#EEF7D2;color:#143324;font-size:24px;letter-spacing:.06em;text-transform:uppercase">New</span></li>
+      </ol>
+      <div style="display:grid;gap:12px;padding:32px;background:#F1EFE7">
+        <span style="font:500 24px/1.2 var(--eg-font-body);letter-spacing:.1em;text-transform:uppercase;color:#B42318">Removed</span>
+        <span style="font-size:28px;line-height:1.4">Cross-sell carousel above the button</span>
+        <span style="font-size:28px;line-height:1.4">Related products carousel</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section data-label="PDP first mobile screen" data-speaker-notes="This is the live page at 360 by 640, so exactly what sits above the fold. The gallery is a shorter 4 by 3 strip that swipes, with the next image peeking and a 1 of 6 counter. Title, a full rating summary and the price follow, so the price lands around 490 pixels. A one-line review excerpt brings social proof up from the 14 percent who reached reviews to where 94 percent already look. Capacity and colour sit side by side to save a row, and the quantity and Add to bag control starts right at the fold." style="background:#F1EFE7;color:#143324;padding:100px 120px 80px;display:grid;grid-template-columns:minmax(0,1fr) 468px;gap:96px;font-family:var(--eg-font-body)" data-om-slide-id="04b09eea">
+  <div style="display:flex;flex-direction:column;gap:48px">
+    <div style="display:grid;gap:20px">
+      <p style="margin:0;font:500 24px/1.2 var(--eg-font-body);letter-spacing:.1em;text-transform:uppercase;color:#296647">Product page · Mobile</p>
+      <h2 style="margin:0;font:800 72px/1.1 var(--eg-font-display);letter-spacing:-0.015em">First mobile screen</h2>
+    </div>
+    <ol style="list-style:none;margin:0;padding:0;display:grid;gap:24px">
+      <li style="display:grid;grid-template-columns:52px 1fr;gap:20px;align-items:start"><span style="min-width:44px;height:44px;border-radius:999px;background:#C8285E;color:#fff;font:600 24px/44px var(--eg-font-body);text-align:center;justify-self:start">1</span><div style="display:grid;gap:4px"><span style="font:600 28px/1.3 var(--eg-font-body)">Shorter, swipeable gallery</span><span style="font-size:24px;line-height:1.4;color:#646665">4:3 with the next image peeking and a 1 of 6 counter</span></div></li>
+      <li style="display:grid;grid-template-columns:52px 1fr;gap:20px;align-items:start"><span style="min-width:44px;height:44px;border-radius:999px;background:#C8285E;color:#fff;font:600 24px/44px var(--eg-font-body);text-align:center;justify-self:start">2</span><div style="display:grid;gap:4px"><span style="font:600 28px/1.3 var(--eg-font-body)">Title and price lead the buy box</span><span style="font-size:24px;line-height:1.4;color:#646665">The price now sits at about 490px</span></div></li>
+      <li style="display:grid;grid-template-columns:52px 1fr;gap:20px;align-items:start"><span style="min-width:44px;height:44px;border-radius:999px;background:#C8285E;color:#fff;font:600 24px/44px var(--eg-font-body);text-align:center;justify-self:start">3</span><div style="display:grid;gap:4px"><span style="font:600 28px/1.3 var(--eg-font-body)">Full rating summary beside the title</span><span style="font-size:24px;line-height:1.4;color:#646665">Score and count, linked straight to reviews</span></div></li>
+      <li style="display:grid;grid-template-columns:52px 1fr;gap:20px;align-items:start"><span style="min-width:44px;height:44px;border-radius:999px;background:#C8285E;color:#fff;font:600 24px/44px var(--eg-font-body);text-align:center;justify-self:start">4</span><div style="display:grid;gap:4px"><span style="font:600 28px/1.3 var(--eg-font-body)">Review excerpt under the price</span><span style="font-size:24px;line-height:1.4;color:#646665">One quote on mobile, two on desktop, from Yotpo</span></div></li>
+      <li style="display:grid;grid-template-columns:52px 1fr;gap:20px;align-items:start"><span style="min-width:44px;height:44px;border-radius:999px;background:#C8285E;color:#fff;font:600 24px/44px var(--eg-font-body);text-align:center;justify-self:start">5</span><div style="display:grid;gap:4px"><span style="font:600 28px/1.3 var(--eg-font-body)">Capacity and colour on one row</span><span style="font-size:24px;line-height:1.4;color:#646665">Saves a full row of height</span></div></li>
+      <li style="display:grid;grid-template-columns:52px 1fr;gap:20px;align-items:start"><span style="min-width:44px;height:44px;border-radius:999px;background:#C8285E;color:#fff;font:600 24px/44px var(--eg-font-body);text-align:center;justify-self:start">6</span><div style="display:grid;gap:4px"><span style="font:600 28px/1.3 var(--eg-font-body)">Quantity and Add to bag at the fold</span><span style="font-size:24px;line-height:1.4;color:#646665">Seen by 37% before. Now it starts at 640px</span></div></li>
+    </ol>
+  </div>
+  <div style="display:grid;gap:16px;align-content:start">
+    <div style="width:468px;height:832px;overflow:hidden;background:#fff;outline:2px solid #E4DBC4">
+      <iframe data-src="Product Page.dc.html?notes=1,2,3,4,5,6" title="Product page, first mobile screen" style="display:block;width:360px;height:640px;border:0;transform:scale(1.3);transform-origin:0 0"></iframe>
+    </div>
+  </div>
+</section>
+
+<section data-label="PDP below the purchase action" data-speaker-notes="Scrolling past the button. The sticky bar appears as soon as the main Add to bag leaves the screen, with the product name, price and button, so the action is always one tap away. The short description had a 25 percent attractiveness rate but sat right at the drop-off point. It now comes directly after the purchase action as a three-line excerpt with Read more. Add these extras is now a compact list of two with quick add, below the button, so it can never push it down. Badges come after the decision rather than before it." style="background:#F1EFE7;color:#143324;padding:100px 120px 80px;display:grid;grid-template-columns:minmax(0,1fr) 468px;gap:96px;font-family:var(--eg-font-body)" data-om-slide-id="659ca90c">
+  <div style="display:flex;flex-direction:column;gap:48px">
+    <div style="display:grid;gap:20px">
+      <p style="margin:0;font:500 24px/1.2 var(--eg-font-body);letter-spacing:.1em;text-transform:uppercase;color:#296647">Product page · Mobile, scrolled</p>
+      <h2 style="margin:0;font:800 72px/1.1 var(--eg-font-display);letter-spacing:-0.015em">Below the purchase action</h2>
+    </div>
+    <ol style="list-style:none;margin:0;padding:0;display:grid;gap:32px">
+      <li style="display:grid;grid-template-columns:52px 1fr;gap:20px;align-items:start"><span style="min-width:44px;height:44px;border-radius:999px;background:#C8285E;color:#fff;font:600 24px/44px var(--eg-font-body);text-align:center;justify-self:start">7</span><div style="display:grid;gap:4px"><span style="font:600 28px/1.3 var(--eg-font-body)">Sticky Add to bag bar</span><span style="font-size:24px;line-height:1.4;color:#646665">Appears once the main button scrolls away. 63% never saw one before</span></div></li>
+      <li style="display:grid;grid-template-columns:52px 1fr;gap:20px;align-items:start"><span style="min-width:44px;height:44px;border-radius:999px;background:#C8285E;color:#fff;font:600 24px/44px var(--eg-font-body);text-align:center;justify-self:start">8</span><div style="display:grid;gap:4px"><span style="font:600 28px/1.3 var(--eg-font-body)">Short description as a 3-line excerpt</span><span style="font-size:24px;line-height:1.4;color:#646665">25% attractiveness, now straight after the button, with Read more</span></div></li>
+      <li style="display:grid;grid-template-columns:52px 1fr;gap:20px;align-items:start"><span style="min-width:44px;height:44px;border-radius:999px;background:#C8285E;color:#fff;font:600 24px/44px var(--eg-font-body);text-align:center;justify-self:start">9</span><div style="display:grid;gap:4px"><span style="font:600 28px/1.3 var(--eg-font-body)">Two extras, below the button</span><span style="font-size:24px;line-height:1.4;color:#646665">Compact list with quick add. It can no longer push the button down</span></div></li>
+      <li style="display:grid;grid-template-columns:52px 1fr;gap:20px;align-items:start"><span style="min-width:44px;height:44px;border-radius:999px;background:#C8285E;color:#fff;font:600 24px/44px var(--eg-font-body);text-align:center;justify-self:start">10</span><div style="display:grid;gap:4px"><span style="font:600 28px/1.3 var(--eg-font-body)">Badges after the purchase action</span><span style="font-size:24px;line-height:1.4;color:#646665">They reassure after the decision, not in its way</span></div></li>
+    </ol>
+  </div>
+  <div style="display:grid;gap:16px;align-content:start">
+    <div style="width:468px;height:832px;overflow:hidden;background:#fff;outline:2px solid #E4DBC4">
+      <iframe data-src="Product Page.dc.html?notes=7,8,9,10" data-scroll="[data-note=&quot;8&quot;]" data-offset="40" title="Product page, scrolled past Add to bag" style="display:block;width:360px;height:640px;border:0;transform:scale(1.3);transform-origin:0 0"></iframe>
+    </div>
+  </div>
+</section>
+
+<section data-label="PDP details and reviews" data-speaker-notes="Below the buy box. The related products carousel was seen by 44 percent and got zero clicks, while the details accordion had a 40 percent attractiveness rate but only 37 percent reached it. So the carousel's slot now shows the details inline: the spec table and Why we love this product, all from metafields. Delivery and returns and FAQs stay as accordions. The full reviews section moves up to follow the details directly, and every review link on the page jumps here." style="background:#F1EFE7;color:#143324;padding:100px 120px 80px;display:grid;grid-template-columns:minmax(0,1fr) 468px;gap:96px;font-family:var(--eg-font-body)" data-om-slide-id="b80713be">
+  <div style="display:flex;flex-direction:column;gap:48px">
+    <div style="display:grid;gap:20px">
+      <p style="margin:0;font:500 24px/1.2 var(--eg-font-body);letter-spacing:.1em;text-transform:uppercase;color:#296647">Product page · Mobile, scrolled</p>
+      <h2 style="margin:0;font:800 72px/1.1 var(--eg-font-display);letter-spacing:-0.015em">Details and reviews</h2>
+    </div>
+    <ol style="list-style:none;margin:0;padding:0;display:grid;gap:32px">
+      <li style="display:grid;grid-template-columns:52px 1fr;gap:20px;align-items:start"><span style="min-width:44px;height:44px;border-radius:999px;background:#C8285E;color:#fff;font:600 24px/44px var(--eg-font-body);text-align:center;justify-self:start">11</span><div style="display:grid;gap:4px"><span style="font:600 28px/1.3 var(--eg-font-body)">Details inline, related carousel removed</span><span style="font-size:24px;line-height:1.4;color:#646665">Spec table and Why we love this product, from metafields</span></div></li>
+      <li style="display:grid;grid-template-columns:52px 1fr;gap:20px;align-items:start"><span style="min-width:44px;height:44px;border-radius:999px;background:#C8285E;color:#fff;font:600 24px/44px var(--eg-font-body);text-align:center;justify-self:start">12</span><div style="display:grid;gap:4px"><span style="font:600 28px/1.3 var(--eg-font-body)">Delivery and returns, FAQs as accordions</span><span style="font-size:24px;line-height:1.4;color:#646665">One tap away without making the page longer</span></div></li>
+      <li style="display:grid;grid-template-columns:52px 1fr;gap:20px;align-items:start"><span style="min-width:44px;height:44px;border-radius:999px;background:#C8285E;color:#fff;font:600 24px/44px var(--eg-font-body);text-align:center;justify-self:start">13</span><div style="display:grid;gap:4px"><span style="font:600 28px/1.3 var(--eg-font-body)">Full reviews follow the details</span><span style="font-size:24px;line-height:1.4;color:#646665">Only 14% reached them below the carousel</span></div></li>
+    </ol>
+  </div>
+  <div style="display:grid;gap:16px;align-content:start">
+    <div style="width:468px;height:832px;overflow:hidden;background:#fff;outline:2px solid #E4DBC4">
+      <iframe data-src="Product Page.dc.html?notes=11,12,13" data-scroll="#details" data-offset="92" title="Product page, details and reviews" style="display:block;width:360px;height:640px;border:0;transform:scale(1.3);transform-origin:0 0"></iframe>
+    </div>
+  </div>
+</section>
+
+<section data-label="PDP desktop" data-speaker-notes="The same order on desktop. The gallery stays a main image with thumbnails and stays in view while the buy box scrolls. The buy box follows the mobile order exactly, so the merchant manages one set of blocks. You can scroll this frame live." style="background:#F1EFE7;color:#143324;padding:80px 120px 60px;display:flex;flex-direction:column;gap:32px;font-family:var(--eg-font-body)" data-om-slide-id="0839a205">
+  <div style="display:flex;justify-content:space-between;align-items:baseline;gap:48px">
+    <h2 style="margin:0;font:800 72px/1.1 var(--eg-font-display);letter-spacing:-0.015em">Product page on desktop</h2>
+    <p style="margin:0;font:500 24px/1.2 var(--eg-font-body);letter-spacing:.1em;text-transform:uppercase;color:#296647">1440px · Live frame</p>
+  </div>
+  <div style="width:1680px;height:840px;overflow:hidden;background:#fff;outline:2px solid #E4DBC4">
+    <iframe data-src="Product Page.dc.html?notes=all" title="Product page, desktop" style="display:block;width:1440px;height:720px;border:0;transform:scale(1.1667);transform-origin:0 0"></iframe>
+  </div>
+</section>
+
+<section data-label="02 Homepage" data-speaker-notes="Next, the homepage." style="background:#296647;color:#fff;padding:100px 120px 80px;display:flex;flex-direction:column;justify-content:flex-end;gap:32px;font-family:var(--eg-font-body)" data-om-slide-id="e5274068">
+  <span style="font:800 200px/1 var(--eg-font-display);color:#ABD921">02</span>
+  <h2 style="margin:0;font:800 112px/1.05 var(--eg-font-display);letter-spacing:-0.025em">Homepage</h2>
+  <p style="margin:0;font-size:36px;line-height:1.4">Trust, categories and bestsellers in the first two screens</p>
+</section>
+
+<section data-label="Homepage findings" data-speaker-notes="The first category tile, New in, is seen by everyone and clicked by 1.7 percent. Two thirds of visitors never see the second row of tiles. The Bestsellers panel, the most commercially important on the page, is seen by 18 percent and gets no clicks. The trust bar is seen by 24 percent. The newsletter is seen by only 3 percent but has the highest attractiveness rate on the page. And Water butts and tanks is the highest-traffic collection on the site, three times the homepage. Blog cards get 7 percent exposure and no clicks." style="background:#F1EFE7;color:#143324;padding:100px 120px 80px;display:flex;flex-direction:column;gap:56px;font-family:var(--eg-font-body)" data-om-slide-id="ed6be016">
+  <div style="display:grid;gap:20px">
+    <p style="margin:0;font:500 24px/1.2 var(--eg-font-body);letter-spacing:.1em;text-transform:uppercase;color:#296647">Homepage</p>
+    <h2 style="margin:0;font:800 72px/1.1 var(--eg-font-display);letter-spacing:-0.015em">Homepage findings</h2>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:32px">
+    <div style="background:#fff;padding:40px;display:grid;gap:12px;align-content:start"><span style="font:800 96px/1 var(--eg-font-display)">1.7%</span><span style="font-size:28px;line-height:1.4">click New in, the first tile, which 100% see</span></div>
+    <div style="background:#fff;padding:40px;display:grid;gap:12px;align-content:start"><span style="font:800 96px/1 var(--eg-font-display)">30 to 38%</span><span style="font-size:28px;line-height:1.4">see the second row of category tiles</span></div>
+    <div style="background:#fff;padding:40px;display:grid;gap:12px;align-content:start"><span style="font:800 96px/1 var(--eg-font-display)">0 clicks</span><span style="font-size:28px;line-height:1.4">on the Bestsellers panel, seen by 18%</span></div>
+    <div style="background:#fff;padding:40px;display:grid;gap:12px;align-content:start"><span style="font:800 96px/1 var(--eg-font-display)">24%</span><span style="font-size:28px;line-height:1.4">see the trust bar and delivery promise</span></div>
+    <div style="background:#fff;padding:40px;display:grid;gap:12px;align-content:start"><span style="font:800 96px/1 var(--eg-font-display)">13.3%</span><span style="font-size:28px;line-height:1.4">attractiveness for the newsletter, the highest on the page, seen by 3%</span></div>
+    <div style="background:#fff;padding:40px;display:grid;gap:12px;align-content:start"><span style="font:800 96px/1 var(--eg-font-display)">1,188</span><span style="font-size:28px;line-height:1.4">sessions on Water butts and tanks, against 387 on the homepage</span></div>
+  </div>
+</section>
+
+<section data-label="New homepage order" data-speaker-notes="The new order. The USP bar moves straight under the header, where every visitor already looks. The hero stays but gets compact, with one call to action. Categories become a carousel that leads with Water butts and tanks and follows the new navigation. Bestsellers become real product cards directly under the categories, and a compact newsletter strip follows. The lower sections stay short: the guide finder, three reviews, a single guide, and the full newsletter above the footer as a second chance." style="background:#fff;color:#143324;padding:100px 120px 80px;display:flex;flex-direction:column;gap:48px;font-family:var(--eg-font-body)" data-om-slide-id="6fca1df7">
+  <div style="display:grid;gap:20px">
+    <p style="margin:0;font:500 24px/1.2 var(--eg-font-body);letter-spacing:.1em;text-transform:uppercase;color:#296647">Homepage</p>
+    <h2 style="margin:0;font:800 72px/1.1 var(--eg-font-display);letter-spacing:-0.015em">New homepage order</h2>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:96px;align-items:start">
+    <div style="display:grid;gap:16px">
+      <span style="font:500 24px/1.2 var(--eg-font-body);letter-spacing:.1em;text-transform:uppercase;color:#646665">First two screens</span>
+      <ol style="list-style:none;margin:0;padding:0;display:grid;border-top:2px solid #143324">
+        <li style="display:flex;justify-content:space-between;align-items:center;gap:24px;padding:10px 0;border-bottom:1px solid #C8CCCA;font-size:28px"><span>Announcement bar and compact header</span><span style="padding:4px 14px;border:1px solid #C8CCCA;border-radius:0 12px;color:#646665;font-size:24px;letter-spacing:.06em;text-transform:uppercase">Kept</span></li>
+        <li style="display:flex;justify-content:space-between;align-items:center;gap:24px;padding:10px 0;border-bottom:1px solid #C8CCCA;font-size:28px"><span>USP bar</span><span style="padding:4px 14px;border-radius:0 12px;background:#EAF0ED;color:#296647;font-size:24px;letter-spacing:.06em;text-transform:uppercase">Moved up</span></li>
+        <li style="display:flex;justify-content:space-between;align-items:center;gap:24px;padding:10px 0;border-bottom:1px solid #C8CCCA;font-size:28px"><span>Hero, compact, one call to action</span><span style="padding:4px 14px;border-radius:0 12px;background:#EAF0ED;color:#296647;font-size:24px;letter-spacing:.06em;text-transform:uppercase">Changed</span></li>
+        <li style="display:flex;justify-content:space-between;align-items:center;gap:24px;padding:10px 0;border-bottom:1px solid #C8CCCA;font-size:28px"><span>Category carousel</span><span style="padding:4px 14px;border-radius:0 12px;background:#EAF0ED;color:#296647;font-size:24px;letter-spacing:.06em;text-transform:uppercase">Changed</span></li>
+        <li style="display:flex;justify-content:space-between;align-items:center;gap:24px;padding:10px 16px;margin-inline:-16px;background:#296647;color:#fff;font-size:28px;font-weight:600"><span>Bestsellers, product cards</span><span style="padding:4px 14px;border-radius:0 12px;background:#fff;color:#143324;font-size:24px;font-weight:500;letter-spacing:.06em;text-transform:uppercase">Moved up</span></li>
+        <li style="display:flex;justify-content:space-between;align-items:center;gap:24px;padding:10px 0;border-bottom:1px solid #C8CCCA;font-size:28px"><span>Newsletter strip</span><span style="padding:4px 14px;border-radius:0 12px;background:#EEF7D2;color:#143324;font-size:24px;letter-spacing:.06em;text-transform:uppercase">New</span></li>
+      </ol>
+    </div>
+    <div style="display:grid;gap:40px">
+      <div style="display:grid;gap:16px">
+        <span style="font:500 24px/1.2 var(--eg-font-body);letter-spacing:.1em;text-transform:uppercase;color:#646665">Lower sections, kept short</span>
+        <ol style="list-style:none;margin:0;padding:0;display:grid;border-top:2px solid #143324">
+          <li style="display:flex;justify-content:space-between;align-items:center;gap:24px;padding:10px 0;border-bottom:1px solid #C8CCCA;font-size:28px"><span>Guide finder</span><span style="padding:4px 14px;border:1px solid #C8CCCA;border-radius:0 12px;color:#646665;font-size:24px;letter-spacing:.06em;text-transform:uppercase">Kept</span></li>
+          <li style="display:flex;justify-content:space-between;align-items:center;gap:24px;padding:10px 0;border-bottom:1px solid #C8CCCA;font-size:28px"><span>Reviews, three cards</span><span style="padding:4px 14px;border:1px solid #C8CCCA;border-radius:0 12px;color:#646665;font-size:24px;letter-spacing:.06em;text-transform:uppercase">Kept</span></li>
+          <li style="display:flex;justify-content:space-between;align-items:center;gap:24px;padding:10px 0;border-bottom:1px solid #C8CCCA;font-size:28px"><span>Blog teaser, one guide</span><span style="padding:4px 14px;border-radius:0 12px;background:#EAF0ED;color:#296647;font-size:24px;letter-spacing:.06em;text-transform:uppercase">Changed</span></li>
+          <li style="display:flex;justify-content:space-between;align-items:center;gap:24px;padding:10px 0;border-bottom:1px solid #C8CCCA;font-size:28px"><span>Full newsletter, second instance</span><span style="padding:4px 14px;border:1px solid #C8CCCA;border-radius:0 12px;color:#646665;font-size:24px;letter-spacing:.06em;text-transform:uppercase">Kept</span></li>
+        </ol>
+      </div>
+      <div style="display:grid;gap:12px;padding:32px;background:#F1EFE7">
+        <span style="font:500 24px/1.2 var(--eg-font-body);letter-spacing:.1em;text-transform:uppercase;color:#B42318">Removed</span>
+        <span style="font-size:28px;line-height:1.4">New in tile</span>
+        <span style="font-size:28px;line-height:1.4">Bestsellers banner panel</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section data-label="Homepage first mobile screen" data-speaker-notes="The first mobile screen. The USP bar sits right under the header as one scrolling row: free UK delivery over 65 pounds, Made in Britain from recycled plastic, the Customer Care Team and online since 2001. The hero is a headline, one line, Find your composter, the rating and a short image, about 345 pixels in total. That leaves room for the categories to start on the first screen. They lead with Water butts and tanks, our highest-traffic collection, and the next card peeks in so it is obvious there is more." style="background:#F1EFE7;color:#143324;padding:100px 120px 80px;display:grid;grid-template-columns:minmax(0,1fr) 468px;gap:96px;font-family:var(--eg-font-body)" data-om-slide-id="244bc790">
+  <div style="display:flex;flex-direction:column;gap:48px">
+    <div style="display:grid;gap:20px">
+      <p style="margin:0;font:500 24px/1.2 var(--eg-font-body);letter-spacing:.1em;text-transform:uppercase;color:#296647">Homepage · Mobile</p>
+      <h2 style="margin:0;font:800 72px/1.1 var(--eg-font-display);letter-spacing:-0.015em">First mobile screen</h2>
+    </div>
+    <ol style="list-style:none;margin:0;padding:0;display:grid;gap:32px">
+      <li style="display:grid;grid-template-columns:52px 1fr;gap:20px;align-items:start"><span style="min-width:44px;height:44px;border-radius:999px;background:#C8285E;color:#fff;font:600 24px/44px var(--eg-font-body);text-align:center;justify-self:start">1</span><div style="display:grid;gap:4px"><span style="font:600 28px/1.3 var(--eg-font-body)">USP bar directly under the header</span><span style="font-size:24px;line-height:1.4;color:#646665">Seen by 24% lower down. Now where everyone looks</span></div></li>
+      <li style="display:grid;grid-template-columns:52px 1fr;gap:20px;align-items:start"><span style="min-width:44px;height:44px;border-radius:999px;background:#C8285E;color:#fff;font:600 24px/44px var(--eg-font-body);text-align:center;justify-self:start">2</span><div style="display:grid;gap:4px"><span style="font:600 28px/1.3 var(--eg-font-body)">Compact hero, one call to action</span><span style="font-size:24px;line-height:1.4;color:#646665">About 345px, so categories start on screen one</span></div></li>
+      <li style="display:grid;grid-template-columns:52px 1fr;gap:20px;align-items:start"><span style="min-width:44px;height:44px;border-radius:999px;background:#C8285E;color:#fff;font:600 24px/44px var(--eg-font-body);text-align:center;justify-self:start">3</span><div style="display:grid;gap:4px"><span style="font:600 28px/1.3 var(--eg-font-body)">Water butts and tanks first</span><span style="font-size:24px;line-height:1.4;color:#646665">1,188 sessions against 387. New in dropped as a tile</span></div></li>
+      <li style="display:grid;grid-template-columns:52px 1fr;gap:20px;align-items:start"><span style="min-width:44px;height:44px;border-radius:999px;background:#C8285E;color:#fff;font:600 24px/44px var(--eg-font-body);text-align:center;justify-self:start">4</span><div style="display:grid;gap:4px"><span style="font:600 28px/1.3 var(--eg-font-body)">Carousel with a peeking card</span><span style="font-size:24px;line-height:1.4;color:#646665">Two thirds never saw most of the grid</span></div></li>
+    </ol>
+  </div>
+  <div style="display:grid;gap:16px;align-content:start">
+    <div style="width:468px;height:832px;overflow:hidden;background:#fff;outline:2px solid #E4DBC4">
+      <iframe data-src="Home Page.dc.html?notes=1,2,3,4" title="Homepage, first mobile screen" style="display:block;width:360px;height:640px;border:0;transform:scale(1.3);transform-origin:0 0"></iframe>
+    </div>
+  </div>
+</section>
+
+<section data-label="Homepage bestsellers and newsletter" data-speaker-notes="Directly under the categories. The Bestsellers banner got zero clicks from the 18 percent who saw it. It is now a carousel of real product cards with badges, rating, price and quick add. Straight after it, a single-line newsletter strip with one benefit line. The newsletter had the highest attractiveness on the page but only 3 percent ever saw it, so it now sits in the first third of the page, with the full block kept above the footer." style="background:#F1EFE7;color:#143324;padding:100px 120px 80px;display:grid;grid-template-columns:minmax(0,1fr) 468px;gap:96px;font-family:var(--eg-font-body)" data-om-slide-id="63e10d54">
+  <div style="display:flex;flex-direction:column;gap:48px">
+    <div style="display:grid;gap:20px">
+      <p style="margin:0;font:500 24px/1.2 var(--eg-font-body);letter-spacing:.1em;text-transform:uppercase;color:#296647">Homepage · Mobile, scrolled</p>
+      <h2 style="margin:0;font:800 72px/1.1 var(--eg-font-display);letter-spacing:-0.015em">Bestsellers and newsletter strip</h2>
+    </div>
+    <ol style="list-style:none;margin:0;padding:0;display:grid;gap:32px">
+      <li style="display:grid;grid-template-columns:52px 1fr;gap:20px;align-items:start"><span style="min-width:44px;height:44px;border-radius:999px;background:#C8285E;color:#fff;font:600 24px/44px var(--eg-font-body);text-align:center;justify-self:start">5</span><div style="display:grid;gap:4px"><span style="font:600 28px/1.3 var(--eg-font-body)">Bestsellers as real product cards</span><span style="font-size:24px;line-height:1.4;color:#646665">Badges, rating, price and quick add. The banner got 0 clicks</span></div></li>
+      <li style="display:grid;grid-template-columns:52px 1fr;gap:20px;align-items:start"><span style="min-width:44px;height:44px;border-radius:999px;background:#C8285E;color:#fff;font:600 24px/44px var(--eg-font-body);text-align:center;justify-self:start">6</span><div style="display:grid;gap:4px"><span style="font:600 28px/1.3 var(--eg-font-body)">Newsletter strip after Bestsellers</span><span style="font-size:24px;line-height:1.4;color:#646665">13.3% attractiveness, seen by only 3% before</span></div></li>
+    </ol>
+  </div>
+  <div style="display:grid;gap:16px;align-content:start">
+    <div style="width:468px;height:832px;overflow:hidden;background:#fff;outline:2px solid #E4DBC4">
+      <iframe data-src="Home Page.dc.html?notes=5,6" data-scroll="[data-note=&quot;5&quot;]" data-offset="70" title="Homepage, bestsellers and newsletter strip" style="display:block;width:360px;height:640px;border:0;transform:scale(1.3);transform-origin:0 0"></iframe>
+    </div>
+  </div>
+</section>
+
+<section data-label="Homepage desktop" data-speaker-notes="The same order on desktop. The USP bar is 4-up, the hero is a compact split, and categories are a 4-up row. Bestsellers sit directly below as a product carousel with previous and next controls." style="background:#F1EFE7;color:#143324;padding:80px 120px 60px;display:flex;flex-direction:column;gap:32px;font-family:var(--eg-font-body)" data-om-slide-id="81132857">
+  <div style="display:flex;justify-content:space-between;align-items:baseline;gap:48px">
+    <h2 style="margin:0;font:800 72px/1.1 var(--eg-font-display);letter-spacing:-0.015em">Homepage on desktop</h2>
+    <p style="margin:0;font:500 24px/1.2 var(--eg-font-body);letter-spacing:.1em;text-transform:uppercase;color:#296647">1440px · Live frame</p>
+  </div>
+  <div style="width:1680px;height:840px;overflow:hidden;background:#fff;outline:2px solid #E4DBC4">
+    <iframe data-src="Home Page.dc.html?notes=1,2,3,4,5" title="Homepage, desktop" style="display:block;width:1440px;height:720px;border:0;transform:scale(1.1667);transform-origin:0 0"></iframe>
+  </div>
+</section>
+
+<section data-label="Homepage lower sections" data-speaker-notes="The lower sections stay short so the page ends sooner. The guide finder keeps three quick questions. Reviews stay at three cards. The blog cards had 7 percent exposure and no clicks, so the teaser shrinks to one guide and a link to all guides. Then the full newsletter, a second chance for the best-performing element, before the footer." style="background:#F1EFE7;color:#143324;padding:80px 120px 60px;display:flex;flex-direction:column;gap:32px;font-family:var(--eg-font-body)" data-om-slide-id="c83f573b">
+  <div style="display:flex;justify-content:space-between;align-items:baseline;gap:48px">
+    <h2 style="margin:0;font:800 72px/1.1 var(--eg-font-display);letter-spacing:-0.015em">Lower sections</h2>
+    <p style="margin:0;font:500 24px/1.2 var(--eg-font-body);letter-spacing:.1em;text-transform:uppercase;color:#296647">1440px · Scrolled</p>
+  </div>
+  <div style="display:grid;grid-template-columns:1216px minmax(0,1fr);gap:56px;align-items:start">
+    <div style="width:1216px;height:840px;overflow:hidden;background:#fff;outline:2px solid #E4DBC4">
+      <iframe data-src="Home Page.dc.html?notes=8,9,10" data-scroll="[data-note=&quot;8&quot;]" data-offset="0" title="Homepage, lower sections" style="display:block;width:1440px;height:995px;border:0;transform:scale(0.8444);transform-origin:0 0"></iframe>
+    </div>
+    <ol style="list-style:none;margin:0;padding:0;display:grid;gap:28px">
+      <li style="display:grid;grid-template-columns:52px 1fr;gap:16px;align-items:start"><span style="min-width:44px;height:44px;border-radius:999px;background:#C8285E;color:#fff;font:600 24px/44px var(--eg-font-body);text-align:center;justify-self:start">7</span><span style="font:600 28px/1.3 var(--eg-font-body)">Guide finder kept short</span></li>
+      <li style="display:grid;grid-template-columns:52px 1fr;gap:16px;align-items:start"><span style="min-width:44px;height:44px;border-radius:999px;background:#C8285E;color:#fff;font:600 24px/44px var(--eg-font-body);text-align:center;justify-self:start">8</span><span style="font:600 28px/1.3 var(--eg-font-body)">Three reviews</span></li>
+      <li style="display:grid;grid-template-columns:52px 1fr;gap:16px;align-items:start"><span style="min-width:44px;height:44px;border-radius:999px;background:#C8285E;color:#fff;font:600 24px/44px var(--eg-font-body);text-align:center;justify-self:start">9</span><span style="font:600 28px/1.3 var(--eg-font-body)">One guide, 7% saw the blog</span></li>
+      <li style="display:grid;grid-template-columns:52px 1fr;gap:16px;align-items:start"><span style="min-width:44px;height:44px;border-radius:999px;background:#C8285E;color:#fff;font:600 24px/44px var(--eg-font-body);text-align:center;justify-self:start">10</span><span style="font:600 28px/1.3 var(--eg-font-body)">Full newsletter above the footer</span></li>
+    </ol>
+  </div>
+</section>
+
+<section data-label="03 Cart and drawer" data-speaker-notes="Finally, the cart page and the cart drawer." style="background:#296647;color:#fff;padding:100px 120px 80px;display:flex;flex-direction:column;justify-content:flex-end;gap:32px;font-family:var(--eg-font-body)" data-om-slide-id="f5c9926a">
+  <span style="font:800 200px/1 var(--eg-font-display);color:#ABD921">03</span>
+  <h2 style="margin:0;font:800 112px/1.05 var(--eg-font-display);letter-spacing:-0.025em">Cart and cart drawer</h2>
+  <p style="margin:0;font-size:36px;line-height:1.4">Checkout straight after the line items</p>
+</section>
+
+<section data-label="Cart findings" data-speaker-notes="Only 42 percent of cart visitors see Proceed to checkout, but 56 percent of those click it. The button works when people can find it. Four upsell cards sat between the items and the order summary, which is almost certainly why 58 percent never reach checkout. Two of the four got no clicks at all. Security badges and payment logos are barely seen. The information accordion is reached by 20 percent with a 15 percent attractiveness rate among them. And the cart header has a 28 percent attractiveness rate, so people are tapping something they think is interactive." style="background:#F1EFE7;color:#143324;padding:100px 120px 80px;display:flex;flex-direction:column;gap:56px;font-family:var(--eg-font-body)" data-om-slide-id="81cf15c2">
+  <div style="display:grid;gap:20px">
+    <p style="margin:0;font:500 24px/1.2 var(--eg-font-body);letter-spacing:.1em;text-transform:uppercase;color:#296647">Cart</p>
+    <h2 style="margin:0;font:800 72px/1.1 var(--eg-font-display);letter-spacing:-0.015em">Cart findings</h2>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:32px">
+    <div style="background:#fff;padding:40px;display:grid;gap:12px;align-content:start"><span style="font:800 96px/1 var(--eg-font-display)">42%</span><span style="font-size:28px;line-height:1.4">of cart visitors see Proceed to checkout</span></div>
+    <div style="background:#fff;padding:40px;display:grid;gap:12px;align-content:start"><span style="font:800 96px/1 var(--eg-font-display)">56%</span><span style="font-size:28px;line-height:1.4">of those who see it click it</span></div>
+    <div style="background:#fff;padding:40px;display:grid;gap:12px;align-content:start"><span style="font:800 96px/1 var(--eg-font-display)">4 upsells</span><span style="font-size:28px;line-height:1.4">sat between the items and the order summary</span></div>
+    <div style="background:#fff;padding:40px;display:grid;gap:12px;align-content:start"><span style="font:800 96px/1 var(--eg-font-display)">0%</span><span style="font-size:28px;line-height:1.4">clicks on the freshener and the tap. The aerator led at 6.7%</span></div>
+    <div style="background:#fff;padding:40px;display:grid;gap:12px;align-content:start"><span style="font:800 96px/1 var(--eg-font-display)">3%</span><span style="font-size:28px;line-height:1.4">see the security badges. Payment logos, under 5%</span></div>
+    <div style="background:#fff;padding:40px;display:grid;gap:12px;align-content:start"><span style="font:800 96px/1 var(--eg-font-display)">28%</span><span style="font-size:28px;line-height:1.4">attractiveness on the cart header, which is not interactive</span></div>
+  </div>
+</section>
+
+<section data-label="New cart order" data-speaker-notes="The new order, used on both the cart page and the drawer. Line items first, then the free delivery progress bar to 65 pounds and a plain delivery line, then the order summary and checkout. Payment logos and a one-line security note sit directly under the button, where the decision happens. Only then a single upsell, chosen by relevance to what is in the bag, and the information accordion last. On mobile, a sticky checkout bar with the total covers the rest." style="background:#fff;color:#143324;padding:100px 120px 80px;display:flex;flex-direction:column;gap:48px;font-family:var(--eg-font-body)" data-om-slide-id="e755bd39">
+  <div style="display:grid;gap:20px">
+    <p style="margin:0;font:500 24px/1.2 var(--eg-font-body);letter-spacing:.1em;text-transform:uppercase;color:#296647">Cart</p>
+    <h2 style="margin:0;font:800 72px/1.1 var(--eg-font-display);letter-spacing:-0.015em">New cart order</h2>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:96px;align-items:start">
+    <div style="display:grid;gap:16px">
+      <span style="font:500 24px/1.2 var(--eg-font-body);letter-spacing:.1em;text-transform:uppercase;color:#646665">Cart page</span>
+      <ol style="list-style:none;margin:0;padding:0;display:grid;border-top:2px solid #143324">
+        <li style="display:flex;justify-content:space-between;align-items:center;gap:24px;padding:10px 0;border-bottom:1px solid #C8CCCA;font-size:28px"><span>Plain H1, Your bag (2 items)</span><span style="padding:4px 14px;border-radius:0 12px;background:#EAF0ED;color:#296647;font-size:24px;letter-spacing:.06em;text-transform:uppercase">Changed</span></li>
+        <li style="display:flex;justify-content:space-between;align-items:center;gap:24px;padding:10px 0;border-bottom:1px solid #C8CCCA;font-size:28px"><span>Line items</span><span style="padding:4px 14px;border:1px solid #C8CCCA;border-radius:0 12px;color:#646665;font-size:24px;letter-spacing:.06em;text-transform:uppercase">Kept</span></li>
+        <li style="display:flex;justify-content:space-between;align-items:center;gap:24px;padding:10px 0;border-bottom:1px solid #C8CCCA;font-size:28px"><span>Free delivery progress, £65</span><span style="padding:4px 14px;border-radius:0 12px;background:#EAF0ED;color:#296647;font-size:24px;letter-spacing:.06em;text-transform:uppercase">Moved up</span></li>
+        <li style="display:flex;justify-content:space-between;align-items:center;gap:24px;padding:10px 0;border-bottom:1px solid #C8CCCA;font-size:28px"><span>Delivery line</span><span style="padding:4px 14px;border-radius:0 12px;background:#EEF7D2;color:#143324;font-size:24px;letter-spacing:.06em;text-transform:uppercase">New</span></li>
+        <li style="display:flex;justify-content:space-between;align-items:center;gap:24px;padding:10px 0;border-bottom:1px solid #C8CCCA;font-size:28px"><span>Order summary</span><span style="padding:4px 14px;border-radius:0 12px;background:#EAF0ED;color:#296647;font-size:24px;letter-spacing:.06em;text-transform:uppercase">Moved up</span></li>
+        <li style="display:flex;justify-content:space-between;align-items:center;gap:24px;padding:10px 16px;margin-inline:-16px;background:#296647;color:#fff;font-size:28px;font-weight:600"><span>Proceed to checkout</span><span style="padding:4px 14px;border-radius:0 12px;background:#fff;color:#143324;font-size:24px;font-weight:500;letter-spacing:.06em;text-transform:uppercase">Moved up</span></li>
+        <li style="display:flex;justify-content:space-between;align-items:center;gap:24px;padding:10px 0;border-bottom:1px solid #C8CCCA;font-size:28px"><span>Payment logos and security note</span><span style="padding:4px 14px;border-radius:0 12px;background:#EAF0ED;color:#296647;font-size:24px;letter-spacing:.06em;text-transform:uppercase">Moved up</span></li>
+        <li style="display:flex;justify-content:space-between;align-items:center;gap:24px;padding:10px 0;border-bottom:1px solid #C8CCCA;font-size:28px"><span>One relevant upsell</span><span style="padding:4px 14px;border-radius:0 12px;background:#F1EFE7;color:#143324;font-size:24px;letter-spacing:.06em;text-transform:uppercase">Moved down</span></li>
+        <li style="display:flex;justify-content:space-between;align-items:center;gap:24px;padding:10px 0;border-bottom:1px solid #C8CCCA;font-size:28px"><span>Information accordion</span><span style="padding:4px 14px;border:1px solid #C8CCCA;border-radius:0 12px;color:#646665;font-size:24px;letter-spacing:.06em;text-transform:uppercase">Kept</span></li>
+      </ol>
+    </div>
+    <div style="display:grid;gap:40px">
+      <div style="display:grid;gap:16px">
+        <span style="font:500 24px/1.2 var(--eg-font-body);letter-spacing:.1em;text-transform:uppercase;color:#646665">Cart drawer, same order</span>
+        <ol style="list-style:none;margin:0;padding:0;display:grid;border-top:2px solid #143324">
+          <li style="display:flex;justify-content:space-between;align-items:center;gap:24px;padding:10px 0;border-bottom:1px solid #C8CCCA;font-size:28px"><span>Line items</span><span style="padding:4px 14px;border:1px solid #C8CCCA;border-radius:0 12px;color:#646665;font-size:24px;letter-spacing:.06em;text-transform:uppercase">Kept</span></li>
+          <li style="display:flex;justify-content:space-between;align-items:center;gap:24px;padding:10px 0;border-bottom:1px solid #C8CCCA;font-size:28px"><span>Progress bar</span><span style="padding:4px 14px;border-radius:0 12px;background:#F1EFE7;color:#143324;font-size:24px;letter-spacing:.06em;text-transform:uppercase">Moved down</span></li>
+          <li style="display:flex;justify-content:space-between;align-items:center;gap:24px;padding:10px 0;border-bottom:1px solid #C8CCCA;font-size:28px"><span>Subtotal and checkout, payment logos</span><span style="padding:4px 14px;border-radius:0 12px;background:#EAF0ED;color:#296647;font-size:24px;letter-spacing:.06em;text-transform:uppercase">Moved up</span></li>
+          <li style="display:flex;justify-content:space-between;align-items:center;gap:24px;padding:10px 0;border-bottom:1px solid #C8CCCA;font-size:28px"><span>One upsell</span><span style="padding:4px 14px;border-radius:0 12px;background:#F1EFE7;color:#143324;font-size:24px;letter-spacing:.06em;text-transform:uppercase">Moved down</span></li>
+        </ol>
+      </div>
+      <div style="display:grid;gap:12px;padding:32px;background:#F1EFE7">
+        <span style="font:500 24px/1.2 var(--eg-font-body);letter-spacing:.1em;text-transform:uppercase;color:#B42318">Removed</span>
+        <span style="font-size:28px;line-height:1.4">Three of the four upsell cards</span>
+        <span style="font-size:28px;line-height:1.4">Anything near the heading that looked tappable</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section data-label="Cart on mobile" data-speaker-notes="On the left, the first screen. The heading is a plain H1 with nothing near it that looks like a link or a control, answering the 28 percent who tapped the old header. Items, the progress bar, the delivery line and the order summary follow. Because Proceed to checkout lands just below the fold, the sticky bar with the total is already showing. On the right, scrolled further: payment logos and the security note directly under the button, then a single Compost aerator upsell, which was the best performer at 6.7 percent and here also takes the bag over the free delivery threshold, and the information accordion last." style="background:#F1EFE7;color:#143324;padding:100px 120px 80px;display:grid;grid-template-columns:minmax(0,1fr) 432px 432px;gap:48px;font-family:var(--eg-font-body)" data-om-slide-id="569d8a8d">
+  <div style="display:flex;flex-direction:column;gap:40px">
+    <div style="display:grid;gap:20px">
+      <p style="margin:0;font:500 24px/1.2 var(--eg-font-body);letter-spacing:.1em;text-transform:uppercase;color:#296647">Cart · Mobile</p>
+      <h2 style="margin:0;font:800 72px/1.1 var(--eg-font-display);letter-spacing:-0.015em">Cart on mobile</h2>
+    </div>
+    <ol style="list-style:none;margin:0;padding:0;display:grid;gap:18px">
+      <li style="display:grid;grid-template-columns:52px 1fr;gap:16px;align-items:center"><span style="min-width:44px;height:44px;border-radius:999px;background:#C8285E;color:#fff;font:600 24px/44px var(--eg-font-body);text-align:center;justify-self:start">1</span><span style="font:600 26px/1.3 var(--eg-font-body)">Plain H1, nothing tappable</span></li>
+      <li style="display:grid;grid-template-columns:52px 1fr;gap:16px;align-items:center"><span style="min-width:44px;height:44px;border-radius:999px;background:#C8285E;color:#fff;font:600 24px/44px var(--eg-font-body);text-align:center;justify-self:start">2</span><span style="font:600 26px/1.3 var(--eg-font-body)">Line items first</span></li>
+      <li style="display:grid;grid-template-columns:52px 1fr;gap:16px;align-items:center"><span style="min-width:44px;height:44px;border-radius:999px;background:#C8285E;color:#fff;font:600 24px/44px var(--eg-font-body);text-align:center;justify-self:start">3</span><span style="font:600 26px/1.3 var(--eg-font-body)">Free delivery progress</span></li>
+      <li style="display:grid;grid-template-columns:52px 1fr;gap:16px;align-items:center"><span style="min-width:44px;height:44px;border-radius:999px;background:#C8285E;color:#fff;font:600 24px/44px var(--eg-font-body);text-align:center;justify-self:start">4</span><span style="font:600 26px/1.3 var(--eg-font-body)">Static delivery line</span></li>
+      <li style="display:grid;grid-template-columns:52px 1fr;gap:16px;align-items:center"><span style="min-width:44px;height:44px;border-radius:999px;background:#C8285E;color:#fff;font:600 24px/44px var(--eg-font-body);text-align:center;justify-self:start">5</span><span style="font:600 26px/1.3 var(--eg-font-body)">Summary and checkout</span></li>
+      <li style="display:grid;grid-template-columns:52px 1fr;gap:16px;align-items:center"><span style="min-width:44px;height:44px;border-radius:999px;background:#C8285E;color:#fff;font:600 24px/44px var(--eg-font-body);text-align:center;justify-self:start">6</span><span style="font:600 26px/1.3 var(--eg-font-body)">Payment and security under it</span></li>
+      <li style="display:grid;grid-template-columns:52px 1fr;gap:16px;align-items:center"><span style="min-width:44px;height:44px;border-radius:999px;background:#C8285E;color:#fff;font:600 24px/44px var(--eg-font-body);text-align:center;justify-self:start">7</span><span style="font:600 26px/1.3 var(--eg-font-body)">Sticky checkout bar</span></li>
+      <li style="display:grid;grid-template-columns:52px 1fr;gap:16px;align-items:center"><span style="min-width:44px;height:44px;border-radius:999px;background:#C8285E;color:#fff;font:600 24px/44px var(--eg-font-body);text-align:center;justify-self:start">8</span><span style="font:600 26px/1.3 var(--eg-font-body)">One relevant upsell</span></li>
+      <li style="display:grid;grid-template-columns:52px 1fr;gap:16px;align-items:center"><span style="min-width:44px;height:44px;border-radius:999px;background:#C8285E;color:#fff;font:600 24px/44px var(--eg-font-body);text-align:center;justify-self:start">9</span><span style="font:600 26px/1.3 var(--eg-font-body)">Information accordion last</span></li>
+    </ol>
+  </div>
+  <div style="display:grid;gap:16px;align-content:start">
+    <div style="width:432px;height:768px;overflow:hidden;background:#fff;outline:2px solid #E4DBC4">
+      <iframe data-src="Cart Page.dc.html?notes=1,2,3,4,5,7" title="Cart, first mobile screen" style="display:block;width:360px;height:640px;border:0;transform:scale(1.2);transform-origin:0 0"></iframe>
+    </div>
+    <span style="font-size:24px;color:#646665">First screen</span>
+  </div>
+  <div style="display:grid;gap:16px;align-content:start">
+    <div style="width:432px;height:768px;overflow:hidden;background:#fff;outline:2px solid #E4DBC4">
+      <iframe data-src="Cart Page.dc.html?notes=6,8,9" data-scroll="[data-note=&quot;6&quot;]" data-offset="110" title="Cart, scrolled" style="display:block;width:360px;height:640px;border:0;transform:scale(1.2);transform-origin:0 0"></iframe>
+    </div>
+    <span style="font-size:24px;color:#646665">Scrolled</span>
+  </div>
+</section>
+
+<section data-label="Cart drawer" data-speaker-notes="The cart drawer follows the same order. Line items first, then the progress bar, then the subtotal and Checkout with the payment logos and security note directly under the button. One upsell comes last, so it can never push the button down. This frame is live, so you can change quantities and watch the progress bar." style="background:#F1EFE7;color:#143324;padding:100px 120px 80px;display:grid;grid-template-columns:minmax(0,1fr) 468px;gap:96px;font-family:var(--eg-font-body)" data-om-slide-id="7805b1a1">
+  <div style="display:flex;flex-direction:column;gap:48px">
+    <div style="display:grid;gap:20px">
+      <p style="margin:0;font:500 24px/1.2 var(--eg-font-body);letter-spacing:.1em;text-transform:uppercase;color:#296647">Cart · Mobile</p>
+      <h2 style="margin:0;font:800 72px/1.1 var(--eg-font-display);letter-spacing:-0.015em">Cart drawer</h2>
+    </div>
+    <ol style="list-style:none;margin:0;padding:0;display:grid;gap:32px">
+      <li style="display:grid;grid-template-columns:64px 1fr;gap:20px;align-items:start"><span style="min-width:44px;height:44px;padding:0 8px;border-radius:999px;background:#C8285E;color:#fff;font:600 24px/44px var(--eg-font-body);text-align:center;justify-self:start">D1</span><div style="display:grid;gap:4px"><span style="font:600 28px/1.3 var(--eg-font-body)">Line items first</span><span style="font-size:24px;line-height:1.4;color:#646665">48px quantity steppers and a plain Remove</span></div></li>
+      <li style="display:grid;grid-template-columns:64px 1fr;gap:20px;align-items:start"><span style="min-width:44px;height:44px;padding:0 8px;border-radius:999px;background:#C8285E;color:#fff;font:600 24px/44px var(--eg-font-body);text-align:center;justify-self:start">D2</span><div style="display:grid;gap:4px"><span style="font:600 28px/1.3 var(--eg-font-body)">Free delivery progress to £65</span><span style="font-size:24px;line-height:1.4;color:#646665">Directly after the items</span></div></li>
+      <li style="display:grid;grid-template-columns:64px 1fr;gap:20px;align-items:start"><span style="min-width:44px;height:44px;padding:0 8px;border-radius:999px;background:#C8285E;color:#fff;font:600 24px/44px var(--eg-font-body);text-align:center;justify-self:start">D3</span><div style="display:grid;gap:4px"><span style="font:600 28px/1.3 var(--eg-font-body)">Subtotal, Checkout and payment logos</span><span style="font-size:24px;line-height:1.4;color:#646665">Security note directly under the button</span></div></li>
+      <li style="display:grid;grid-template-columns:64px 1fr;gap:20px;align-items:start"><span style="min-width:44px;height:44px;padding:0 8px;border-radius:999px;background:#C8285E;color:#fff;font:600 24px/44px var(--eg-font-body);text-align:center;justify-self:start">D4</span><div style="display:grid;gap:4px"><span style="font:600 28px/1.3 var(--eg-font-body)">One upsell, last</span><span style="font-size:24px;line-height:1.4;color:#646665">Chosen by relevance to the bag</span></div></li>
+    </ol>
+  </div>
+  <div style="display:grid;gap:16px;align-content:start">
+    <div style="width:468px;height:832px;overflow:hidden;background:#fff;outline:2px solid #E4DBC4">
+      <iframe data-src="Home Page.dc.html?drawer=1&amp;notes=D1,D2,D3,D4" title="Cart drawer, mobile" style="display:block;width:360px;height:640px;border:0;transform:scale(1.3);transform-origin:0 0"></iframe>
+    </div>
+  </div>
+</section>
+
+<section data-label="Cart desktop" data-speaker-notes="On desktop the order summary becomes a sticky column beside the items, so the progress bar, summary, checkout and payment logos are always in view. The single upsell and the information accordion sit under the line items." style="background:#F1EFE7;color:#143324;padding:80px 120px 60px;display:flex;flex-direction:column;gap:32px;font-family:var(--eg-font-body)" data-om-slide-id="0b871560">
+  <div style="display:flex;justify-content:space-between;align-items:baseline;gap:48px">
+    <h2 style="margin:0;font:800 72px/1.1 var(--eg-font-display);letter-spacing:-0.015em">Cart on desktop</h2>
+    <p style="margin:0;font:500 24px/1.2 var(--eg-font-body);letter-spacing:.1em;text-transform:uppercase;color:#296647">1440px · Live frame</p>
+  </div>
+  <div style="width:1680px;height:840px;overflow:hidden;background:#fff;outline:2px solid #E4DBC4">
+    <iframe data-src="Cart Page.dc.html?notes=all" title="Cart, desktop" style="display:block;width:1440px;height:720px;border:0;transform:scale(1.1667);transform-origin:0 0"></iframe>
+  </div>
+</section>
+
+<section data-label="04 Navigation" data-speaker-notes="Alongside the three templates, we applied the new navigation and information architecture." style="background:#296647;color:#fff;padding:100px 120px 80px;display:flex;flex-direction:column;justify-content:flex-end;gap:32px;font-family:var(--eg-font-body)" data-om-slide-id="f0a33e77">
+  <span style="font:800 200px/1 var(--eg-font-display);color:#ABD921">04</span>
+  <h2 style="margin:0;font:800 112px/1.05 var(--eg-font-display);letter-spacing:-0.025em">Navigation</h2>
+  <p style="margin:0;font-size:36px;line-height:1.4">The new information architecture, applied across every page</p>
+</section>
+
+<section data-label="New navigation" data-speaker-notes="Six top-level sections. Water butts and tanks leads, matching its traffic. Composting, now including Food waste composting, and Indoor and kitchen split garden and kitchen needs. In the garden and Gifts follow, and Knowledge hub brings guides, FAQs, the blog and contact together. Labels are in sentence case, with and instead of ampersands, per the design system. The homepage category tiles now follow these top-level sections." style="background:#fff;color:#143324;padding:100px 120px 80px;display:flex;flex-direction:column;gap:56px;font-family:var(--eg-font-body)" data-om-slide-id="323fe3bf">
+  <div style="display:grid;gap:20px">
+    <p style="margin:0;font:500 24px/1.2 var(--eg-font-body);letter-spacing:.1em;text-transform:uppercase;color:#296647">Navigation</p>
+    <h2 style="margin:0;font:800 72px/1.1 var(--eg-font-display);letter-spacing:-0.015em">New navigation</h2>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:32px;align-items:start">
+    <div style="display:grid;gap:16px"><span style="padding-bottom:16px;border-bottom:2px solid #143324;font:500 24px/1.3 var(--eg-font-body);letter-spacing:.1em;text-transform:uppercase">Water butts and tanks</span><span style="font-size:26px;line-height:1.3">Shop all</span><span style="font-size:26px;line-height:1.3">By capacity</span><span style="font-size:26px;line-height:1.3">By style</span><span style="font-size:26px;line-height:1.3">Accessories and diverters</span><span style="font-size:26px;line-height:1.3">Bestsellers</span></div>
+    <div style="display:grid;gap:16px"><span style="padding-bottom:16px;border-bottom:2px solid #143324;font:500 24px/1.3 var(--eg-font-body);letter-spacing:.1em;text-transform:uppercase">Composting</span><span style="font-size:26px;line-height:1.3">Standard composters</span><span style="font-size:26px;line-height:1.3">Hot composters</span><span style="font-size:26px;line-height:1.3">Food waste composting</span><span style="font-size:26px;line-height:1.3">Electric composters</span><span style="font-size:26px;line-height:1.3">Wooden composters</span><span style="font-size:26px;line-height:1.3">Tumblers</span><span style="font-size:26px;line-height:1.3">Bokashi composters</span><span style="font-size:26px;line-height:1.3">Worm composters</span><span style="font-size:26px;line-height:1.3">Accessories</span></div>
+    <div style="display:grid;gap:16px"><span style="padding-bottom:16px;border-bottom:2px solid #143324;font:500 24px/1.3 var(--eg-font-body);letter-spacing:.1em;text-transform:uppercase">Indoor and kitchen</span><span style="font-size:26px;line-height:1.3">Kitchen caddies</span><span style="font-size:26px;line-height:1.3">Electric composters</span><span style="font-size:26px;line-height:1.3">Indoor watering</span><span style="font-size:26px;line-height:1.3">Indoor recycling</span><span style="font-size:26px;line-height:1.3">Food waste management</span><span style="font-size:26px;line-height:1.3">Bokashi composters</span></div>
+    <div style="display:grid;gap:16px"><span style="padding-bottom:16px;border-bottom:2px solid #143324;font:500 24px/1.3 var(--eg-font-body);letter-spacing:.1em;text-transform:uppercase">In the garden</span><span style="font-size:26px;line-height:1.3">Garden accessories</span><span style="font-size:26px;line-height:1.3">Planters</span><span style="font-size:26px;line-height:1.3">Watering</span><span style="font-size:26px;line-height:1.3">Wildlife corner</span></div>
+    <div style="display:grid;gap:16px"><span style="padding-bottom:16px;border-bottom:2px solid #143324;font:500 24px/1.3 var(--eg-font-body);letter-spacing:.1em;text-transform:uppercase">Gifts</span><span style="font-size:26px;line-height:1.3">Under £30</span><span style="font-size:26px;line-height:1.3">Gifts for gardeners</span><span style="font-size:26px;line-height:1.3">Gifts for children</span></div>
+    <div style="display:grid;gap:16px"><span style="padding-bottom:16px;border-bottom:2px solid #143324;font:500 24px/1.3 var(--eg-font-body);letter-spacing:.1em;text-transform:uppercase">Knowledge hub</span><span style="font-size:26px;line-height:1.3">How-to guides</span><span style="font-size:26px;line-height:1.3">FAQs</span><span style="font-size:26px;line-height:1.3">Blog</span><span style="font-size:26px;line-height:1.3">Contact us</span></div>
+  </div>
+</section>
+
+<section data-label="Mega menus" data-speaker-notes="Each mega menu uses the design system's featured layout: sub-collections down the left, and four products for the hovered one on the right. Short menus no longer leave empty columns, and every menu puts products one click away. How-to guides leads with Which composter is right for me, so the guide finder behind the homepage call to action has a home in the navigation. On mobile, the menu stays an accordion list. Product names and prices here are placeholders." style="background:#F1EFE7;color:#143324;padding:80px 120px 60px;display:flex;flex-direction:column;gap:40px;font-family:var(--eg-font-body)" data-om-slide-id="829af9d5">
+  <div style="display:flex;justify-content:space-between;align-items:baseline;gap:48px">
+    <h2 style="margin:0;font:800 72px/1.1 var(--eg-font-display);letter-spacing:-0.015em">Mega menus</h2>
+    <p style="margin:0;font:500 24px/1.2 var(--eg-font-body);letter-spacing:.1em;text-transform:uppercase;color:#296647">Composting, desktop</p>
+  </div>
+  <div style="width:1680px;height:700px;overflow:hidden;background:#fff;outline:2px solid #E4DBC4">
+    <div style="width:1440px;transform:scale(1.1667);transform-origin:0 0">
+      <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.MegaMenu" item="{{ composting }}" inline="{{ true }}" hint-size="1440px,600px"></x-import>
+    </div>
+  </div>
+</section>
+
+
+</x-import>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  componentDidMount() {
+    this.w = setInterval(() => { if (window.EGData) { clearInterval(this.w); this.forceUpdate(); } }, 200);
+    this.t = setInterval(() => {
+      const act = document.querySelector('section[data-deck-active]');
+      if (!act) return;
+      [act, act.nextElementSibling].forEach((s) => {
+        if (!s) return;
+        s.querySelectorAll('iframe[data-src]').forEach((f) => { if (!f.getAttribute('src')) { f.setAttribute('src', f.getAttribute('data-src')); f._t0 = Date.now(); } });
+      });
+      document.querySelectorAll('iframe[data-click][src]').forEach((f) => {
+        if (f._clicked) return;
+        try {
+          const d = f.contentDocument; if (!d) return;
+          const steps = f.getAttribute('data-click').split('|');
+          const i = f._clickStep || 0;
+          if (f._lastClick && Date.now() - f._lastClick < 1000) return;
+          const el = d.querySelector(steps[i]); if (!el) return;
+          el.click(); f._lastClick = Date.now(); f._clickStep = i + 1; if (f._clickStep >= steps.length) f._clicked = true;
+        } catch (e) {}
+      });
+      document.querySelectorAll('[data-hover]').forEach((box) => {
+        const want = box.getAttribute('data-hover');
+        const a = Array.from(box.querySelectorAll('.eg-mega__item')).find((x) => x.textContent.trim().indexOf(want) === 0);
+        if (a && !a.classList.contains('is-active')) a.dispatchEvent(new FocusEvent('focusin', { bubbles: true }));
+      });
+      document.querySelectorAll('iframe[data-scroll][src]').forEach((f) => {
+        const onActive = !!f.closest('section[data-deck-active]');
+        if (onActive && !f._wasActive) f._found = 0;
+        f._wasActive = onActive;
+        if (f._found && Date.now() - f._found > 4000) return;
+        try {
+          const w = f.contentWindow, d = f.contentDocument; const el = d && d.querySelector(f.getAttribute('data-scroll')); if (!el) return;
+          if (!f._found) f._found = Date.now();
+          const y = Math.max(0, el.getBoundingClientRect().top + w.scrollY - Number(f.getAttribute('data-offset') || 0));
+          if (Math.abs(w.scrollY - y) > 4) w.scrollTo({ top: y, behavior: 'instant' });
+        } catch (e) {}
+      });
+    }, 600);
+  }
+  componentWillUnmount() { clearInterval(this.t); clearInterval(this.w); }
+  renderVals() {
+    const nav = (window.EGData && window.EGData.nav) || [];
+    return { composting: nav.find((n) => n.label === 'Composting') || null };
+  }
+}
+</script>
+</body>
+</html>
