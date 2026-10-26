@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/evengreener-design-system-ede5a68e-3ce4-4c3a-82c1-af597595dcea/styles.css">
+<script src="_ds/evengreener-design-system-ede5a68e-3ce4-4c3a-82c1-af597595dcea/_ds_bundle.js"></script>
+<script src="eg-shared.js"></script>
+</helmet>
+<sc-if value="{{ open }}" hint-placeholder-val="{{ false }}">
+<div class="eg-scrim" onClick="{{ close }}"></div>
+<aside class="eg-drawer eg-drawer--right" role="dialog" aria-modal="true" aria-labelledby="drawer-title">
+  <div class="eg-drawer__head">
+    <h2 id="drawer-title" class="eg-h4" style="margin:0">Your bag ({{ countLabel }})</h2>
+    <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.IconButton" icon="x" ghost="{{ true }}" label="Close bag" onClick="{{ close }}" hint-size="44px,44px"></x-import>
+  </div>
+  <div class="eg-drawer__body" style="display:flex;flex-direction:column;gap:20px;padding-top:4px">
+    <div data-note="D1">
+      <sc-for list="{{ lines }}" as="it" hint-placeholder-count="2">
+        <div class="eg-line">
+          <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.Media" src="{{ it.image }}" label="" hint-size="88px,88px"></x-import>
+          <div>
+            <h3 class="eg-line__title" style="font-family:var(--eg-font-body);font-weight:500"><a href="#">{{ it.title }}</a></h3>
+            <div class="eg-line__meta">{{ it.variant }}</div>
+            <div class="eg-line__row"><x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.Price" price="{{ it.lineTotal }}" hint-size="60px,22px"></x-import></div>
+            <div class="eg-line__row">
+              <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.QuantityStepper" value="{{ it.qty }}" min="{{ 1 }}" onChange="{{ it.setQty }}" label="Quantity" hint-size="128px,48px"></x-import>
+              <button class="eg-line__remove" onClick="{{ it.remove }}" aria-label="{{ it.removeLabel }}">Remove</button>
+            </div>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+    <div data-note="D2">
+      <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.DeliveryProgress" subtotal="{{ subtotal }}" threshold="{{ 65 }}" hint-size="100%,40px"></x-import>
+    </div>
+    <div data-note="D3" style="display:grid;gap:12px">
+      <div class="eg-cart__total"><span>Subtotal</span><span>{{ subtotalLabel }}</span></div>
+      <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.Button" block="{{ true }}" iconEnd="arrow-right" hint-size="100%,48px">Checkout</x-import>
+      <div style="display:flex;flex-wrap:wrap;gap:6px" aria-label="Payment methods">
+        <sc-for list="{{ payments }}" as="p" hint-placeholder-count="7">
+          <span style="padding:3px 8px;border:1px solid var(--eg-color-border);font-size:11px;line-height:1.4;letter-spacing:0.04em;white-space:nowrap;color:var(--eg-color-text)">{{ p }}</span>
+        </sc-for>
+      </div>
+      <p style="margin:0;display:flex;gap:8px;align-items:center;font-size:var(--eg-text-caption);color:var(--eg-color-text-muted)"><x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.Icon" name="check" size="{{ 16 }}" style="color:var(--eg-leaf-600)" hint-size="16px,16px"></x-import>Secure checkout. Your payment details are encrypted.</p>
+    </div>
+    <sc-if value="{{ showUpsell }}" hint-placeholder-val="{{ true }}">
+      <div data-note="D4" class="eg-cart__extras" style="margin-top:0">
+        <p class="eg-h5" style="margin:0 0 4px">Goes well with your bag</p>
+        <div class="eg-cart__extra">
+          <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.Media" src="{{ upsellImg }}" label="" hint-size="56px,56px"></x-import>
+          <div><div>{{ upsell.title }}</div><x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.Price" price="{{ upsell.price }}" hint-size="60px,22px"></x-import></div>
+          <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.Button" variant="secondary" onClick="{{ addUpsell }}" hint-size="72px,48px">Add</x-import>
+        </div>
+      </div>
+    </sc-if>
+    <div style="text-align:center;padding-bottom:8px"><x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.LinkCta" onClick="{{ close }}" hint-size="140px,24px">Continue shopping</x-import></div>
+  </div>
+</aside>
+</sc-if>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;open&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;},&quot;onClose&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;() =&gt; void&quot;},&quot;items&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;CartLine[]&quot;},&quot;upsell&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;object&quot;}}">
+class Component extends DCLogic {
+  state = { items: null, upsellAdded: false };
+  componentDidMount() { this.t = setInterval(() => { if (window.EGData && !this.state.items) this.setState({ items: (this.props.items || window.EGData.cart).map((x) => Object.assign({}, x)) }); }, 200); }
+  componentWillUnmount() { clearInterval(this.t); }
+  renderVals() {
+    const D = window.EGData || {}; const U = window.EGUtil || { fmt: (v) => '£' + Number(v).toFixed(2) };
+    const items = this.state.items || [];
+    const I = window.EGImg || { src() {}, item() {}, post() {}, cat() {}, johanna: null };
+    const upsell = this.props.upsell || D.aerator || { title: '', price: 0 };
+    const subtotal = items.reduce((s, i) => s + i.price * i.qty, 0);
+    const count = items.reduce((s, i) => s + i.qty, 0);
+    const set = (fn) => this.setState((s) => ({ items: fn(s.items || []) }));
+    return {
+      open: this.props.open !== false,
+      close: () => this.props.onClose && this.props.onClose(),
+      countLabel: count + (count === 1 ? ' item' : ' items'),
+      lines: items.map((it) => Object.assign({}, it, {
+        lineTotal: it.price * it.qty, image: I.item(it),
+        removeLabel: 'Remove ' + it.title,
+        setQty: (n) => set((arr) => arr.map((x) => (x.id === it.id ? Object.assign({}, x, { qty: n }) : x))),
+        remove: () => set((arr) => arr.filter((x) => x.id !== it.id)),
+      })),
+      subtotal: subtotal, subtotalLabel: U.fmt(subtotal),
+      payments: D.payments || [],
+      upsell: upsell, upsellImg: I.item(upsell),
+      showUpsell: !items.some((x) => x.id === upsell.id),
+      addUpsell: () => set((arr) => arr.concat([{ id: upsell.id, title: upsell.title, variant: 'One size', price: upsell.price, qty: 1 }])),
+    };
+  }
+}
+</script>
+</body>
+</html>

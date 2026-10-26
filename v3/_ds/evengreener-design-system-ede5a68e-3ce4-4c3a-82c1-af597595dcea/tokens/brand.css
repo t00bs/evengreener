@@ -1,0 +1,7 @@
+/* Logo assets as tokens so any consumer resolves the right path. PNG only: request SVG masters. */
+:root{
+--eg-logo-colour:url("../assets/logos/evengreener-logo-full-colour-trim.png"); /* @kind other */ /* 1200x281, ratio 4.27 */
+--eg-logo-white:url("../assets/logos/evengreener-logo-white-trim.png"); /* @kind other */        /* on forest-700 / forest-900 */
+--eg-logo-stacked:url("../assets/logos/evengreener-logo-stacked.png"); /* @kind other */         /* 302x138 */
+--eg-logo-ratio:4.27; /* @kind other */
+}

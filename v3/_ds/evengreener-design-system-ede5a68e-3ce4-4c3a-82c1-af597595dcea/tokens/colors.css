@@ -1,0 +1,65 @@
+/* EvenGreener colour tokens (v0.1 Evolve). Source: code/tokens.css */
+:root{
+/* Greens: the brand */
+--eg-forest-900:#143324; /* headings, primary text, dark surfaces */
+--eg-forest-700:#296647; /* THE brand green: buttons, footer, links */
+--eg-forest-500:#3D7458; /* hover tint on dark, secondary emphasis */
+--eg-forest-100:#EAF0ED; /* highlight pills, selected states */
+--eg-leaf-500:#69B236;   /* logo leaf. DECORATIVE ONLY: 2.6:1 on white */
+--eg-leaf-600:#58952D;   /* icons + rating stars on light */
+--eg-leaf-700:#457524;   /* leaf-green TEXT on light */
+--eg-lime-400:#ABD921;   /* accent on dark green only */
+--eg-lime-100:#EEF7D2;   /* "New" badge background */
+--eg-leaf-50:#F1F6EA;    /* v0.2 tint surface: feature bands, eyebrow tags, finder */
+--eg-leaf-200:#D9E8C8;   /* lines on leaf-50 */
+/* Neutrals: warm, earthy */
+--eg-oat-100:#F1EFE7;    /* alternate section background */
+--eg-oat-300:#E4DBC4;    /* borders and cards on oat */
+--eg-white:#FFFFFF;
+--eg-mist-100:#F5F5F5;   /* packshot image wells */
+--eg-stone-300:#C8CCCA;  /* dividers, input borders */
+--eg-stone-400:#A5A5A5;  /* disabled + unavailable variants only */
+--eg-stone-600:#646665;  /* supporting text */
+--eg-ink-900:#1D1D1D;    /* rare */
+/* Feedback */
+--eg-red-700:#B42318;    /* sale price, error, low stock */
+--eg-red-100:#FEE4E2;
+--eg-amber-700:#B54708;  /* warnings, delivery delays */
+--eg-amber-100:#FEF0C7;
+
+/* Semantic roles: use these in components */
+--eg-color-text:var(--eg-forest-900);
+--eg-color-text-muted:var(--eg-stone-600);
+--eg-color-text-inverse:var(--eg-white);
+--eg-color-text-brand:var(--eg-forest-700);
+--eg-color-text-leaf:var(--eg-leaf-700);
+--eg-color-link:var(--eg-forest-700);
+--eg-color-link-hover:var(--eg-forest-900);
+--eg-color-bg:var(--eg-white);
+--eg-color-bg-alt:var(--eg-oat-100);
+--eg-color-bg-tint:var(--eg-leaf-50);
+--eg-color-bg-subtle:var(--eg-mist-100); /* search field fill, hovered list rows */
+--eg-color-bg-image-well:var(--eg-mist-100);
+--eg-color-bg-brand:var(--eg-forest-700);
+--eg-color-bg-brand-strong:var(--eg-forest-900);
+--eg-color-bg-selected:var(--eg-forest-100);
+--eg-color-border:var(--eg-stone-300);
+--eg-color-border-strong:var(--eg-forest-900);
+--eg-color-border-on-alt:var(--eg-oat-300);
+--eg-color-border-on-tint:var(--eg-leaf-200);
+--eg-color-action:var(--eg-forest-700);
+--eg-color-action-hover:var(--eg-forest-900);
+--eg-color-accent:var(--eg-lime-400);
+--eg-color-highlight:var(--eg-leaf-700); /* highlighted words on light; lime-400 on dark */
+--eg-color-scrim-photo:rgba(20,51,36,.78); /* bottom scrim behind text on photography (overlay cards only) */
+--eg-color-rating:var(--eg-leaf-600);
+--eg-color-price:var(--eg-forest-900);
+--eg-color-price-sale:var(--eg-red-700);
+--eg-color-price-was:var(--eg-stone-600);
+--eg-color-success:var(--eg-forest-700);
+--eg-color-warning:var(--eg-amber-700);
+--eg-color-warning-bg:var(--eg-amber-100);
+--eg-color-error:var(--eg-red-700);
+--eg-color-error-bg:var(--eg-red-100);
+--eg-color-focus:var(--eg-leaf-600);
+}

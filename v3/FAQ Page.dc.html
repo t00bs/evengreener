@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="_ds/evengreener-design-system-ede5a68e-3ce4-4c3a-82c1-af597595dcea/styles.css">
+<script src="_ds/evengreener-design-system-ede5a68e-3ce4-4c3a-82c1-af597595dcea/_ds_bundle.js"></script>
+<script src="eg-shared.js"></script>
+<style>body{margin:0;background:#fff}a{color:var(--eg-color-link)}a:hover{color:var(--eg-color-link-hover)}</style>
+</helmet>
+<div style="position:relative;background:var(--eg-white);color:var(--eg-color-text)">
+  <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.AnnouncementBar" hint-size="100%,32px"></x-import>
+  <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.Header" nav="{{ nav }}" current="Knowledge hub" utility-links="{{ utility }}" search-scopes="{{ scopes }}" bag-count="{{ bagCount }}" bag-total="{{ bagTotal }}" on-bag="{{ openDrawer }}" hint-size="100%,60px"></x-import>
+
+  <main style="max-width:var(--eg-container-max);margin-inline:auto;padding-inline:{{ gut }};padding-block:{{ L.pad }}">
+    <div style="display:grid;gap:{{ L.headGap }};margin-bottom:{{ L.headGap }}">
+      <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.Breadcrumb" items="{{ crumbs }}" hint-size="200px,20px"></x-import>
+      <div style="display:grid;gap:8px;max-width:760px">
+        <h1 class="eg-h1" style="margin:0">Help and FAQs</h1>
+        <p class="eg-muted" style="margin:0;font-size:{{ L.standfirst }}">Quick answers on delivery, returns and getting the most from your products.</p>
+      </div>
+      <div style="max-width:560px">
+        <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.Input" label="Search the FAQs" type="search" placeholder="e.g. returns, smell, diverter" value="{{ query }}" onChange="{{ onQuery }}" hint-size="100%,74px"></x-import>
+      </div>
+      <sc-if value="{{ mobile }}" hint-placeholder-val="{{ true }}">
+        <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.CollectionLinks" items="{{ topicLinks }}" on-select="{{ jump }}" label="FAQ topics" hint-size="100%,44px"></x-import>
+      </sc-if>
+    </div>
+
+    <div style="display:grid;grid-template-columns:{{ L.cols }};gap:{{ L.colGap }};align-items:start">
+      <sc-if value="{{ desktop }}" hint-placeholder-val="{{ false }}">
+        <nav aria-label="FAQ topics" style="position:sticky;top:96px;display:grid;gap:24px">
+          <ul role="list" style="list-style:none;margin:0;padding:0;border-top:1px solid var(--eg-color-border)">
+            <sc-for list="{{ topicLinks }}" as="t" hint-placeholder-count="6">
+              <li style="border-bottom:1px solid var(--eg-color-border)"><a href="{{ t.href }}" onClick="{{ t.go }}" style="display:flex;justify-content:space-between;align-items:center;min-height:48px;color:var(--eg-color-text);text-decoration:none;font-weight:500;font-size:var(--eg-text-body-sm)">{{ t.label }}<span style="color:var(--eg-color-text-muted);font-weight:400">{{ t.count }}</span></a></li>
+            </sc-for>
+          </ul>
+        </nav>
+      </sc-if>
+      <div style="display:grid;gap:{{ L.groupGap }};min-width:0">
+        <sc-for list="{{ groups }}" as="g" hint-placeholder-count="3">
+          <section id="{{ g.id }}" aria-labelledby="{{ g.hid }}" style="display:grid;gap:12px;scroll-margin-top:96px">
+            <h2 id="{{ g.hid }}" class="eg-h3" style="margin:0">{{ g.title }}</h2>
+            <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.Accordion" items="{{ g.items }}" hint-size="100%,240px"></x-import>
+          </section>
+        </sc-for>
+        <sc-if value="{{ empty }}" hint-placeholder-val="{{ false }}">
+          <p style="margin:0">No questions match “{{ query }}”. Try a broader word, or ask our Customer Care Team below.</p>
+        </sc-if>
+      </div>
+    </div>
+  </main>
+
+  <section style="background:var(--eg-color-bg-tint);border-block:1px solid var(--eg-color-border-on-tint);padding-block:{{ L.stripPad }}">
+    <div style="max-width:var(--eg-container-max);margin-inline:auto;padding-inline:{{ gut }};display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px 32px">
+      <div style="display:grid;gap:4px;flex:1 1 320px">
+        <h2 class="eg-h4" style="margin:0">Still need help?</h2>
+        <p style="margin:0;font-size:var(--eg-text-body-sm);color:var(--eg-color-text-muted)">Our Customer Care Team replies within 1 working day, Monday to Friday.</p>
+      </div>
+      <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.Button" href="Contact Page.dc.html" hint-size="120px,48px">Contact us</x-import>
+    </div>
+  </section>
+  <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.Footer" columns="{{ footerCols }}" hint-size="100%,520px"></x-import>
+  <sc-if value="{{ drawerOpen }}" hint-placeholder-val="{{ false }}">
+    <dc-import name="Cart Drawer" open="{{ true }}" items="{{ drawerItems }}" on-close="{{ closeDrawer }}" hint-size="0px,0px"></dc-import>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { w: window.innerWidth, ready: !!window.EGData, query: '' };
+  componentDidMount() {
+    this.onR = () => this.setState({ w: window.innerWidth });
+    window.addEventListener('resize', this.onR);
+    this.t = setInterval(() => { if (!this.state.ready && window.EGData) this.setState({ ready: true }); }, 300);
+  }
+  componentWillUnmount() { clearInterval(this.t); window.removeEventListener('resize', this.onR); }
+  renderVals() {
+    const S = window.EGUtil ? window.EGUtil.shell(this) : {};
+    const m = this.state.w < 900;
+    const Q = (title, content) => ({ title, content });
+    const data = [
+      { id: 'delivery', title: 'Delivery', items: [
+        Q('How much is delivery?', 'Delivery is free to UK mainland addresses on orders over £65. Below that, the cost is shown in your bag before checkout.'),
+        Q('How long will my order take?', 'Most orders arrive in 2 to 4 working days. Large items such as wall tanks and hot composters can take a little longer; we will email you with a delivery date.'),
+        Q('Do you deliver outside the UK mainland?', 'We deliver to the Highlands, islands and Northern Ireland for an extra charge, shown at checkout. For anywhere else, see Outside the UK.'),
+      ] },
+      { id: 'returns', title: 'Returns and refunds', items: [
+        Q('Can I return an item?', 'Yes. Return unused items in their original packaging within 30 days and we will refund you once they arrive back with us.'),
+        Q('My item arrived damaged', 'Sorry about that. Email a photo to our Customer Care Team within 48 hours and we will send a replacement or part straight away.'),
+        Q('When will I get my refund?', 'Refunds go back to your original payment method within 5 working days of the return reaching us.'),
+      ] },
+      { id: 'orders', title: 'Orders and payment', items: [
+        Q('How do I track my order?', 'Use the tracking link in your dispatch email, or sign in to your account and open the order.'),
+        Q('Which payment methods do you take?', 'Visa, Mastercard, Amex, Apple Pay, Google Pay, PayPal and Klarna.'),
+        Q('Can I change or cancel my order?', 'Contact us as soon as possible. If it has not been dispatched yet, we can change or cancel it for you.'),
+      ] },
+      { id: 'composting', title: 'Composting', items: [
+        Q('Will my composter smell?', 'Not if the mix is right. Balance wet greens like peelings with dry browns like cardboard, and keep the lid on.'),
+        Q('Can I compost cooked food?', 'Yes, in a hot composter, bokashi bin, food waste digester or electric composter. Standard bins are best for garden waste and raw peelings.'),
+        Q('Where should I put my compost bin?', 'On bare soil in a spot that gets some sun, so worms can get in and the heap stays warm.'),
+      ] },
+      { id: 'water', title: 'Water butts', items: [
+        Q('Do I need a diverter?', 'Yes. A diverter connects your downpipe to the water butt and sends water back down the drain once the butt is full, so it never overflows.'),
+        Q('Can I link water butts together?', 'Yes. A link kit joins two or more butts so they fill and empty together.'),
+        Q('What do I do in winter?', 'Drain the butt down a little before a hard frost, and keep the tap open if you are away.'),
+      ] },
+      { id: 'account', title: 'Your account', items: [
+        Q('Do I need an account to order?', 'No. You can check out as a guest. An account lets you track orders and save addresses.'),
+        Q('I have forgotten my password', 'Choose Forgot your password on the sign in page and we will email you a reset link.'),
+      ] },
+    ];
+    const q = this.state.query.trim().toLowerCase();
+    const groups = data.map((g) => Object.assign({}, g, { hid: g.id + '-title', items: q ? g.items.filter((i) => (i.title + ' ' + i.content).toLowerCase().indexOf(q) > -1) : g.items })).filter((g) => g.items.length);
+    const jumpTo = (id) => { const el = document.getElementById(id); if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 96, behavior: 'smooth' }); };
+    return Object.assign(S, {
+      L: {
+        pad: m ? '20px 48px' : '40px 96px', headGap: m ? '16px' : '28px', standfirst: m ? 'var(--eg-text-body)' : 'var(--eg-text-body-lg)',
+        cols: m ? 'minmax(0,1fr)' : 'minmax(0,3fr) minmax(0,8fr)', colGap: m ? '24px' : '64px', groupGap: m ? '32px' : '48px', stripPad: m ? '24px' : '40px',
+      },
+      crumbs: [{ label: 'Home', href: 'Home Page.dc.html' }, { label: 'Knowledge hub', href: 'Blog Page.dc.html' }, { label: 'FAQs' }],
+      query: this.state.query, onQuery: (e) => this.setState({ query: e.target.value }),
+      groups: groups, empty: groups.length === 0,
+      topicLinks: groups.map((g) => ({ label: g.title, count: g.items.length, href: '#' + g.id, go: (e) => { e.preventDefault(); jumpTo(g.id); } })),
+      jump: (t) => jumpTo(t.href.slice(1)),
+    });
+  }
+}
+</script>
+</body>
+</html>
