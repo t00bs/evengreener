@@ -47,17 +47,7 @@
 
   <main>
     <div data-note="1">
-      <sc-if value="{{ mobile }}" hint-placeholder-val="{{ true }}">
-        <section aria-label="Why shop with us" style="background:var(--eg-color-bg-alt);border-bottom:1px solid var(--eg-color-border-on-alt)">
-          <ul role="list" tabindex="0" aria-label="Why shop with us, scroll for more" style="list-style:none;margin:0;padding:0 16px;display:flex;gap:24px;overflow-x:auto;scrollbar-width:none;scroll-snap-type:x proximity">
-            <sc-for list="{{ usps }}" as="u" hint-placeholder-count="4">
-              <li style="flex:none;display:flex;align-items:center;gap:8px;min-height:44px;font-size:var(--eg-text-body-sm);font-weight:500;white-space:nowrap;scroll-snap-align:start">
-                <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.LeafIcon" width="{{ 20 }}" hint-size="20px,14px"></x-import>{{ u.short }}
-              </li>
-            </sc-for>
-          </ul>
-        </section>
-      </sc-if>
+      <!-- 28 Oct: mobile USP strip under the header removed (Toby). Desktop UspBar kept. -->
       <sc-if value="{{ desktop }}" hint-placeholder-val="{{ false }}">
         <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.UspBar" items="{{ usps }}" hint-size="100%,88px"></x-import>
       </sc-if>
