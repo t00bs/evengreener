@@ -16,7 +16,7 @@
 <style>body{margin:0;background:#fff}a{color:var(--eg-color-link)}a:hover{color:var(--eg-color-link-hover)}</style>
 </helmet>
 <div style="position:relative;background:var(--eg-white);color:var(--eg-color-text)">
-  <div ref="{{ pinLayer }}" aria-hidden="true" style="position:absolute;top:0;left:0;width:0;height:0;z-index:300;pointer-events:none">
+  <div ref="{{ pinLayer }}" aria-hidden="true" style="position:absolute;top:0;left:0;width:0;height:0;z-index:300;pointer-events:none;visibility:{{ pinVis }}">
     <sc-for list="{{ pins }}" as="p" hint-placeholder-count="0">
       <div style="position:absolute;top:{{ p.top }};left:{{ p.left }};min-width:24px;height:24px;padding:0 6px;border-radius:999px;background:#C8285E;color:#fff;font:600 12px/24px Poppins,sans-serif;text-align:center;box-shadow:0 0 0 2px #fff">{{ p.n }}</div>
     </sc-for>
@@ -109,6 +109,11 @@
               <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.IconButton" icon="heart" label="{{ wishLabel }}" pressed="{{ wished }}" onClick="{{ toggleWish }}" hint-size="48px,48px"></x-import>
             </sc-if>
           </div>
+          <!-- Spread the cost (T-056, 5 Nov review): one quiet text line under the buy row, opens the Pay Later panel. No logos under Add to bag. -->
+          <p data-note="P1" style="margin:{{ L.payPull }} 0 0;display:flex;flex-wrap:wrap;align-items:center;column-gap:8px;font-size:var(--eg-text-body-sm);line-height:1.4">
+            <span>Spread the cost from {{ perMonth }} a month.</span>
+            <button ref="{{ payTrigRef }}" type="button" onClick="{{ openPay }}" aria-haspopup="dialog" aria-expanded="{{ payOpen }}" aria-controls="pay-later-panel" class="eg-link-cta" style="background-color:transparent;font-size:var(--eg-text-body-sm);min-height:24px">See options</button>
+          </p>
           <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.StockNote" status="in" hint-size="100%,22px">In stock. Free UK delivery over £65, usually 2 to 4 working days.</x-import>
 
           <div data-note="8" style="display:grid;gap:6px;padding-top:4px;border-top:1px solid var(--eg-color-border);padding-top:16px">
@@ -170,6 +175,36 @@
     </div>
   </sc-if>
 
+  <!-- Spread the cost panel (T-056). Bottom sheet under 900px, small dialog above. In the build each row is the provider's own message: Shopify's payment_terms banner and PayPal's Pay Later message. -->
+  <sc-if value="{{ payOpen }}" hint-placeholder-val="{{ false }}">
+    <div>
+      <div class="eg-scrim" onClick="{{ closePay }}" aria-hidden="true"></div>
+      <div id="pay-later-panel" ref="{{ payRef }}" role="dialog" aria-modal="true" aria-labelledby="pay-later-title" style="position:fixed;z-index:100;display:flex;flex-direction:column;background:var(--eg-white);box-shadow:var(--eg-shadow-overlay);overflow:hidden;{{ L.paySheet }}">
+        <div class="eg-drawer__head">
+          <h2 id="pay-later-title" class="eg-h4" style="margin:0">Spread the cost</h2>
+          <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.IconButton" icon="x" ghost="{{ true }}" label="Close" onClick="{{ closePay }}" hint-size="44px,44px"></x-import>
+        </div>
+        <div class="eg-drawer__body" style="display:grid;gap:16px;padding-top:20px;min-height:0">
+          <p style="margin:0;font-size:var(--eg-text-body-sm);line-height:1.5">Split {{ priceLabel }} into 3 interest-free payments: the first at checkout, then two monthly.</p>
+          <ul role="list" style="list-style:none;margin:0;padding:0;display:grid;gap:12px">
+            <sc-for list="{{ payOptions }}" as="o" hint-placeholder-count="2">
+              <li style="display:grid;gap:6px;padding:16px;border:1px solid var(--eg-color-border);border-radius:var(--eg-leaf-sm)">
+                <div style="display:flex;align-items:center;justify-content:space-between;gap:12px">
+                  <strong style="font-weight:var(--eg-weight-strong)">{{ o.title }}</strong>
+                  <span style="padding:2px 8px;border:1px solid var(--eg-color-border-strong);font:600 var(--eg-text-caption)/1.5 var(--eg-font-body);letter-spacing:.04em;white-space:nowrap">{{ o.mark }}</span>
+                </div>
+                <span>{{ o.amount }}</span>
+                <span style="font-size:var(--eg-text-body-sm);line-height:1.5;color:var(--eg-color-text-muted)">{{ o.sub }}</span>
+                <div><a href="#" onClick="{{ o.learn }}" class="eg-link-cta" style="font-size:var(--eg-text-body-sm);min-height:24px;display:inline-flex;align-items:center">Learn more<span style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)"> about {{ o.title }}</span></a></div>
+              </li>
+            </sc-for>
+          </ul>
+          <p style="margin:0;font-size:var(--eg-text-caption);line-height:1.5;color:var(--eg-color-text-muted)">Subject to status. Choose at checkout. 18+ UK residents only. Shop Pay Installments offers credit with Affirm as lender. PayPal Pay in 3 is a credit agreement with PayPal UK Ltd.</p>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
   <sc-if value="{{ drawerOpen }}" hint-placeholder-val="{{ false }}">
     <dc-import name="Cart Drawer" open="{{ true }}" items="{{ drawerItems }}" upsell="{{ drawerUpsell }}" on-close="{{ closeDrawer }}" hint-size="0px,0px"></dc-import>
   </sc-if>
@@ -177,10 +212,32 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script>
 class Component extends DCLogic {
-  state = { w: window.innerWidth, ready: !!window.EGData, pins: [], gal: 0, img: 0, cap: '330L', qty: 1, descOpen: false, added: {}, wished: false, showSticky: false, drawerOpen: false, bag: 0 };
-  pinLayer = React.createRef(); galRef = React.createRef(); buyRef = React.createRef();
+  state = { w: window.innerWidth, ready: !!window.EGData, pins: [], gal: 0, img: 0, cap: '330L', qty: 1, descOpen: false, added: {}, wished: false, showSticky: false, drawerOpen: false, bag: 0, payOpen: false };
+  pinLayer = React.createRef(); galRef = React.createRef(); buyRef = React.createRef(); payRef = React.createRef(); payTrigRef = React.createRef();
+  focusables() { const box = this.payRef.current; return box ? Array.prototype.slice.call(box.querySelectorAll('a[href],button:not([disabled]),[tabindex]:not([tabindex="-1"])')) : []; }
+  openPay() {
+    this.setState({ payOpen: true }, () => {
+      document.documentElement.style.overflow = 'hidden';
+      let n = 0; const go = () => { const f = this.focusables(); if (f.length) f[0].focus(); else if (n++ < 20) requestAnimationFrame(go); }; go();
+    });
+  }
+  closePay() {
+    if (!this.state.payOpen) return;
+    this.setState({ payOpen: false }, () => { document.documentElement.style.overflow = ''; const t = this.payTrigRef.current; if (t) t.focus(); });
+  }
   componentDidMount() {
     const U = () => window.EGUtil;
+    // Spread the cost panel: Esc closes, Tab and Shift+Tab stay inside the dialog while it is open.
+    this.onK = (e) => {
+      if (!this.state.payOpen) return;
+      if (e.key === 'Escape') { e.preventDefault(); this.closePay(); return; }
+      if (e.key !== 'Tab') return;
+      const f = this.focusables(); if (!f.length) return;
+      const box = this.payRef.current, a = document.activeElement, first = f[0], last = f[f.length - 1];
+      if (e.shiftKey && (a === first || !box.contains(a))) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && (a === last || !box.contains(a))) { e.preventDefault(); first.focus(); }
+    };
+    document.addEventListener('keydown', this.onK);
     this.onR = () => this.setState({ w: window.innerWidth });
     window.addEventListener('resize', this.onR);
     this.onS = () => {
@@ -192,12 +249,12 @@ class Component extends DCLogic {
     window.addEventListener('scroll', this.onS, { passive: true });
     this.t = setInterval(() => {
       if (!this.state.ready && window.EGData) this.setState({ ready: true });
-      if (U() && !this.flagsRead) { this.flagsRead = true; this.notes = U().param('notes') != null; if (U().param('drawer') != null) this.setState({ drawerOpen: true, bag: 1 }); }
+      if (U() && !this.flagsRead) { this.flagsRead = true; this.notes = U().param('notes') != null; if (U().param('drawer') != null) this.setState({ drawerOpen: true, bag: 1 }); if (U().param('pay') != null) this.openPay(); }
       this.onS();
       if (this.notes && U()) { const p = U().pins(this.pinLayer.current); const k = JSON.stringify(p); if (k !== this.pinKey) { this.pinKey = k; this.setState({ pins: p }); } }
     }, 500);
   }
-  componentWillUnmount() { clearInterval(this.t); window.removeEventListener('resize', this.onR); window.removeEventListener('scroll', this.onS); }
+  componentWillUnmount() { clearInterval(this.t); document.removeEventListener('keydown', this.onK); document.documentElement.style.overflow = ''; window.removeEventListener('resize', this.onR); window.removeEventListener('scroll', this.onS); }
   renderVals() {
     const D = window.EGData || {};
     const m = this.state.w < 900;
@@ -218,6 +275,8 @@ class Component extends DCLogic {
       L: {
         topPad: m ? '12px 0 32px' : '24px 0 64px', gut: m ? '16px' : 'var(--eg-gutter)',
         pdpCols: m ? 'minmax(0,1fr)' : 'minmax(0,7fr) minmax(0,5fr)', pdpGap: m ? '16px' : '64px', bbGap: m ? '12px' : '20px',
+        payPull: m ? '-4px' : '-8px',
+        paySheet: m ? 'left:0;right:0;bottom:0;max-height:88vh;border-radius:0 20px 0 0' : 'top:50%;left:50%;transform:translate(-50%,-50%);width:min(440px,calc(100% - 48px));max-height:calc(100vh - 48px);border-radius:var(--eg-leaf-md)',
         secPad: m ? '40px' : '80px', detCols: m ? 'minmax(0,1fr)' : 'minmax(0,7fr) minmax(0,5fr)', detGap: m ? '32px' : '64px', accMargin: m ? '32px' : '48px',
       },
       catBar: (window.EGData || {}).nav ? window.EGUtil.shell(this).catBar : [], catBarB: m && window.EGUtil && window.EGUtil.navOption() === 'b', catBarC: m && window.EGUtil && window.EGUtil.navOption() === 'c',
@@ -235,13 +294,22 @@ class Component extends DCLogic {
       thumbs: gallery.map((g, i) => ({ kind: g.kind, src: g.src, on: i === this.state.img, border: i === this.state.img ? 'var(--eg-forest-900)' : 'transparent', aria: 'Show image ' + (i + 1) + ' of ' + gallery.length + ': ' + g.label, select: () => this.setState({ img: i }) })),
       crumbs: m ? [{ label: 'Home', href: '#' }, { label: 'Composting', href: '#' }, { label: 'Hot composters', href: '#' }] : [{ label: 'Home', href: '#' }, { label: 'Composting', href: '#' }, { label: 'Hot composters', href: '#' }, { label: 'Green Johanna 330L Compost Bin' }],
       price: price,
+      // Spread the cost: price / 3, rounded down to the penny (providers put any rounding on the first payment).
+      perMonth: '£' + (Math.floor(price / 3 * 100) / 100).toFixed(2), priceLabel: '£' + price.toFixed(2),
+      pinVis: this.state.payOpen ? 'hidden' : 'visible', // review pins would float over the open panel
+      payOpen: this.state.payOpen, payRef: this.payRef, payTrigRef: this.payTrigRef,
+      openPay: () => this.openPay(), closePay: () => this.closePay(),
+      payOptions: [
+        { title: 'Pay in 3 with Shop Pay', mark: 'Shop Pay', amount: '3 interest-free instalments of £' + (Math.floor(price / 3 * 100) / 100).toFixed(2), sub: 'Choose Shop Pay at checkout.', learn: (e) => e.preventDefault() },
+        { title: 'Pay in 3 with PayPal', mark: 'PayPal', amount: '3 interest-free payments of £' + (Math.floor(price / 3 * 100) / 100).toFixed(2), sub: 'Choose PayPal at checkout. You can also pay the full amount in 30 days.', learn: (e) => e.preventDefault() },
+      ],
       excerpts: (m ? quotes.slice(0, 1) : quotes).map((q) => Object.assign({}, q, { inlineLink: m })),
       capacities: caps, cap: this.state.cap, setCap: (v) => this.setState({ cap: v }),
       swatches: [{ name: 'Green', color: '#296647' }, { name: 'Black', color: '#1D1D1D' }],
       qty: this.state.qty, setQty: (n) => this.setState({ qty: n }),
       addToBag: () => this.setState((s) => ({ bag: s.bag + s.qty, drawerOpen: true })),
       wished: this.state.wished, wishLabel: this.state.wished ? 'Remove from wishlist' : 'Add to wishlist', toggleWish: () => this.setState((s) => ({ wished: !s.wished })),
-      showSticky: m && this.state.showSticky && !this.state.drawerOpen,
+      showSticky: m && this.state.showSticky && !this.state.drawerOpen && !this.state.payOpen,
       buyRef: this.buyRef,
       descClamp: this.state.descOpen ? 'unset' : 3, descOpen: this.state.descOpen, descLabel: this.state.descOpen ? 'Read less' : 'Read more',
       toggleDesc: () => this.setState((s) => ({ descOpen: !s.descOpen })),
