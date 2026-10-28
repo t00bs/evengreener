@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="icon" href="data:,">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="_ds/evengreener-design-system-ede5a68e-3ce4-4c3a-82c1-af597595dcea/styles.css">
+<script src="_ds/evengreener-design-system-ede5a68e-3ce4-4c3a-82c1-af597595dcea/_ds_bundle.js"></script>
+<script src="eg-shared.js"></script>
+<style>body{margin:0;background:#fff}a{color:var(--eg-color-link)}a:hover{color:var(--eg-color-link-hover)}</style>
+</helmet>
+<div style="position:relative;background:var(--eg-white);color:var(--eg-color-text)">
+  <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.AnnouncementBar" hint-size="100%,32px"></x-import>
+  <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.Header" nav="{{ nav }}" utility-links="{{ utility }}" search-scopes="{{ scopes }}" bag-count="{{ bagCount }}" bag-total="{{ bagTotal }}" on-bag="{{ openDrawer }}" hint-size="100%,60px"></x-import>
+  <!-- Mobile category bar (28 Oct review). Option B default: one swipeable row of full category names. Option C: compact, sticky, hides on scroll down. ?nav=a|b|c -->
+  <sc-if value="{{ catBarB }}" hint-placeholder-val="{{ false }}">
+    <nav class="egx-catbar" data-note="N1" aria-label="Shop by category">
+      <ul role="list">
+        <sc-for list="{{ catBar }}" as="q" hint-placeholder-count="7">
+          <li><a href="{{ q.href }}" class="eg-chip">{{ q.label }}</a></li>
+        </sc-for>
+      </ul>
+    </nav>
+  </sc-if>
+  <sc-if value="{{ catBarC }}" hint-placeholder-val="{{ false }}">
+    <nav class="egx-catbar egx-catbar--c" data-note="N1" aria-label="Shop by category">
+      <ul role="list">
+        <sc-for list="{{ catBar }}" as="q" hint-placeholder-count="7">
+          <li><a href="{{ q.href }}" class="eg-chip">{{ q.label }}</a></li>
+        </sc-for>
+      </ul>
+    </nav>
+  </sc-if>
+
+  <main style="max-width:var(--eg-container-max);margin-inline:auto;padding-inline:{{ gut }};padding-block:{{ L.pad }}">
+    <div style="display:grid;gap:{{ L.headGap }};margin-bottom:{{ L.headGap }}">
+      <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.Breadcrumb" items="{{ crumbs }}" hint-size="160px,20px"></x-import>
+      <div style="display:grid;gap:8px;max-width:760px">
+        <h1 class="eg-h1" style="margin:0">Contact us</h1>
+        <p class="eg-muted" style="margin:0;font-size:{{ L.standfirst }};text-wrap:pretty">Our Customer Care Team is here to help, Monday to Friday. We reply within 1 working day.</p>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:{{ L.cols }};gap:{{ L.colGap }};align-items:start">
+      <div style="order:{{ L.formOrder }};min-width:0">
+        <sc-if value="{{ sent }}" hint-placeholder-val="{{ false }}">
+          <div class="eg-form__success" role="status">
+            <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.Icon" name="check" size="{{ 28 }}" style="color:var(--eg-leaf-600)" hint-size="28px,28px"></x-import>
+            <h2 class="eg-h3" style="margin:0">Thanks, we have got your message</h2>
+            <p style="margin:0">We will reply to {{ sentTo }} within 1 working day.</p>
+            <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.Button" variant="secondary" onClick="{{ reset }}" hint-size="160px,48px">Send another message</x-import>
+          </div>
+        </sc-if>
+        <sc-if value="{{ notSent }}" hint-placeholder-val="{{ true }}">
+          <form class="eg-form" noValidate="{{ true }}" onSubmit="{{ submit }}" aria-labelledby="form-title">
+            <h2 id="form-title" class="eg-h3 eg-form__full" style="margin:0">Send us a message</h2>
+            <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.Input" label="Your name" name="name" autocomplete="name" error="{{ errors.name }}" hint-size="100%,74px"></x-import>
+            <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.Input" label="Email" name="email" type="email" autocomplete="email" error="{{ errors.email }}" hint-size="100%,74px"></x-import>
+            <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.Select" label="What is it about?" options="{{ topics }}" hint-size="100%,74px"></x-import>
+            <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.Input" label="Order number (optional)" name="order" placeholder="e.g. EG10482" hint="Find it in your order confirmation email" hint-size="100%,96px"></x-import>
+            <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.Input" class-name="eg-form__full" label="Your message" name="msg" multiline="{{ true }}" rows="{{ 5 }}" error="{{ errors.msg }}" hint-size="100%,160px"></x-import>
+            <div class="eg-form__full" style="display:flex;flex-wrap:wrap;align-items:center;gap:12px 24px">
+              <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.Button" type="submit" hint-size="160px,48px">Send message</x-import>
+              <span style="font-size:var(--eg-text-caption);color:var(--eg-color-text-muted)">We only use your details to reply.</span>
+            </div>
+          </form>
+        </sc-if>
+      </div>
+
+      <aside aria-labelledby="quick-title" style="order:{{ L.asideOrder }};background:var(--eg-color-bg-alt);padding:{{ L.panelPad }};margin-inline:{{ L.bleed }};display:grid;gap:20px">
+        <div style="display:grid;gap:4px">
+          <h2 id="quick-title" class="eg-h4" style="margin:0">Quick answers</h2>
+          <p style="margin:0;font-size:var(--eg-text-body-sm);color:var(--eg-color-text-muted)">Most questions are answered here straight away.</p>
+        </div>
+        <ul role="list" style="list-style:none;margin:0;padding:0">
+          <sc-for list="{{ quick }}" as="q" hint-placeholder-count="4">
+            <li style="border-top:1px solid var(--eg-color-border-on-alt)">
+              <a href="{{ q.href }}" style="display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:48px;color:var(--eg-color-text);text-decoration:none;font-weight:500;font-size:var(--eg-text-body-sm)">{{ q.label }}<x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.Icon" name="chevron-right" size="{{ 18 }}" hint-size="18px,18px"></x-import></a>
+            </li>
+          </sc-for>
+        </ul>
+        <dl style="margin:0;display:grid;gap:14px;padding-top:20px;border-top:1px solid var(--eg-color-border-on-alt);font-size:var(--eg-text-body-sm);line-height:1.5">
+          <sc-for list="{{ details }}" as="d" hint-placeholder-count="3">
+            <div style="display:grid;grid-template-columns:24px minmax(0,1fr);gap:10px">
+              <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.Icon" name="{{ d.icon }}" size="{{ 20 }}" style="color:var(--eg-leaf-600);margin-top:1px" hint-size="20px,20px"></x-import>
+              <div><dt style="font-weight:600">{{ d.title }}</dt><dd style="margin:0;color:var(--eg-color-text-muted)">{{ d.text }}</dd></div>
+            </div>
+          </sc-for>
+        </dl>
+      </aside>
+    </div>
+  </main>
+
+  <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.Footer" columns="{{ footerCols }}" hint-size="100%,520px"></x-import>
+  <sc-if value="{{ drawerOpen }}" hint-placeholder-val="{{ false }}">
+    <dc-import name="Cart Drawer" open="{{ true }}" items="{{ drawerItems }}" on-close="{{ closeDrawer }}" hint-size="0px,0px"></dc-import>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { w: window.innerWidth, ready: !!window.EGData, errors: {}, sent: '' };
+  componentDidMount() {
+    this.onR = () => this.setState({ w: window.innerWidth });
+    window.addEventListener('resize', this.onR);
+    this.t = setInterval(() => { if (!this.state.ready && window.EGData) this.setState({ ready: true }); }, 300);
+  }
+  componentWillUnmount() { clearInterval(this.t); window.removeEventListener('resize', this.onR); }
+  renderVals() {
+    const S = window.EGUtil ? window.EGUtil.shell(this) : {};
+    const m = this.state.w < 900;
+    return Object.assign(S, {
+      L: {
+        pad: m ? '20px 48px' : '40px 96px', headGap: m ? '16px' : '32px', standfirst: m ? 'var(--eg-text-body)' : 'var(--eg-text-body-lg)',
+        cols: m ? 'minmax(0,1fr)' : 'minmax(0,7fr) minmax(0,4fr)', colGap: m ? '32px' : '64px',
+        formOrder: m ? 2 : 1, asideOrder: m ? 1 : 2, panelPad: m ? '20px 16px' : '28px', bleed: m ? '-16px' : '0',
+      },
+      crumbs: [{ label: 'Home', href: 'Home Page.dc.html' }, { label: 'Contact us' }],
+      topics: ['Choosing a product', 'An order I have placed', 'Delivery', 'Returns and refunds', 'Spare parts', 'Something else'],
+      errors: Object.assign({ name: '', email: '', msg: '' }, this.state.errors), sent: !!this.state.sent, notSent: !this.state.sent, sentTo: this.state.sent,
+      submit: (e) => {
+        e.preventDefault(); const f = e.target.elements; const err = {};
+        if (!f.name.value.trim()) err.name = 'Enter your name';
+        if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(f.email.value)) err.email = 'Enter a full email address, like name@example.co.uk';
+        if (f.msg.value.trim().length < 5) err.msg = 'Tell us a little about how we can help';
+        if (Object.keys(err).length) this.setState({ errors: err }); else this.setState({ errors: {}, sent: f.email.value });
+      },
+      reset: () => this.setState({ sent: '' }),
+      quick: [
+        { label: 'Track my order', href: 'Account Page.dc.html?view=order' },
+        { label: 'Delivery and returns', href: 'FAQ Page.dc.html' },
+        { label: 'Which composter is right for me?', href: 'Article Page.dc.html' },
+        { label: 'Bulk and trade enquiries', href: 'Bulk Enquiry Page.dc.html' },
+      ],
+      details: [
+        { icon: 'mail', title: 'Email', text: 'customer.care@evengreener.com' },
+        { icon: 'clock', title: 'Opening hours', text: 'Monday to Friday. We reply within 1 working day.' },
+        { icon: 'map-pin', title: 'Address', text: 'Brookfield Court, Selby Road, Leeds LS25 1NB' },
+      ],
+    });
+  }
+}
+</script>
+</body>
+</html>

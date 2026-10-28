@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="icon" href="data:,">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="_ds/evengreener-design-system-ede5a68e-3ce4-4c3a-82c1-af597595dcea/styles.css">
+<script src="_ds/evengreener-design-system-ede5a68e-3ce4-4c3a-82c1-af597595dcea/_ds_bundle.js"></script>
+<script src="eg-shared.js"></script>
+<style>body{margin:0;background:#fff}a{color:var(--eg-color-link)}a:hover{color:var(--eg-color-link-hover)}</style>
+</helmet>
+<div style="position:relative;background:var(--eg-white);color:var(--eg-color-text)">
+  <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.AnnouncementBar" hint-size="100%,32px"></x-import>
+  <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.Header" nav="{{ nav }}" utility-links="{{ utility }}" search-scopes="{{ scopes }}" bag-count="{{ bagCount }}" bag-total="{{ bagTotal }}" on-bag="{{ openDrawer }}" hint-size="100%,60px"></x-import>
+  <!-- Mobile category bar (28 Oct review). Option B default: one swipeable row of full category names. Option C: compact, sticky, hides on scroll down. ?nav=a|b|c -->
+  <sc-if value="{{ catBarB }}" hint-placeholder-val="{{ false }}">
+    <nav class="egx-catbar" data-note="N1" aria-label="Shop by category">
+      <ul role="list">
+        <sc-for list="{{ catBar }}" as="q" hint-placeholder-count="7">
+          <li><a href="{{ q.href }}" class="eg-chip">{{ q.label }}</a></li>
+        </sc-for>
+      </ul>
+    </nav>
+  </sc-if>
+  <sc-if value="{{ catBarC }}" hint-placeholder-val="{{ false }}">
+    <nav class="egx-catbar egx-catbar--c" data-note="N1" aria-label="Shop by category">
+      <ul role="list">
+        <sc-for list="{{ catBar }}" as="q" hint-placeholder-count="7">
+          <li><a href="{{ q.href }}" class="eg-chip">{{ q.label }}</a></li>
+        </sc-for>
+      </ul>
+    </nav>
+  </sc-if>
+  <main>
+    <section aria-labelledby="nf-title" style="padding-block:{{ L.pad }}">
+      <div style="max-width:720px;margin-inline:auto;padding-inline:{{ gut }};display:grid;gap:{{ L.gap }};justify-items:start">
+        <p class="eg-eyebrow eg-eyebrow--tag" style="margin:0">Error 404</p>
+        <h1 id="nf-title" class="eg-display" style="margin:0;font-size:{{ L.h1 }}">We can’t find that page</h1>
+        <p class="eg-muted" style="margin:0;font-size:{{ L.standfirst }};text-wrap:pretty">It may have moved, or the link might be out of date. Search for what you need, or start from one of our main collections.</p>
+        <div style="width:100%;max-width:560px">
+          <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.InputGroup" label="Search the store" placeholder="Search composters, water butts and more" type="search" button-label="Search" on-submit="{{ search }}" hint-size="100%,48px"></x-import>
+        </div>
+        <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.CollectionLinks" items="{{ cats }}" label="Main collections" hint-size="100%,44px"></x-import>
+      </div>
+    </section>
+    <section aria-labelledby="nf-best" style="background:var(--eg-color-bg-alt);padding-block:{{ secPad }}">
+      <div style="max-width:var(--eg-container-max);margin-inline:auto;padding-inline:{{ gut }};display:grid;gap:{{ L.headGap }}">
+        <div style="display:flex;justify-content:space-between;align-items:baseline;gap:16px">
+          <h2 id="nf-best" class="eg-h2" style="margin:0">Popular right now</h2>
+          <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.LinkCta" href="Collection Page.dc.html" hint-size="70px,24px">Shop all</x-import>
+        </div>
+        <div style="display:grid;grid-template-columns:{{ L.cols }};gap:{{ L.cardGap }}">
+          <sc-for list="{{ best }}" as="p" hint-placeholder-count="4">
+            <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.ProductCard" product="{{ p }}" variant="detailed" on-add="{{ quickAdd }}" hint-size="100%,420px"></x-import>
+          </sc-for>
+        </div>
+      </div>
+    </section>
+  </main>
+  <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.Footer" columns="{{ footerCols }}" hint-size="100%,520px"></x-import>
+  <sc-if value="{{ drawerOpen }}" hint-placeholder-val="{{ false }}">
+    <dc-import name="Cart Drawer" open="{{ true }}" items="{{ drawerItems }}" on-close="{{ closeDrawer }}" hint-size="0px,0px"></dc-import>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { w: window.innerWidth, ready: !!window.EGData };
+  componentDidMount() {
+    this.onR = () => this.setState({ w: window.innerWidth });
+    window.addEventListener('resize', this.onR);
+    this.t = setInterval(() => { if (!this.state.ready && window.EGData) this.setState({ ready: true }); }, 300);
+  }
+  componentWillUnmount() { clearInterval(this.t); window.removeEventListener('resize', this.onR); }
+  renderVals() {
+    const D = window.EGData || {}; const S = window.EGUtil ? window.EGUtil.shell(this) : {};
+    const m = this.state.w < 900;
+    return Object.assign(S, {
+      L: { pad: m ? '40px' : '96px', gap: m ? '16px' : '24px', h1: m ? '40px' : '72px', standfirst: m ? 'var(--eg-text-body)' : 'var(--eg-text-body-lg)', headGap: m ? '16px' : '32px', cols: m ? 'repeat(2,minmax(0,1fr))' : 'repeat(4,minmax(0,1fr))', cardGap: m ? '16px' : 'var(--eg-grid-gap)' },
+      search: (v) => { location.href = 'Search Page.dc.html?q=' + encodeURIComponent(v || ''); },
+      cats: ['Water butts and tanks', 'Composting', 'Indoor and kitchen', 'In the garden', 'Gifts'].map((l) => ({ label: l, href: 'Collection Page.dc.html' })),
+      best: (D.bestsellers || []).slice(0, 4),
+    });
+  }
+}
+</script>
+</body>
+</html>

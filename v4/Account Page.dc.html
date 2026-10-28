@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="icon" href="data:,">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="_ds/evengreener-design-system-ede5a68e-3ce4-4c3a-82c1-af597595dcea/styles.css">
+<script src="_ds/evengreener-design-system-ede5a68e-3ce4-4c3a-82c1-af597595dcea/_ds_bundle.js"></script>
+<script src="eg-shared.js"></script>
+<style>body{margin:0;background:#fff}a{color:var(--eg-color-link)}a:hover{color:var(--eg-color-link-hover)}</style>
+</helmet>
+<div style="position:relative;background:var(--eg-white);color:var(--eg-color-text)">
+  <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.AnnouncementBar" hint-size="100%,32px"></x-import>
+  <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.Header" nav="{{ nav }}" utility-links="{{ utility }}" search-scopes="{{ scopes }}" bag-count="{{ bagCount }}" bag-total="{{ bagTotal }}" on-bag="{{ openDrawer }}" on-account="{{ toOrders }}" hint-size="100%,60px"></x-import>
+  <!-- Mobile category bar (28 Oct review). Option B default: one swipeable row of full category names. Option C: compact, sticky, hides on scroll down. ?nav=a|b|c -->
+  <sc-if value="{{ catBarB }}" hint-placeholder-val="{{ false }}">
+    <nav class="egx-catbar" data-note="N1" aria-label="Shop by category">
+      <ul role="list">
+        <sc-for list="{{ catBar }}" as="q" hint-placeholder-count="7">
+          <li><a href="{{ q.href }}" class="eg-chip">{{ q.label }}</a></li>
+        </sc-for>
+      </ul>
+    </nav>
+  </sc-if>
+  <sc-if value="{{ catBarC }}" hint-placeholder-val="{{ false }}">
+    <nav class="egx-catbar egx-catbar--c" data-note="N1" aria-label="Shop by category">
+      <ul role="list">
+        <sc-for list="{{ catBar }}" as="q" hint-placeholder-count="7">
+          <li><a href="{{ q.href }}" class="eg-chip">{{ q.label }}</a></li>
+        </sc-for>
+      </ul>
+    </nav>
+  </sc-if>
+
+  <main style="max-width:var(--eg-container-max);margin-inline:auto;padding-inline:{{ gut }};padding-block:{{ L.pad }}">
+
+    <sc-if value="{{ v.login }}" hint-placeholder-val="{{ true }}">
+      <div style="display:grid;grid-template-columns:{{ L.authCols }};gap:{{ L.colGap }};align-items:start;max-width:1040px;margin-inline:auto">
+        <form noValidate="{{ true }}" onSubmit="{{ signIn }}" style="display:grid;gap:20px" aria-labelledby="login-title">
+          <div style="display:grid;gap:8px">
+            <h1 id="login-title" class="eg-h1" style="margin:0">Sign in</h1>
+            <p class="eg-muted" style="margin:0">Track orders, save addresses and check out faster.</p>
+          </div>
+          <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.Input" label="Email" name="email" type="email" autocomplete="email" error="{{ err.email }}" hint-size="100%,74px"></x-import>
+          <div style="display:grid;gap:8px">
+            <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.Input" label="Password" name="pw" type="password" autocomplete="current-password" error="{{ err.pw }}" hint-size="100%,74px"></x-import>
+            <a href="#" onClick="{{ toReset }}" style="justify-self:start;font-size:var(--eg-text-body-sm)">Forgot your password?</a>
+          </div>
+          <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.Button" type="submit" block="{{ true }}" hint-size="100%,48px">Sign in</x-import>
+        </form>
+        <aside aria-labelledby="new-title" style="background:var(--eg-color-bg-alt);padding:{{ L.panelPad }};margin-inline:{{ L.bleed }};display:grid;gap:16px;justify-items:start">
+          <h2 id="new-title" class="eg-h3" style="margin:0">New to EvenGreener?</h2>
+          <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.LeafList" items="{{ perks }}" hint-size="100%,120px"></x-import>
+          <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.Button" variant="secondary" onClick="{{ toRegister }}" hint-size="180px,48px">Create an account</x-import>
+          <p style="margin:0;font-size:var(--eg-text-body-sm);color:var(--eg-color-text-muted)">Just want to buy? You can check out as a guest, no account needed.</p>
+        </aside>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ v.register }}" hint-placeholder-val="{{ false }}">
+      <form noValidate="{{ true }}" onSubmit="{{ register }}" style="max-width:520px;margin-inline:auto;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px" aria-labelledby="reg-title">
+        <div style="grid-column:1/-1;display:grid;gap:8px">
+          <h1 id="reg-title" class="eg-h1" style="margin:0">Create an account</h1>
+          <p class="eg-muted" style="margin:0">It takes a minute. We never share your details.</p>
+        </div>
+        <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.Input" label="First name" name="first" autocomplete="given-name" error="{{ err.first }}" hint-size="100%,74px"></x-import>
+        <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.Input" label="Last name" name="last" autocomplete="family-name" hint-size="100%,74px"></x-import>
+        <div style="grid-column:1/-1"><x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.Input" label="Email" name="email" type="email" autocomplete="email" error="{{ err.email }}" hint-size="100%,74px"></x-import></div>
+        <div style="grid-column:1/-1"><x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.Input" label="Password" name="pw" type="password" autocomplete="new-password" hint="At least 8 characters" error="{{ err.pw }}" hint-size="100%,96px"></x-import></div>
+        <div style="grid-column:1/-1"><x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.CheckRow" label="Join the EvenGreener Gang for seasonal tips and members-only offers" plain="{{ true }}" default-checked="{{ true }}" hint-size="100%,44px"></x-import></div>
+        <div style="grid-column:1/-1;display:grid;gap:12px">
+          <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.Button" type="submit" block="{{ true }}" hint-size="100%,48px">Create account</x-import>
+          <p style="margin:0;font-size:var(--eg-text-body-sm);text-align:center">Already have an account? <a href="#" onClick="{{ toLogin }}">Sign in</a></p>
+        </div>
+      </form>
+    </sc-if>
+
+    <sc-if value="{{ v.reset }}" hint-placeholder-val="{{ false }}">
+      <div style="max-width:480px;margin-inline:auto;display:grid;gap:20px">
+        <div style="display:grid;gap:8px">
+          <h1 class="eg-h1" style="margin:0">Reset your password</h1>
+          <p class="eg-muted" style="margin:0">Enter the email you signed up with and we will send you a reset link.</p>
+        </div>
+        <sc-if value="{{ resetSent }}" hint-placeholder-val="{{ false }}">
+          <div class="eg-form__success" role="status">
+            <p class="eg-h4" style="margin:0">Check your inbox</p>
+            <p style="margin:0">If {{ resetTo }} has an account, the link is on its way. It works for 24 hours.</p>
+          </div>
+        </sc-if>
+        <sc-if value="{{ resetForm }}" hint-placeholder-val="{{ true }}">
+          <form noValidate="{{ true }}" onSubmit="{{ sendReset }}" style="display:grid;gap:20px">
+            <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.Input" label="Email" name="email" type="email" autocomplete="email" error="{{ err.email }}" hint-size="100%,74px"></x-import>
+            <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.Button" type="submit" block="{{ true }}" hint-size="100%,48px">Send reset link</x-import>
+          </form>
+        </sc-if>
+        <a href="#" onClick="{{ toLogin }}" style="font-size:var(--eg-text-body-sm)">Back to sign in</a>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ signedIn }}" hint-placeholder-val="{{ false }}">
+      <div style="display:grid;gap:{{ L.headGap }}">
+        <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:12px 24px">
+          <div style="display:grid;gap:4px">
+            <h1 class="eg-h1" style="margin:0">Hello, Helen</h1>
+            <p class="eg-muted" style="margin:0;font-size:var(--eg-text-body-sm)">Signed in as helen.wright@example.co.uk</p>
+          </div>
+        </div>
+        <sc-if value="{{ mobile }}" hint-placeholder-val="{{ true }}">
+          <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.CollectionLinks" items="{{ acctNav }}" current="{{ acctCurrent }}" on-select="{{ pickAcct }}" label="Account" hint-size="100%,44px"></x-import>
+        </sc-if>
+        <div style="display:grid;grid-template-columns:{{ L.acctCols }};gap:{{ L.colGap }};align-items:start">
+          <sc-if value="{{ desktop }}" hint-placeholder-val="{{ false }}">
+            <nav aria-label="Account" style="border-top:1px solid var(--eg-color-border)">
+              <sc-for list="{{ acctNav }}" as="n" hint-placeholder-count="3">
+                <a href="#" onClick="{{ n.go }}" aria-current="{{ n.aria }}" style="display:flex;align-items:center;gap:12px;min-height:52px;border-bottom:1px solid var(--eg-color-border);color:var(--eg-color-text);text-decoration:none;font-weight:{{ n.weight }};font-size:var(--eg-text-body-sm);box-shadow:{{ n.bar }}"><x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.Icon" name="{{ n.icon }}" size="{{ 20 }}" style="color:var(--eg-leaf-600)" hint-size="20px,20px"></x-import>{{ n.label }}</a>
+              </sc-for>
+            </nav>
+          </sc-if>
+
+          <div style="min-width:0">
+            <sc-if value="{{ v.orders }}" hint-placeholder-val="{{ false }}">
+              <section aria-labelledby="orders-title" style="display:grid;gap:16px">
+                <h2 id="orders-title" class="eg-h3" style="margin:0">Your orders</h2>
+                <sc-if value="{{ desktop }}" hint-placeholder-val="{{ false }}">
+                  <table style="width:100%;border-collapse:collapse;font-size:var(--eg-text-body-sm)">
+                    <thead><tr style="text-align:left;color:var(--eg-color-text-muted)"><th style="font-weight:500;padding:12px 0;border-bottom:1px solid var(--eg-color-border)">Order</th><th style="font-weight:500;padding:12px 0;border-bottom:1px solid var(--eg-color-border)">Date</th><th style="font-weight:500;padding:12px 0;border-bottom:1px solid var(--eg-color-border)">Status</th><th style="font-weight:500;padding:12px 0;border-bottom:1px solid var(--eg-color-border);text-align:right">Total</th><th style="padding:12px 0;border-bottom:1px solid var(--eg-color-border)"><span style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Actions</span></th></tr></thead>
+                    <tbody>
+                      <sc-for list="{{ orders }}" as="o" hint-placeholder-count="3">
+                        <tr>
+                          <td style="padding:18px 0;border-bottom:1px solid var(--eg-color-border);font-weight:600">{{ o.id }}</td>
+                          <td style="padding:18px 0;border-bottom:1px solid var(--eg-color-border)">{{ o.date }}</td>
+                          <td style="padding:18px 0;border-bottom:1px solid var(--eg-color-border)"><span style="display:inline-flex;align-items:center;gap:8px"><span style="width:8px;height:8px;border-radius:999px;background:{{ o.dot }}"></span>{{ o.status }}</span></td>
+                          <td style="padding:18px 0;border-bottom:1px solid var(--eg-color-border);text-align:right">{{ o.totalLabel }}</td>
+                          <td style="padding:18px 0 18px 24px;border-bottom:1px solid var(--eg-color-border);text-align:right"><x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.Button" variant="secondary" size="sm" onClick="{{ o.open }}" hint-size="110px,36px">View order</x-import></td>
+                        </tr>
+                      </sc-for>
+                    </tbody>
+                  </table>
+                </sc-if>
+                <sc-if value="{{ mobile }}" hint-placeholder-val="{{ true }}">
+                  <ul role="list" style="list-style:none;margin:0;padding:0;border-top:1px solid var(--eg-color-border)">
+                    <sc-for list="{{ orders }}" as="o" hint-placeholder-count="3">
+                      <li style="border-bottom:1px solid var(--eg-color-border)">
+                        <a href="#" onClick="{{ o.open }}" style="display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 16px;padding:16px 0;color:var(--eg-color-text);text-decoration:none;font-size:var(--eg-text-body-sm)">
+                          <span style="font-weight:600">{{ o.id }}</span><span style="font-weight:600">{{ o.totalLabel }}</span>
+                          <span style="color:var(--eg-color-text-muted)">{{ o.date }}</span><span style="display:inline-flex;align-items:center;gap:6px"><span style="width:8px;height:8px;border-radius:999px;background:{{ o.dot }}"></span>{{ o.status }}</span>
+                        </a>
+                      </li>
+                    </sc-for>
+                  </ul>
+                </sc-if>
+              </section>
+            </sc-if>
+
+            <sc-if value="{{ v.order }}" hint-placeholder-val="{{ false }}">
+              <section aria-labelledby="order-title" style="display:grid;gap:{{ L.blockGap }}">
+                <div style="display:grid;gap:8px">
+                  <a href="#" onClick="{{ toOrders }}" style="justify-self:start;display:inline-flex;align-items:center;gap:4px;font-size:var(--eg-text-body-sm)"><x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.Icon" name="chevron-left" size="{{ 16 }}" hint-size="16px,16px"></x-import>All orders</a>
+                  <h2 id="order-title" class="eg-h2" style="margin:0">Order {{ order.id }}</h2>
+                  <p class="eg-muted" style="margin:0;font-size:var(--eg-text-body-sm)">Placed {{ order.date }}</p>
+                </div>
+                <div style="background:var(--eg-color-bg-tint);padding:{{ L.panelPad }};margin-inline:{{ L.bleed }};display:grid;gap:16px">
+                  <ol style="list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr))">
+                    <sc-for list="{{ track }}" as="t" hint-placeholder-count="3">
+                      <li style="display:grid;gap:8px;padding-top:12px;border-top:3px solid {{ t.line }};font-size:var(--eg-text-body-sm)">
+                        <span style="font-weight:{{ t.weight }}">{{ t.label }}</span>
+                        <span style="color:var(--eg-color-text-muted);font-size:var(--eg-text-caption)">{{ t.date }}</span>
+                      </li>
+                    </sc-for>
+                  </ol>
+                  <div style="display:flex;flex-wrap:wrap;align-items:center;gap:12px 24px">
+                    <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.Button" icon-start="truck" hint-size="150px,48px">Track parcel</x-import>
+                    <span style="font-size:var(--eg-text-body-sm)">Expected Thursday 16 October</span>
+                  </div>
+                </div>
+                <div style="border-top:1px solid var(--eg-color-border)">
+                  <sc-for list="{{ order.items }}" as="it" hint-placeholder-count="2">
+                    <div class="eg-line" style="grid-template-columns:{{ L.thumb }} minmax(0,1fr)">
+                      <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.Media" src="{{ it.image }}" label="" hint-size="72px,72px"></x-import>
+                      <div style="display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 16px;align-items:start;font-size:var(--eg-text-body-sm)">
+                        <span style="font-weight:500">{{ it.title }}</span><span style="font-weight:600">{{ it.priceLabel }}</span>
+                        <span class="eg-muted">{{ it.variant }} · Qty {{ it.qty }}</span>
+                      </div>
+                    </div>
+                  </sc-for>
+                </div>
+                <div style="display:grid;grid-template-columns:{{ L.sumCols }};gap:{{ L.colGap }};align-items:start">
+                  <dl style="margin:0;display:grid;grid-template-columns:{{ L.addrCols }};gap:20px;font-size:var(--eg-text-body-sm);line-height:1.6">
+                    <div><dt style="font-weight:600">Delivery address</dt><dd style="margin:0;color:var(--eg-color-text-muted)">Helen Wright<br>14 Allotment Lane, Headingley<br>Leeds LS6 3AB</dd></div>
+                    <div><dt style="font-weight:600">Payment</dt><dd style="margin:0;color:var(--eg-color-text-muted)">Visa ending 4242<br>Billing address same as delivery</dd></div>
+                  </dl>
+                  <dl style="margin:0;display:grid;gap:8px;font-size:var(--eg-text-body-sm)">
+                    <div style="display:flex;justify-content:space-between;gap:16px"><dt>Subtotal</dt><dd style="margin:0">{{ order.totalLabel }}</dd></div>
+                    <div style="display:flex;justify-content:space-between;gap:16px"><dt>Delivery</dt><dd style="margin:0">Free</dd></div>
+                    <div style="display:flex;justify-content:space-between;gap:16px;padding-top:8px;border-top:1px solid var(--eg-color-border);font-size:var(--eg-text-body);font-weight:600"><dt>Total</dt><dd style="margin:0">{{ order.totalLabel }}</dd></div>
+                  </dl>
+                </div>
+                <div style="display:flex;flex-wrap:wrap;gap:12px 24px;align-items:center;padding-top:20px;border-top:1px solid var(--eg-color-border)">
+                  <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.Button" variant="secondary" onClick="{{ buyAgain }}" hint-size="120px,48px">Buy again</x-import>
+                  <span style="font-size:var(--eg-text-body-sm)">Problem with this order? <a href="Contact Page.dc.html">Contact our Customer Care Team</a></span>
+                </div>
+              </section>
+            </sc-if>
+
+            <sc-if value="{{ v.addresses }}" hint-placeholder-val="{{ false }}">
+              <section aria-labelledby="addr-title" style="display:grid;gap:16px">
+                <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:12px">
+                  <h2 id="addr-title" class="eg-h3" style="margin:0">Addresses</h2>
+                  <sc-if value="{{ noAddrForm }}" hint-placeholder-val="{{ true }}">
+                    <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.Button" variant="secondary" size="sm" icon-start="plus" onClick="{{ openAddr }}" hint-size="140px,36px">Add an address</x-import>
+                  </sc-if>
+                </div>
+                <sc-if value="{{ addrForm }}" hint-placeholder-val="{{ false }}">
+                  <form class="eg-form" onSubmit="{{ saveAddr }}" style="background:var(--eg-color-bg-alt);padding:{{ L.panelPad }};margin-inline:{{ L.bleed }}">
+                    <h3 class="eg-h4 eg-form__full" style="margin:0">New address</h3>
+                    <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.Input" class-name="eg-form__full" label="Full name" autocomplete="name" hint-size="100%,74px"></x-import>
+                    <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.Input" class-name="eg-form__full" label="Address" autocomplete="address-line1" hint-size="100%,74px"></x-import>
+                    <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.Input" label="Town or city" autocomplete="address-level2" hint-size="100%,74px"></x-import>
+                    <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.Input" label="Postcode" autocomplete="postal-code" hint-size="100%,74px"></x-import>
+                    <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.Input" label="Phone (optional)" type="tel" autocomplete="tel" hint="For delivery updates only" hint-size="100%,96px"></x-import>
+                    <div style="align-self:center"><x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.CheckRow" label="Make this my default address" plain="{{ true }}" hint-size="100%,44px"></x-import></div>
+                    <div class="eg-form__full" style="display:flex;flex-wrap:wrap;gap:12px">
+                      <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.Button" type="submit" hint-size="140px,48px">Save address</x-import>
+                      <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.Button" variant="secondary" onClick="{{ closeAddr }}" hint-size="100px,48px">Cancel</x-import>
+                    </div>
+                  </form>
+                </sc-if>
+                <div style="display:grid;grid-template-columns:{{ L.addrCols }};gap:{{ L.cardGap }}">
+                  <sc-for list="{{ addresses }}" as="a" hint-placeholder-count="2">
+                    <div style="display:grid;gap:12px;align-content:start;padding:20px;border:1px solid {{ a.border }}">
+                      <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px">
+                        <strong style="font-weight:600">{{ a.name }}</strong>
+                        <sc-if value="{{ a.isDefault }}" hint-placeholder-val="{{ false }}"><span class="eg-tag">Default</span></sc-if>
+                      </div>
+                      <p style="margin:0;font-size:var(--eg-text-body-sm);line-height:1.6;color:var(--eg-color-text-muted)">{{ a.text }}</p>
+                      <div style="display:flex;gap:16px;font-size:var(--eg-text-body-sm)">
+                        <a href="#" onClick="{{ openAddr }}">Edit</a>
+                        <sc-if value="{{ a.canDelete }}" hint-placeholder-val="{{ false }}"><a href="#" onClick="{{ a.remove }}">Delete</a></sc-if>
+                      </div>
+                    </div>
+                  </sc-for>
+                </div>
+              </section>
+            </sc-if>
+          </div>
+        </div>
+      </div>
+    </sc-if>
+  </main>
+
+  <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.Footer" columns="{{ footerCols }}" hint-size="100%,520px"></x-import>
+  <sc-if value="{{ drawerOpen }}" hint-placeholder-val="{{ false }}">
+    <dc-import name="Cart Drawer" open="{{ true }}" items="{{ drawerItems }}" on-close="{{ closeDrawer }}" hint-size="0px,0px"></dc-import>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { w: window.innerWidth, ready: !!window.EGData, view: null, err: {}, resetTo: '', addrForm: false, addrs: null };
+  componentDidMount() {
+    this.onR = () => this.setState({ w: window.innerWidth });
+    window.addEventListener('resize', this.onR);
+    this.t = setInterval(() => {
+      if (!this.state.ready && window.EGData) this.setState({ ready: true, addrs: window.EGData.addresses.slice() });
+      if (this.state.view == null && window.EGUtil) this.setState({ view: window.EGUtil.param('view') || 'login' });
+    }, 300);
+  }
+  componentWillUnmount() { clearInterval(this.t); window.removeEventListener('resize', this.onR); }
+  go(view) { this.setState({ view: view, err: {}, resetTo: '', addrForm: false }); window.scrollTo(0, 0); }
+  renderVals() {
+    const D = window.EGData || {}; const S = window.EGUtil ? window.EGUtil.shell(this) : {};
+    const fmt = (window.EGUtil || {}).fmt || ((v) => '£' + v);
+    const m = this.state.w < 900;
+    const view = this.state.view || 'login';
+    const nav = (fn) => (e) => { if (e && e.preventDefault) e.preventDefault(); fn(); };
+    const emailOk = (v) => /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v || '');
+    const dot = { Delivered: 'var(--eg-leaf-600)', Dispatched: 'var(--eg-forest-700)', Processing: 'var(--eg-amber-700, #B54708)' };
+    const orders = (D.orders || []).map((o) => Object.assign({}, o, { totalLabel: fmt(o.total), dot: dot[o.status], open: nav(() => this.go('order')) }));
+    const o0 = orders[0] || { id: '', date: '', items: [], totalLabel: '' };
+    const order = Object.assign({}, o0, { items: (o0.items || []).map((i) => Object.assign({}, i, { priceLabel: fmt(i.price * i.qty) })) });
+    const acctView = view === 'order' ? 'orders' : view;
+    const acct = [{ key: 'orders', label: 'Orders', icon: 'package' }, { key: 'addresses', label: 'Addresses', icon: 'map-pin' }, { key: 'logout', label: 'Sign out', icon: 'user' }];
+    const err = Object.assign({ email: '', pw: '', first: '' }, this.state.err);
+    return Object.assign(S, {
+      L: {
+        pad: m ? '24px 48px' : '56px 96px', authCols: m ? 'minmax(0,1fr)' : 'minmax(0,1fr) minmax(0,1fr)', colGap: m ? '32px' : '64px',
+        panelPad: m ? '20px 16px' : '32px', bleed: m ? '-16px' : '0', headGap: m ? '20px' : '40px', acctCols: m ? 'minmax(0,1fr)' : 'minmax(0,3fr) minmax(0,9fr)',
+        blockGap: m ? '24px' : '32px', thumb: m ? '72px' : '88px', sumCols: m ? 'minmax(0,1fr)' : 'minmax(0,7fr) minmax(0,4fr)', addrCols: m ? 'minmax(0,1fr)' : 'repeat(2,minmax(0,1fr))', cardGap: m ? '16px' : '24px',
+      },
+      v: { login: view === 'login', register: view === 'register', reset: view === 'reset', orders: view === 'orders', order: view === 'order', addresses: view === 'addresses' },
+      signedIn: ['orders', 'order', 'addresses'].indexOf(view) > -1,
+      err: err,
+      perks: ['Track every order in one place', 'Save addresses for faster checkout', 'Reorder caddy liners and filters in two taps'],
+      toLogin: nav(() => this.go('login')), toRegister: nav(() => this.go('register')), toReset: nav(() => this.go('reset')), toOrders: nav(() => this.go('orders')),
+      signIn: (e) => { e.preventDefault(); const f = e.target.elements; const er = {};
+        if (!emailOk(f.email.value)) er.email = 'Enter a full email address, like name@example.co.uk';
+        if (!f.pw.value) er.pw = 'Enter your password';
+        if (Object.keys(er).length) this.setState({ err: er }); else this.go('orders'); },
+      register: (e) => { e.preventDefault(); const f = e.target.elements; const er = {};
+        if (!f.first.value.trim()) er.first = 'Enter your first name';
+        if (!emailOk(f.email.value)) er.email = 'Enter a full email address, like name@example.co.uk';
+        if ((f.pw.value || '').length < 8) er.pw = 'Use at least 8 characters';
+        if (Object.keys(er).length) this.setState({ err: er }); else this.go('orders'); },
+      resetSent: !!this.state.resetTo, resetForm: !this.state.resetTo, resetTo: this.state.resetTo,
+      sendReset: (e) => { e.preventDefault(); const v = e.target.elements.email.value; if (!emailOk(v)) this.setState({ err: { email: 'Enter a full email address, like name@example.co.uk' } }); else this.setState({ err: {}, resetTo: v }); },
+      acctCurrent: acct.find((a) => a.key === acctView) ? acct.find((a) => a.key === acctView).label : '',
+      acctNav: acct.map((a) => ({ label: a.label, icon: a.icon, aria: a.key === acctView ? 'page' : undefined, weight: a.key === acctView ? 600 : 400, bar: a.key === acctView ? 'inset 3px 0 0 var(--eg-forest-700)' : 'none', go: nav(() => this.go(a.key === 'logout' ? 'login' : a.key)) })),
+      pickAcct: (it) => { const a = acct.find((x) => x.label === it.label); if (a) this.go(a.key === 'logout' ? 'login' : a.key); },
+      orders: orders, order: order,
+      track: [
+        { label: 'Ordered', date: '12 October', line: 'var(--eg-forest-700)', weight: 400 },
+        { label: 'Dispatched', date: '14 October', line: 'var(--eg-forest-700)', weight: 600 },
+        { label: 'Delivered', date: 'Expected 16 October', line: 'var(--eg-leaf-200, #D5E8C2)', weight: 400 },
+      ],
+      buyAgain: () => (o0.items || []).forEach((i, n) => S.quickAdd && S.quickAdd({ id: o0.id + n, title: i.title, price: i.price })),
+      addrForm: this.state.addrForm, noAddrForm: !this.state.addrForm,
+      openAddr: nav(() => this.setState({ addrForm: true })), closeAddr: () => this.setState({ addrForm: false }),
+      saveAddr: (e) => { e.preventDefault(); this.setState({ addrForm: false }); },
+      addresses: (this.state.addrs || []).map((a, i) => Object.assign({}, a, {
+        text: a.lines.join(', ') + (a.phone ? '. ' + a.phone : ''), border: a.isDefault ? 'var(--eg-forest-900)' : 'var(--eg-color-border)', canDelete: !a.isDefault,
+        remove: nav(() => this.setState((s) => ({ addrs: s.addrs.filter((_, j) => j !== i) }))),
+      })),
+    });
+  }
+}
+</script>
+</body>
+</html>

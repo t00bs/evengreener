@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="icon" href="data:,">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="_ds/evengreener-design-system-ede5a68e-3ce4-4c3a-82c1-af597595dcea/styles.css">
+<script src="_ds/evengreener-design-system-ede5a68e-3ce4-4c3a-82c1-af597595dcea/_ds_bundle.js"></script>
+<script src="eg-shared.js"></script>
+<style>body{margin:0;background:#fff}a{color:var(--eg-color-link)}a:hover{color:var(--eg-color-link-hover)}</style>
+</helmet>
+<div style="position:relative;background:var(--eg-white);color:var(--eg-color-text)">
+  <div ref="{{ pinLayer }}" aria-hidden="true" style="position:absolute;top:0;left:0;width:0;height:0;z-index:300;pointer-events:none">
+    <sc-for list="{{ pins }}" as="p" hint-placeholder-count="0">
+      <div style="position:absolute;top:{{ p.top }};left:{{ p.left }};min-width:24px;height:24px;padding:0 6px;border-radius:999px;background:#C8285E;color:#fff;font:600 12px/24px Poppins,sans-serif;text-align:center;box-shadow:0 0 0 2px #fff">{{ p.n }}</div>
+    </sc-for>
+  </div>
+
+  <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.AnnouncementBar" hint-size="100%,32px"></x-import>
+  <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.Header" nav="{{ nav }}" utility-links="{{ utility }}" search-scopes="{{ scopes }}" bag-count="{{ count }}" bag-total="{{ subtotal }}" hint-size="100%,60px"></x-import>
+  <!-- Mobile category bar (28 Oct review). Option B default: one swipeable row of full category names. Option C: compact, sticky, hides on scroll down. ?nav=a|b|c -->
+  <sc-if value="{{ catBarB }}" hint-placeholder-val="{{ false }}">
+    <nav class="egx-catbar" data-note="N1" aria-label="Shop by category">
+      <ul role="list">
+        <sc-for list="{{ catBar }}" as="q" hint-placeholder-count="7">
+          <li><a href="{{ q.href }}" class="eg-chip">{{ q.label }}</a></li>
+        </sc-for>
+      </ul>
+    </nav>
+  </sc-if>
+  <sc-if value="{{ catBarC }}" hint-placeholder-val="{{ false }}">
+    <nav class="egx-catbar egx-catbar--c" data-note="N1" aria-label="Shop by category">
+      <ul role="list">
+        <sc-for list="{{ catBar }}" as="q" hint-placeholder-count="7">
+          <li><a href="{{ q.href }}" class="eg-chip">{{ q.label }}</a></li>
+        </sc-for>
+      </ul>
+    </nav>
+  </sc-if>
+
+  <main style="max-width:var(--eg-container-max);margin-inline:auto;padding:{{ L.mainPad }};padding-inline:{{ L.gut }}">
+    <h1 data-note="1" class="eg-h1" style="margin:0 0 {{ L.titleGap }}">Your bag ({{ countLabel }})</h1>
+
+    <div style="display:grid;grid-template-columns:{{ L.cols }};gap:{{ L.colGap }};align-items:start">
+      <div style="display:grid;gap:{{ L.blockGap }};min-width:0">
+        <div data-note="2" style="border-top:1px solid var(--eg-color-border)">
+          <sc-for list="{{ lines }}" as="it" hint-placeholder-count="2">
+            <div class="eg-line" style="grid-template-columns:{{ L.thumb }} minmax(0,1fr)">
+              <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.Media" src="{{ it.image }}" label="" hint-size="88px,88px"></x-import>
+              <div style="display:grid;grid-template-columns:{{ L.lineCols }};gap:8px 24px;align-items:start">
+                <div>
+                  <h2 class="eg-line__title" style="font-size:{{ L.lineTitle }};font-family:var(--eg-font-body);font-weight:500"><a href="#">{{ it.title }}</a></h2>
+                  <div class="eg-line__meta">{{ it.variant }}</div>
+                </div>
+                <div class="eg-line__row" style="margin-top:0">
+                  <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.QuantityStepper" value="{{ it.qty }}" min="{{ 1 }}" onChange="{{ it.setQty }}" label="Quantity" hint-size="128px,48px"></x-import>
+                  <button class="eg-line__remove" onClick="{{ it.remove }}" aria-label="{{ it.removeLabel }}">Remove</button>
+                </div>
+                <div style="justify-self:{{ L.priceAlign }}"><x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.Price" price="{{ it.lineTotal }}" hint-size="60px,22px"></x-import></div>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+        <sc-if value="{{ desktop }}" hint-placeholder-val="{{ false }}">
+          <div id="cart-upsell" data-note="8" class="eg-cart__extras" style="margin-top:0;display:grid;gap:8px">
+            <h2 class="eg-h5" style="margin:0">{{ upsell.why }}</h2>
+            <div style="display:grid;grid-template-columns:72px minmax(0,1fr) auto;gap:16px;align-items:center">
+              <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.Media" src="{{ upsellImg }}" label="" hint-size="72px,72px"></x-import>
+              <div style="display:grid;gap:2px;font-size:var(--eg-text-body-sm);line-height:1.4">
+                <span style="font-weight:500">{{ upsell.title }}</span>
+                <span class="eg-muted">{{ upsell.text }}</span>
+                <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap"><x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.Price" price="{{ upsell.price }}" hint-size="60px,22px"></x-import><span style="color:var(--eg-color-text-leaf);font-weight:500">{{ upsellHint }}</span></div>
+              </div>
+              <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.Button" variant="secondary" iconStart="{{ upsellIcon }}" onClick="{{ addUpsell }}" hint-size="80px,48px">{{ upsellLabel }}</x-import>
+            </div>
+          </div>
+          <div data-note="9">
+            <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.Accordion" items="{{ info }}" hint-size="100%,200px"></x-import>
+          </div>
+        </sc-if>
+      </div>
+
+      <aside aria-labelledby="summary-title" style="background:var(--eg-color-bg-alt);padding:{{ L.panelPad }};margin-inline:{{ L.panelBleed }};display:grid;gap:16px;position:{{ L.panelPos }};top:24px">
+        <div data-note="3"><x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.DeliveryProgress" subtotal="{{ subtotal }}" threshold="{{ 65 }}" hint-size="100%,40px"></x-import></div>
+        <p data-note="4" style="margin:0;display:flex;gap:8px;align-items:flex-start;font-size:var(--eg-text-body-sm);line-height:1.5"><x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.Icon" name="truck" size="{{ 20 }}" style="color:var(--eg-leaf-600);flex:none" hint-size="20px,20px"></x-import>Free UK delivery on orders over £65, usually 2 to 4 working days.</p>
+        <div data-note="5" style="display:grid;gap:12px;border-top:1px solid var(--eg-color-border-on-alt);padding-top:16px">
+          <h2 id="summary-title" class="eg-h4" style="margin:0">Order summary</h2>
+          <dl style="margin:0;display:grid;gap:8px;font-size:var(--eg-text-body-sm)">
+            <div style="display:flex;justify-content:space-between;gap:16px"><dt>Subtotal</dt><dd style="margin:0">{{ subtotalLabel }}</dd></div>
+            <div style="display:flex;justify-content:space-between;gap:16px"><dt>Delivery</dt><dd style="margin:0">{{ deliveryLabel }}</dd></div>
+            <div style="display:flex;justify-content:space-between;gap:16px;padding-top:8px;border-top:1px solid var(--eg-color-border-on-alt);font-size:var(--eg-text-body);font-weight:600"><dt>Estimated total</dt><dd style="margin:0">{{ subtotalLabel }}</dd></div>
+          </dl>
+          <div ref="{{ checkoutRef }}"><x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.Button" block="{{ true }}" iconEnd="arrow-right" hint-size="100%,48px">Proceed to checkout</x-import></div>
+        </div>
+        <div data-note="6" style="display:grid;gap:8px">
+          <div style="display:flex;flex-wrap:wrap;gap:6px" aria-label="Payment methods">
+            <sc-for list="{{ payments }}" as="p" hint-placeholder-count="7">
+              <span style="padding:3px 8px;background:var(--eg-white);border:1px solid var(--eg-color-border);font-size:11px;line-height:1.4;letter-spacing:0.04em;white-space:nowrap">{{ p }}</span>
+            </sc-for>
+          </div>
+          <p style="margin:0;display:flex;gap:8px;align-items:center;font-size:var(--eg-text-caption);color:var(--eg-color-text-muted)"><x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.Icon" name="check" size="{{ 16 }}" style="color:var(--eg-leaf-600)" hint-size="16px,16px"></x-import>Secure checkout. Your payment details are encrypted.</p>
+        </div>
+      </aside>
+
+      <sc-if value="{{ mobile }}" hint-placeholder-val="{{ true }}">
+        <div id="cart-upsell" data-note="8" class="eg-cart__extras" style="margin-top:0;display:grid;gap:8px">
+          <h2 class="eg-h5" style="margin:0">{{ upsell.why }}</h2>
+          <div style="display:grid;grid-template-columns:64px minmax(0,1fr) auto;gap:12px;align-items:center">
+            <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.Media" src="{{ upsellImg }}" label="" hint-size="64px,64px"></x-import>
+            <div style="display:grid;gap:2px;font-size:var(--eg-text-body-sm);line-height:1.4;min-width:0">
+              <span style="font-weight:500">{{ upsell.title }}</span>
+              <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.Price" price="{{ upsell.price }}" hint-size="60px,22px"></x-import>
+              <span style="color:var(--eg-color-text-leaf);font-weight:500;font-size:var(--eg-text-caption)">{{ upsellHint }}</span>
+            </div>
+            <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.Button" variant="secondary" iconStart="{{ upsellIcon }}" onClick="{{ addUpsell }}" hint-size="80px,48px">{{ upsellLabel }}</x-import>
+          </div>
+        </div>
+        <div id="cart-info" data-note="9">
+          <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.Accordion" items="{{ info }}" hint-size="100%,200px"></x-import>
+        </div>
+      </sc-if>
+    </div>
+  </main>
+
+  <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.Footer" columns="{{ footerCols }}" hint-size="100%,520px"></x-import>
+
+  <sc-if value="{{ showSticky }}" hint-placeholder-val="{{ false }}">
+    <div data-note="7" role="region" aria-label="Checkout" style="position:fixed;left:0;right:0;bottom:0;z-index:60;display:flex;align-items:center;gap:16px;padding:12px 16px;background:var(--eg-white);border-top:1px solid var(--eg-color-border)">
+      <div style="flex:1;display:grid;gap:0">
+        <span style="font-size:var(--eg-text-caption);color:var(--eg-color-text-muted)">Estimated total</span>
+        <span style="font-weight:600;font-size:var(--eg-text-body-lg)">{{ subtotalLabel }}</span>
+      </div>
+      <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.Button" iconEnd="arrow-right" hint-size="150px,48px">Checkout</x-import>
+    </div>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { w: window.innerWidth, items: null, pins: [], showSticky: false };
+  pinLayer = React.createRef(); checkoutRef = React.createRef();
+  componentDidMount() {
+    this.onR = () => this.setState({ w: window.innerWidth });
+    window.addEventListener('resize', this.onR);
+    this.onS = () => {
+      const el = this.checkoutRef.current; if (!el) return;
+      const r = el.getBoundingClientRect();
+      const show = this.state.w < 900 && (r.bottom < 0 || r.top > window.innerHeight);
+      if (show !== this.state.showSticky) this.setState({ showSticky: show });
+    };
+    window.addEventListener('scroll', this.onS, { passive: true });
+    this.t = setInterval(() => {
+      const U = window.EGUtil;
+      if (!this.state.items && window.EGData) this.setState({ items: window.EGData.cart.map((x) => Object.assign({}, x)) });
+      if (U && !this.flagsRead) { this.flagsRead = true; this.notes = U.param('notes') != null; }
+      this.onS();
+      if (this.notes && U) { const p = U.pins(this.pinLayer.current); const k = JSON.stringify(p); if (k !== this.pinKey) { this.pinKey = k; this.setState({ pins: p }); } }
+    }, 500);
+  }
+  componentWillUnmount() { clearInterval(this.t); window.removeEventListener('resize', this.onR); window.removeEventListener('scroll', this.onS); }
+  renderVals() {
+    const D = window.EGData || {}; const U = window.EGUtil || { fmt: (v) => '£' + Number(v).toFixed(2) };
+    const m = this.state.w < 900;
+    const items = this.state.items || [];
+    const up = D.aerator || { id: 'aerator', title: '', price: 0 };
+    const I = window.EGImg || { src() {}, item() {}, post() {}, cat() {}, johanna: null };
+    const subtotal = items.reduce((s, i) => s + i.price * i.qty, 0);
+    const count = items.reduce((s, i) => s + i.qty, 0);
+    const added = items.some((x) => x.id === up.id);
+    const set = (fn) => this.setState((s) => ({ items: fn(s.items || []) }));
+    const left = 65 - subtotal;
+    return {
+      mobile: m, desktop: !m,
+      L: {
+        gut: m ? '16px' : 'var(--eg-gutter)', mainPad: m ? '24px 0 40px' : '48px 0 96px', titleGap: m ? '16px' : '32px',
+        cols: m ? 'minmax(0,1fr)' : 'minmax(0,8fr) minmax(0,4fr)', colGap: m ? '24px' : '48px', blockGap: m ? '24px' : '32px',
+        thumb: m ? '88px' : '120px', lineCols: m ? 'minmax(0,1fr)' : 'minmax(0,1fr) auto auto', lineTitle: m ? 'var(--eg-text-body-sm)' : 'var(--eg-text-body)', priceAlign: m ? 'start' : 'end',
+        panelPad: m ? '20px 16px' : '24px', panelBleed: m ? '-16px' : '0', panelPos: m ? 'static' : 'sticky',
+      },
+      catBar: (window.EGData || {}).nav ? window.EGUtil.shell(this).catBar : [], catBarB: m && window.EGUtil && window.EGUtil.navOption() === 'b', catBarC: m && window.EGUtil && window.EGUtil.navOption() === 'c',
+      nav: D.nav || [], utility: D.utility || [], scopes: D.scopes || ['All'], footerCols: D.footer,
+      pins: this.state.pins, pinLayer: this.pinLayer, checkoutRef: this.checkoutRef,
+      count: count, countLabel: count + (count === 1 ? ' item' : ' items'),
+      lines: items.map((it) => Object.assign({}, it, {
+        lineTotal: it.price * it.qty, removeLabel: 'Remove ' + it.title, image: I.item(it),
+        setQty: (n) => set((arr) => arr.map((x) => (x.id === it.id ? Object.assign({}, x, { qty: n }) : x))),
+        remove: () => set((arr) => arr.filter((x) => x.id !== it.id)),
+      })),
+      subtotal: subtotal, subtotalLabel: U.fmt(subtotal),
+      deliveryLabel: subtotal >= 65 ? 'Free' : 'Calculated at checkout',
+      payments: D.payments || [],
+      upsell: up, upsellImg: I.item(up),
+      upsellHint: added ? 'Added to your bag' : left > 0 && up.price >= left ? 'Takes you over £65 for free UK delivery' : 'Quick add, one size',
+      upsellLabel: added ? 'Added' : 'Add', upsellIcon: added ? 'check' : undefined,
+      addUpsell: () => { if (!added) set((arr) => arr.concat([{ id: up.id, title: up.title, variant: 'One size', price: up.price, qty: 1 }])); },
+      info: [
+        { title: 'Delivery and returns', content: 'Free UK mainland delivery on orders over £65, usually 2 to 4 working days. Return unused items within 30 days.' },
+        { title: 'Points and discounts', content: 'Add a discount code at checkout. Members of the EvenGreener Gang collect points on every order.' },
+        { title: 'Contact us', content: 'Our Customer Care Team is here to help, Monday to Friday. Email customer.care@evengreener.com.' },
+      ],
+      showSticky: m && this.state.showSticky,
+    };
+  }
+}
+</script>
+</body>
+</html>

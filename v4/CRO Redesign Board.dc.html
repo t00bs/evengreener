@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="icon" href="data:,">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<link rel="stylesheet" href="_ds/evengreener-design-system-ede5a68e-3ce4-4c3a-82c1-af597595dcea/styles.css">
+<script src="_ds/evengreener-design-system-ede5a68e-3ce4-4c3a-82c1-af597595dcea/_ds_bundle.js"></script>
+<script src="eg-shared.js"></script>
+<style>body{margin:0;background:#F1EFE7}a{color:#296647}a:hover{color:#143324}</style>
+</helmet>
+<div style="background:var(--eg-oat-100);color:var(--eg-color-text);font-family:var(--eg-font-body);padding:72px 72px 120px;min-width:2760px">
+
+  <header style="display:grid;grid-template-columns:minmax(0,760px) minmax(0,1fr);gap:64px;align-items:end;padding-bottom:48px;border-bottom:1px solid var(--eg-oat-300)">
+    <div style="display:grid;gap:16px">
+      <p class="eg-eyebrow" style="margin:0">EvenGreener · Conversion redesign · October 2026</p>
+      <h1 class="eg-display" style="margin:0;font-size:72px">Three templates, reordered by what visitors actually do</h1>
+      <p class="eg-body-lg" style="margin:0;color:var(--eg-stone-600);max-width:640px">Driven by Hotjar scroll and click data, not a visual refresh. Tokens and components are unchanged. Layout, order and hierarchy move. Every frame is the live page at true width, so you can scroll, tap and test it.</p>
+    </div>
+    <div style="display:grid;gap:20px;justify-items:start">
+      <div style="display:flex;flex-wrap:wrap;gap:32px;font-size:var(--eg-text-body-sm)">
+        <div style="display:flex;align-items:center;gap:10px"><span style="min-width:24px;height:24px;border-radius:999px;background:#C8285E;color:#fff;font:600 12px/24px var(--eg-font-body);text-align:center">3</span>Change linked to a Hotjar finding</div>
+        <div style="display:flex;align-items:center;gap:10px"><span style="width:40px;border-top:2px dashed #C8285E"></span>Mobile fold at 640px</div>
+        <div style="display:flex;align-items:center;gap:10px"><span style="padding:2px 8px;background:var(--eg-forest-900);color:#fff;font-size:11px;letter-spacing:.1em;text-transform:uppercase">Shopify</span>Section or block the merchant can reorder</div>
+      </div>
+      <nav aria-label="Pages" style="display:flex;gap:12px">
+        <a href="#product" class="eg-btn eg-btn--secondary eg-btn--sm">01 Product page</a>
+        <a href="#home" class="eg-btn eg-btn--secondary eg-btn--sm">02 Homepage</a>
+        <a href="#cart" class="eg-btn eg-btn--secondary eg-btn--sm">03 Cart and drawer</a>
+        <a href="#nav" class="eg-btn eg-btn--secondary eg-btn--sm">04 Mega menus</a>
+        <a href="#templates" class="eg-btn eg-btn--secondary eg-btn--sm">05 Other templates</a>
+      </nav>
+    </div>
+  </header>
+
+  <sc-for list="{{ pages }}" as="pg" hint-placeholder-count="3">
+    <section id="{{ pg.id }}" style="padding-top:72px;scroll-margin-top:24px">
+      <div style="display:grid;grid-template-columns:auto minmax(0,1fr);gap:24px;align-items:baseline;margin-bottom:40px">
+        <span style="font:800 72px/1 var(--eg-font-display);color:var(--eg-forest-700)">{{ pg.num }}</span>
+        <div style="display:grid;gap:8px;max-width:980px">
+          <h2 class="eg-h1" style="margin:0">{{ pg.title }}</h2>
+          <p class="eg-body-lg" style="margin:0;color:var(--eg-stone-600)">{{ pg.summary }}</p>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:48px;align-items:flex-start">
+        <ol style="list-style:none;margin:0;padding:0;width:400px;flex:none;display:grid;gap:4px">
+          <sc-for list="{{ pg.notes }}" as="a" hint-placeholder-count="8">
+            <li style="display:grid;grid-template-columns:28px minmax(0,1fr);gap:14px;padding:18px 0;border-top:1px solid var(--eg-oat-300)">
+              <span style="min-width:24px;height:24px;border-radius:999px;background:#C8285E;color:#fff;font:600 12px/24px var(--eg-font-body);text-align:center;justify-self:start">{{ a.n }}</span>
+              <div style="display:grid;gap:8px">
+                <h3 style="margin:0;font:600 16px/1.35 var(--eg-font-body)">{{ a.change }}</h3>
+                <p style="margin:0;font-size:var(--eg-text-body-sm);line-height:1.55;text-wrap:pretty"><strong style="font-weight:600;color:#A3204C">{{ a.stat }}</strong> {{ a.finding }}</p>
+                <p style="margin:0;display:flex;gap:8px;align-items:baseline;font-size:12px;line-height:1.5;color:var(--eg-stone-600)"><span style="flex:none;padding:1px 6px;background:var(--eg-forest-900);color:#fff;font-size:10px;letter-spacing:.1em;text-transform:uppercase">Shopify</span>{{ a.shopify }}</p>
+              </div>
+            </li>
+          </sc-for>
+        </ol>
+
+        <figure style="margin:0;flex:none;display:grid;gap:12px">
+          <figcaption style="display:flex;justify-content:space-between;font-size:var(--eg-text-body-sm)"><strong style="font-weight:600">Mobile, 360px</strong><span style="color:var(--eg-stone-600)">Full scroll</span></figcaption>
+          <div style="position:relative;width:360px;background:#fff;outline:1px solid var(--eg-oat-300)">
+            <iframe data-fit="1" data-bind-src="{{ pg.mobileSrc }}" title="{{ pg.mobileTitle }}" style="display:block;width:360px;height:3000px;border:0"></iframe>
+            <div aria-hidden="true" style="position:absolute;left:-16px;right:-16px;top:640px;border-top:2px dashed #C8285E;pointer-events:none">
+              <span style="position:absolute;right:16px;top:-24px;padding:2px 8px;background:#C8285E;color:#fff;font:600 11px/18px var(--eg-font-body);letter-spacing:.04em">Fold 640px</span>
+            </div>
+          </div>
+        </figure>
+
+        <sc-if value="{{ pg.hasStates }}" hint-placeholder-val="{{ true }}">
+          <div style="flex:none;width:360px;display:grid;gap:48px">
+            <sc-for list="{{ pg.states }}" as="s" hint-placeholder-count="1">
+              <figure style="margin:0;display:grid;gap:12px">
+                <figcaption style="display:grid;gap:4px;font-size:var(--eg-text-body-sm)"><strong style="font-weight:600">{{ s.title }}</strong><span style="color:var(--eg-stone-600);line-height:1.5">{{ s.text }}</span></figcaption>
+                <div style="width:360px;height:640px;background:#fff;outline:1px solid var(--eg-oat-300);overflow:hidden">
+                  <iframe data-scroll="{{ s.scroll }}" data-offset="{{ s.offset }}" data-bind-src="{{ s.src }}" title="{{ s.title }}" style="display:block;width:360px;height:640px;border:0"></iframe>
+                </div>
+                <sc-if value="{{ s.hasNotes }}" hint-placeholder-val="{{ false }}">
+                  <ol style="list-style:none;margin:0;padding:0;display:grid;gap:8px;font-size:var(--eg-text-body-sm);line-height:1.5">
+                    <sc-for list="{{ s.notes }}" as="d" hint-placeholder-count="4">
+                      <li style="display:grid;grid-template-columns:32px minmax(0,1fr);gap:10px;align-items:start"><span style="min-width:24px;height:24px;border-radius:999px;background:#C8285E;color:#fff;font:600 11px/24px var(--eg-font-body);text-align:center;justify-self:start;padding:0 4px">{{ d.n }}</span><span>{{ d.text }}</span></li>
+                    </sc-for>
+                  </ol>
+                </sc-if>
+              </figure>
+            </sc-for>
+          </div>
+        </sc-if>
+
+        <figure style="margin:0;flex:none;display:grid;gap:12px">
+          <figcaption style="display:flex;justify-content:space-between;font-size:var(--eg-text-body-sm)"><strong style="font-weight:600">Desktop, 1440px</strong><span style="color:var(--eg-stone-600)">Full layout</span></figcaption>
+          <div style="width:1440px;background:#fff;outline:1px solid var(--eg-oat-300)">
+            <iframe data-fit="1" data-bind-src="{{ pg.desktopSrc }}" title="{{ pg.desktopTitle }}" style="display:block;width:1440px;height:3000px;border:0"></iframe>
+          </div>
+        </figure>
+      </div>
+    </section>
+  </sc-for>
+
+  <section id="nav" style="padding-top:72px;scroll-margin-top:24px">
+    <div style="display:grid;grid-template-columns:auto minmax(0,1fr);gap:24px;align-items:baseline;margin-bottom:40px">
+      <span style="font:800 72px/1 var(--eg-font-display);color:var(--eg-forest-700)">04</span>
+      <div style="display:grid;gap:8px;max-width:980px">
+        <h2 class="eg-h1" style="margin:0">Mega menus on the new navigation</h2>
+        <p class="eg-body-lg" style="margin:0;color:var(--eg-stone-600)">Each menu now uses the system's featured layout: sub-collections down the left, and four products for the hovered one on the right. Short lists no longer leave empty columns, and every menu puts products one click away. Mobile keeps the accordion list. Shown at 1440px with the first item active; hover in the desktop frames to try it.</p>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(2,1440px);gap:48px 48px;align-items:start">
+      <sc-for list="{{ menus }}" as="m" hint-placeholder-count="6">
+        <figure style="margin:0;display:grid;gap:12px">
+          <figcaption style="font-size:var(--eg-text-body-sm)"><strong style="font-weight:600">{{ m.label }}</strong></figcaption>
+          <div style="width:1440px;background:#fff;outline:1px solid var(--eg-oat-300);overflow:hidden">
+            <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.MegaMenu" item="{{ m }}" inline="{{ true }}" hint-size="1440px,420px"></x-import>
+          </div>
+        </figure>
+      </sc-for>
+    </div>
+  </section>
+
+  <section id="templates" style="padding-top:96px;scroll-margin-top:24px">
+    <div style="display:grid;grid-template-columns:auto minmax(0,1fr);gap:24px;align-items:baseline;margin-bottom:40px">
+      <span style="font:800 72px/1 var(--eg-font-display);color:var(--eg-forest-700)">05</span>
+      <div style="display:grid;gap:8px;max-width:980px">
+        <h2 class="eg-h1" style="margin:0">Every other theme template</h2>
+        <p class="eg-body-lg" style="margin:0;color:var(--eg-stone-600)">The rest of the Shopify Online Store 2.0 theme, built with the same rules: the main action high on mobile, help one tap away, nothing between the visitor and the next step. No Hotjar data yet for these, so they carry no pins. Copy for policies and FAQs is placeholder for the client to confirm.</p>
+      </div>
+    </div>
+    <div style="display:grid;gap:72px">
+      <sc-for list="{{ templates }}" as="t" hint-placeholder-count="4">
+        <article id="{{ t.id }}" style="display:flex;gap:48px;align-items:flex-start;padding-top:32px;border-top:1px solid var(--eg-oat-300);scroll-margin-top:24px">
+          <div style="width:400px;flex:none;display:grid;gap:12px;position:sticky;top:24px">
+            <span style="font:600 13px/1 var(--eg-font-body);color:var(--eg-forest-700)">{{ t.num }}</span>
+            <h3 class="eg-h2" style="margin:0">{{ t.title }}</h3>
+            <p style="margin:0;display:flex;gap:8px;align-items:baseline;font-size:12px;line-height:1.5;color:var(--eg-stone-600)"><span style="flex:none;padding:1px 6px;background:var(--eg-forest-900);color:#fff;font-size:10px;letter-spacing:.1em;text-transform:uppercase">Shopify</span>{{ t.template }}</p>
+            <ul style="margin:4px 0 0;padding-left:18px;display:grid;gap:8px;font-size:var(--eg-text-body-sm);line-height:1.55">
+              <sc-for list="{{ t.points }}" as="pt" hint-placeholder-count="3"><li style="text-wrap:pretty">{{ pt }}</li></sc-for>
+            </ul>
+            <a href="{{ t.src }}" target="_blank" style="justify-self:start;font-size:var(--eg-text-body-sm);font-weight:500">Open full page</a>
+          </div>
+          <figure style="margin:0;flex:none;display:grid;gap:12px">
+            <figcaption style="font-size:var(--eg-text-body-sm)"><strong style="font-weight:600">Mobile, 360px</strong></figcaption>
+            <div style="width:360px;background:#fff;outline:1px solid var(--eg-oat-300)">
+              <iframe data-fit="{{ t.fit }}" loading="lazy" data-bind-src="{{ t.src }}" title="{{ t.mTitle }}" style="display:block;width:360px;height:{{ t.h }};border:0"></iframe>
+            </div>
+          </figure>
+          <figure style="margin:0;flex:none;display:grid;gap:12px">
+            <figcaption style="font-size:var(--eg-text-body-sm)"><strong style="font-weight:600">Desktop, 1440px</strong></figcaption>
+            <div style="width:1440px;background:#fff;outline:1px solid var(--eg-oat-300)">
+              <iframe data-fit="{{ t.fit }}" loading="lazy" data-bind-src="{{ t.src }}" title="{{ t.dTitle }}" style="display:block;width:1440px;height:{{ t.dh }};border:0"></iframe>
+            </div>
+          </figure>
+        </article>
+      </sc-for>
+    </div>
+  </section>
+
+  <footer style="margin-top:96px;padding-top:32px;border-top:1px solid var(--eg-oat-300);display:grid;grid-template-columns:repeat(3,minmax(0,420px));gap:48px;font-size:var(--eg-text-body-sm);line-height:1.6;color:var(--eg-stone-600)">
+    <p style="margin:0"><strong style="color:var(--eg-color-text);font-weight:600">Build notes.</strong> Every moved element is a section or block in Shopify Online Store 2.0, so the merchant can reorder it in the theme editor. Reviews and counts come from Yotpo; the numbers shown are placeholders.</p>
+    <p style="margin:0"><strong style="color:var(--eg-color-text);font-weight:600">Product facts.</strong> Spec values (dimensions, material, origin, recycled content) are placeholders standing in for product metafields. Please confirm them against the supplier sheet.</p>
+    <p style="margin:0"><strong style="color:var(--eg-color-text);font-weight:600">Accessibility.</strong> Tap targets are 44px or more, focus rings use the system ring, and colour pairs follow the system's WCAG 2.2 AA rules. The annotation pins and fold line are review overlays only.</p>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  componentDidMount() {
+    this.start = Date.now();
+    this.w = setInterval(() => { if (window.EGData) { clearInterval(this.w); this.forceUpdate(); } }, 200);
+    this.t = setInterval(() => {
+      document.querySelectorAll('iframe[data-fit="1"]').forEach((f) => {
+        try {
+          const d = f.contentDocument; if (!d) return;
+          const root = d.querySelector('[style*="position: relative"], [style*="position:relative"]');
+          if (!root) return;
+          const h = Math.ceil(root.getBoundingClientRect().height);
+          if (h > 400 && Math.abs(h - f.offsetHeight) > 2) f.style.height = h + 'px';
+        } catch (e) {}
+      });
+      if (Date.now() - this.start < 12000) document.querySelectorAll('iframe[data-scroll]').forEach((f) => {
+        try {
+          const sel = f.getAttribute('data-scroll'); if (!sel) return;
+          const w = f.contentWindow, d = f.contentDocument; const el = d && d.querySelector(sel); if (!el) return;
+          const y = Math.max(0, el.getBoundingClientRect().top + w.scrollY - Number(f.getAttribute('data-offset') || 0));
+          if (Math.abs(w.scrollY - y) > 4) w.scrollTo({ top: y, behavior: 'instant' });
+        } catch (e) {}
+      });
+    }, 700);
+  }
+  componentWillUnmount() { clearInterval(this.t); clearInterval(this.w); }
+  renderVals() {
+    const N = (n, change, stat, finding, shopify) => ({ n: String(n), change, stat, finding, shopify });
+    const T = (id, num, title, template, src, points, fixed) => ({ id, num, title, template, src, points, mTitle: title + ', mobile', dTitle: title + ', desktop', fit: fixed ? '0' : '1', h: fixed ? '760px' : '2000px', dh: fixed ? '900px' : '2000px' });
+    return {
+      templates: [
+        T('t-collection', '05.1', 'Collection', 'templates/collection.json: main-collection-banner, collection links, main-collection-product-grid, comparison, collapsible content', 'Collection Page.dc.html', ['Short banner so products start on the first mobile screen.', 'Sub-collection chips swap the grid in place, with counts.', 'Filters in a drawer on mobile and a sidebar on desktop; quick add on single-variant cards; quiz promo tile in the grid.', 'Comparison table and collection FAQs from metafields answer the which-one question before it becomes a bounce.']),
+        T('t-list', '05.2', 'All collections', 'templates/list-collections.json: collection list sections, one per main menu item', 'Collections List Page.dc.html', ['Grouped by the new navigation so it mirrors the mega menu.', 'Overlay category cards, 2-up on mobile.']),
+        T('t-search', '05.3', 'Search results', 'templates/search.json: main-search with product, article and page results', 'Search Page.dc.html?q=water%20butt', ['Search field stays editable at the top, with the result count in the heading.', 'Products, Guides and Pages as chips, so one tap switches type.', 'Product results reuse the collection grid, facets and quick add.']),
+        T('t-search-empty', '05.4', 'Search, no results', 'templates/search.json: empty state', 'Search Page.dc.html?q=compost%20tea', ['Says what to do: check spelling or try a broader word.', 'Popular searches as tappable chips that re-run the search.', 'Customer Care Team email, then bestsellers so the visit never dead-ends.']),
+        T('t-blog', '05.5', 'Knowledge hub', 'templates/blog.json: main-blog with featured article and tag filter', 'Blog Page.dc.html', ['Which composter is right for me? is pinned as the start-here guide.', 'Topic chips filter in place; 3-up post cards on desktop.', 'FAQ and contact strip for questions the guides miss.']),
+        T('t-article', '05.6', 'Guide article', 'templates/article.json: main-article (EditorialArticle) and related articles', 'Article Page.dc.html', ['Sticky contents, 720px reading measure, expert tips.', 'Product callouts sit beside the advice they relate to.', 'Three related guides, then the Gang sign-up.']),
+        T('t-about', '05.7', 'About us', 'templates/page.about.json: image with text, USP bar, two image-with-text, reviews, multicolumn', 'About Page.dc.html', ['Story told in two short splits, not a wall of text.', 'Reviews and USPs give proof; three ways to get in touch close the page.', 'Founding year: the brief says 2001, the live About page says 2000. Confirm with the client.']),
+        T('t-contact', '05.8', 'Contact us', 'templates/page.contact.json: contact form and quick links', 'Contact Page.dc.html', ['Quick answers come first on mobile, so many visitors never need to send a message.', 'Topic select and optional order number route the message.', 'Inline errors that say what to do; clear success state.']),
+        T('t-faq', '05.9', 'Help and FAQs', 'templates/page.faq.json: collapsible content sections, one per topic', 'FAQ Page.dc.html', ['Live filter searches every question as you type.', 'Topic chips on mobile, sticky topic list on desktop.', 'Placeholder policy copy: the client to confirm delivery areas, the returns window and refund timings.']),
+        T('t-bulk', '05.10', 'Bulk enquiries', 'templates/page.bulk.json: contact form (BulkEnquiry), multicolumn, collapsible content', 'Bulk Enquiry Page.dc.html', ['The form sits right at the top, beside the three benefits.', 'How it works in three steps, then bulk FAQs.']),
+        T('t-404', '05.11', 'Page not found', 'templates/404.json', '404 Page.dc.html', ['Plain explanation, search, and the five main collections.', 'Popular products so a broken link still leads somewhere.']),
+        T('t-login', '05.12', 'Sign in', 'templates/customers/login.liquid', 'Account Page.dc.html?view=login', ['Sign in and create account side by side; guest checkout reassurance.', 'Forgot your password goes to the reset template.']),
+        T('t-register', '05.13', 'Create account', 'templates/customers/register.liquid', 'Account Page.dc.html?view=register', ['Five fields only. Gang opt-in ticked, with a clear benefit line.', 'Password rule shown before the error, not after.']),
+        T('t-reset', '05.14', 'Reset password', 'templates/customers/reset_password.liquid and the recover form', 'Account Page.dc.html?view=reset', ['One field, then a success message that does not reveal whether the account exists.']),
+        T('t-orders', '05.15', 'Account: orders', 'templates/customers/account.liquid', 'Account Page.dc.html?view=orders', ['Order history as a table on desktop and tappable rows on mobile.', 'Status dots: dispatched in forest-700, delivered in leaf-600.']),
+        T('t-order', '05.16', 'Order detail', 'templates/customers/order.liquid', 'Account Page.dc.html?view=order', ['Delivery progress and Track parcel first, because that is why people come here.', 'Buy again adds the whole order to the bag; help link at the end.']),
+        T('t-addresses', '05.17', 'Addresses', 'templates/customers/addresses.liquid', 'Account Page.dc.html?view=addresses', ['Default address outlined in forest-900 and tagged.', 'Add and edit inline, with no separate page.']),
+        T('t-password', '05.18', 'Password page', 'templates/password.json: email signup and password form', 'Password Page.dc.html', ['Forest-900 holding page with Gang sign-up while the store is locked.', 'Store password form behind one link.'], true),
+        T('t-gift', '05.19', 'Gift card', 'templates/gift_card.liquid', 'Gift Card Page.dc.html', ['Code, balance and Copy, then Start shopping.', 'Print-friendly. No header so it works as a standalone link from the email.'], true),
+      ],
+      menus: (window.EGData && window.EGData.nav) || [],
+      pages: [
+        {
+          id: 'product', num: '01', title: 'Product page', hasStates: true,
+          summary: 'Green Johanna 330L Compost Bin. The purchase action moves from below six elements to the mobile fold, and detail people want is shown inline instead of hidden.',
+          mobileSrc: 'Product Page.dc.html?notes=all', desktopSrc: 'Product Page.dc.html?notes=all', mobileTitle: 'Product page, mobile', desktopTitle: 'Product page, desktop',
+          states: [{ title: 'Sticky Add to bag, scrolled', text: 'Appears once the main button scrolls out of view. Name, price and button, mobile only.', src: 'Product Page.dc.html?notes=7', scroll: '#details', offset: '120', hasNotes: false, notes: [] }],
+          notes: [
+            N(1, 'Shorter, swipeable gallery', '37%', 'of mobile visitors scroll far enough to see Add to bag. A 4:3 gallery with the next image peeking and a 1 of 6 counter is about 150px shorter than the old square image.', 'main-product, media block. Mobile ratio 4:3, swipe.'),
+            N(2, 'Title and price lead the buy box', '63%', 'leave without being offered the chance to buy. The price now sits at about 490px on a 360 × 640 screen, well above the fold.', 'main-product blocks reordered: breadcrumb, title, rating, price.'),
+            N(3, 'Full rating summary beside the title', '94% and 14%.', 'The small badge was seen by 94% but almost nobody clicked it, and only 14% reached the reviews summary. The score and count now link straight to reviews.', 'Yotpo star rating app block, linked to #reviews.'),
+            N(4, 'Review excerpts under the price', '14%', 'saw the reviews summary. One quote on mobile and two on desktop put social proof where 94% already look. Stars in leaf-600.', 'Review excerpt block fed by Yotpo. Counts are placeholders.'),
+            N(5, 'Capacity and colour on one row', 'Fold.', 'Capacity chips and colour swatches sit side by side on mobile, saving a full row so Add to bag lands on the fold.', 'Variant picker block with the swatch app.'),
+            N(6, 'Quantity and Add to bag at the fold', '37%', 'saw the button before. The leaf compound control now starts at about 640px, straight after the options.', 'Buy buttons block. Wishlist hidden on mobile so the control never wraps.'),
+            N(7, 'Sticky Add to bag bar', '63%', 'never saw a buy button. Once the main button scrolls away, a bar with name, price and Add to bag stays pinned. See the scrolled state.', 'Sticky add to cart section, mobile only.'),
+            N(8, 'Short description as a 3-line excerpt', '25%', 'attractiveness, but it sat right where people dropped off. It now follows the purchase action, clamped to 3 lines with Read more.', 'Description block, collapsed on load.'),
+            N(9, 'Two extras, below the button', 'Never above.', 'Extras used to sit between the price and the button. A compact list of 2 with quick add can no longer push Add to bag down.', 'Upsell block from metafield custom.upsell_extras, limit 2.'),
+            N(10, 'Badges after the purchase action', 'Out of the path.', 'Badges sat between the visitor and the button. They now reassure after the decision.', 'Badges block from metafield custom.badges.'),
+            N(11, 'Details inline, related carousel removed', '40% and 0 clicks.', 'The details accordion had a 40% attractiveness rate but only 37% reached it. The related carousel was seen by 44% and got 0 clicks, so its slot now shows the spec table and Why we love this product.', 'Product details section: metafields for capacity, dimensions, material, origin, recycled content and why we love.'),
+            N(12, 'Delivery and returns, FAQs stay as accordions', 'Kept.', 'Secondary detail stays one tap away without making the page longer.', 'Collapsible content blocks. FAQs from metafield.'),
+            N(13, 'Full reviews follow the details', '14%', 'reached reviews when they sat below the carousel. They now come straight after the details, and every review link jumps here.', 'Yotpo reviews widget section, moved up the template.'),
+          ],
+        },
+        {
+          id: 'home', num: '02', title: 'Homepage', hasStates: false, states: [],
+          summary: 'Trust, categories and bestsellers move into the first two screens, led by the highest-traffic collection. The best-performing element, the newsletter, gets seen.',
+          mobileSrc: 'Home Page.dc.html?notes=all', desktopSrc: 'Home Page.dc.html?notes=all', mobileTitle: 'Homepage, mobile', desktopTitle: 'Homepage, desktop',
+          notes: [
+            N(1, 'USP bar directly under the header', '24%', 'saw the trust bar lower down. It now sits where every visitor already looks: 4-up on desktop, one scrolling row on mobile.', 'USP bar section, first after the header group.'),
+            N(2, 'Compact hero, one call to action', '30 to 38%', 'reached the second row of tiles because the hero pushed them down. Headline, one line, Find your composter, rating and a short leaf-lg image now fit in about 345px on mobile.', 'Image with text section, small height, one button.'),
+            N(3, 'Tiles follow the new navigation, Water butts and tanks first', '1,188 sessions', 'for Water butts and tanks against 387 for the homepage, so it leads, followed by Composting, Indoor and kitchen and In the garden. New in was seen by 100% but clicked by 1.7%, so it is dropped as a tile.', 'Collection list section, blocks ordered by the merchant to match the main menu.'),
+            N(4, 'Category carousel with a peeking card', 'Two thirds', 'of visitors never saw most of the grid. On mobile the next card peeks in so it is clear there is more. 4-up on desktop.', 'Collection list section, mobile carousel setting.'),
+            N(5, 'Bestsellers as real product cards', '18% and 0 clicks', 'for the Bestsellers banner, the most commercially important panel. It is now a product carousel with badges, rating, price and quick add, right under the categories.', 'Featured collection section (Bestsellers), quick add on.'),
+            N(6, 'Newsletter strip after Bestsellers', '13.3%', 'attractiveness, the highest on the page, but only 3% saw the signup. A single-line leaf input group with one benefit line now sits in the first third of the page.', 'Newsletter section, compact style. Instance 1 of 2.'),
+            N(7, 'Guide finder kept short', 'Shorter page.', 'Three quick questions with product picks. The lower sections stay short so the page ends sooner.', 'Guide finder section.'),
+            N(8, 'Reviews kept to three cards', 'Shorter page.', 'Social proof without extra length.', 'Yotpo reviews section, limit 3.'),
+            N(9, 'Blog teaser shrinks to one guide', '7% and 0 clicks', 'for the blog cards. One guide card and a link to all guides is enough.', 'Blog posts section, limit 1.'),
+            N(10, 'Full newsletter above the footer', '13.3%', 'attractiveness earns a second chance at the end of the page.', 'Newsletter section, full style. Instance 2 of 2.'),
+          ],
+        },
+        {
+          id: 'cart', num: '03', title: 'Cart page and cart drawer', hasStates: true,
+          summary: 'Checkout comes straight after the line items, with payment and security reassurance under the button. One relevant upsell follows it instead of four blocking it.',
+          mobileSrc: 'Cart Page.dc.html?notes=all', desktopSrc: 'Cart Page.dc.html?notes=all', mobileTitle: 'Cart page, mobile', desktopTitle: 'Cart page, desktop',
+          states: [
+            { title: 'Sticky checkout, scrolled', text: 'Shows the order total whenever the main checkout button is off screen. Mobile only.', src: 'Cart Page.dc.html?notes=7', scroll: '#cart-info', offset: '160', hasNotes: false, notes: [] },
+            { title: 'Cart drawer, mobile', text: 'Same order as the cart page.', src: 'Home Page.dc.html?drawer=1&notes=D1,D2,D3,D4', scroll: '', offset: '0', hasNotes: true, notes: [
+              { n: 'D1', text: 'Line items first, with 48px steppers.' },
+              { n: 'D2', text: 'Free delivery progress to £65, after the items.' },
+              { n: 'D3', text: 'Subtotal, Checkout, then payment logos and the security note directly under the button.' },
+              { n: 'D4', text: 'One upsell, chosen by relevance, after checkout so it never pushes the button down.' },
+            ] },
+          ],
+          notes: [
+            N(1, 'Plain H1 heading', '28%', 'attractiveness on the old cart header: people tapped something they thought was interactive. It is now a plain H1, Your bag (2 items), with nothing styled like a link or control near it.', 'Main cart items section heading, no links.'),
+            N(2, 'Line items first', 'Clear.', 'What is in the bag comes first, with 48px quantity steppers and a plain Remove.', 'Main cart items section.'),
+            N(3, 'Free delivery progress after the items', '37%', 'saw the trust and USP icons. The delivery promise now sits in the flow as a progress bar to £65.', 'Cart progress block, threshold in theme settings.'),
+            N(4, 'Static delivery line', 'Expectations.', 'Cost and timing before checkout. Not a link and not a control.', 'Text block in the cart footer.'),
+            N(5, 'Order summary and checkout straight after', '42% and 56%.', 'Only 42% of cart visitors saw Proceed to checkout, but 56% of those clicked it. The button works when people can find it, so it now comes before any upsell.', 'Cart footer section: summary and checkout button.'),
+            N(6, 'Payment logos and security under the button', '3% and under 5%', 'saw the security badges and payment logos. They now sit right under the button, where the decision happens.', 'Payment icons block, from the store\u2019s enabled payment types.'),
+            N(7, 'Sticky checkout bar on mobile', '58%', 'never reached checkout. The total and Checkout stay pinned while the main button is off screen. See the scrolled state.', 'Sticky checkout section, mobile only.'),
+            N(8, 'One relevant upsell, after checkout', '0% and 6.7%.', 'The water butt freshener and the Fast Flow tap got 0% clicks; the Compost aerator was best at 6.7%. One upsell matched to the bag, below the button, can no longer block it.', 'Product recommendations block (complementary), limit 1.'),
+            N(9, 'Information accordion last', '20% and 15%.', 'Reached by 20%, with a 15% attractiveness rate among them. It stays for the people who need it, at the end.', 'Collapsible content section.'),
+          ],
+        },
+      ],
+    };
+  }
+}
+</script>
+</body>
+</html>

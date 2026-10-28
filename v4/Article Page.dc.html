@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="icon" href="data:,">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="_ds/evengreener-design-system-ede5a68e-3ce4-4c3a-82c1-af597595dcea/styles.css">
+<script src="_ds/evengreener-design-system-ede5a68e-3ce4-4c3a-82c1-af597595dcea/_ds_bundle.js"></script>
+<script src="eg-shared.js"></script>
+<style>body{margin:0;background:#fff}a{color:var(--eg-color-link)}a:hover{color:var(--eg-color-link-hover)}</style>
+</helmet>
+<div style="position:relative;background:var(--eg-white);color:var(--eg-color-text)">
+  <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.AnnouncementBar" hint-size="100%,32px"></x-import>
+  <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.Header" nav="{{ nav }}" current="Knowledge hub" utility-links="{{ utility }}" search-scopes="{{ scopes }}" bag-count="{{ bagCount }}" bag-total="{{ bagTotal }}" on-bag="{{ openDrawer }}" hint-size="100%,60px"></x-import>
+  <!-- Mobile category bar (28 Oct review). Option B default: one swipeable row of full category names. Option C: compact, sticky, hides on scroll down. ?nav=a|b|c -->
+  <sc-if value="{{ catBarB }}" hint-placeholder-val="{{ false }}">
+    <nav class="egx-catbar" data-note="N1" aria-label="Shop by category">
+      <ul role="list">
+        <sc-for list="{{ catBar }}" as="q" hint-placeholder-count="7">
+          <li><a href="{{ q.href }}" class="eg-chip">{{ q.label }}</a></li>
+        </sc-for>
+      </ul>
+    </nav>
+  </sc-if>
+  <sc-if value="{{ catBarC }}" hint-placeholder-val="{{ false }}">
+    <nav class="egx-catbar egx-catbar--c" data-note="N1" aria-label="Shop by category">
+      <ul role="list">
+        <sc-for list="{{ catBar }}" as="q" hint-placeholder-count="7">
+          <li><a href="{{ q.href }}" class="eg-chip">{{ q.label }}</a></li>
+        </sc-for>
+      </ul>
+    </nav>
+  </sc-if>
+  <main>
+    <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.EditorialArticle" image="{{ leadImg }}" breadcrumb="{{ crumbs }}" eyebrow="Composting guide" title="How to start composting at home" standfirst="Everything you need to turn kitchen scraps and garden waste into rich compost, whatever the size of your space." author="The EvenGreener team" date="Updated October 2026" read-time="6 min read" sections="{{ sections }}" on-product="{{ toProduct }}" hint-size="100%,2400px"></x-import>
+    <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.BlogTeaser" eyebrow="Keep reading" title="More guides from our team" posts="{{ more }}" cta="{{ blogCta }}" hint-size="100%,420px"></x-import>
+  </main>
+  <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.Newsletter" hint-size="100%,320px"></x-import>
+  <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.Footer" columns="{{ footerCols }}" hint-size="100%,520px"></x-import>
+  <sc-if value="{{ drawerOpen }}" hint-placeholder-val="{{ false }}">
+    <dc-import name="Cart Drawer" open="{{ true }}" items="{{ drawerItems }}" on-close="{{ closeDrawer }}" hint-size="0px,0px"></dc-import>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { w: window.innerWidth, ready: !!window.EGData };
+  componentDidMount() {
+    this.onR = () => this.setState({ w: window.innerWidth });
+    window.addEventListener('resize', this.onR);
+    this.t = setInterval(() => { if (!this.state.ready && window.EGData) this.setState({ ready: true }); }, 300);
+  }
+  componentWillUnmount() { clearInterval(this.t); window.removeEventListener('resize', this.onR); }
+  renderVals() {
+    const D = window.EGData || {}; const S = window.EGUtil ? window.EGUtil.shell(this) : {};
+    const P = (id) => (D.composting || []).find((p) => p.id === id);
+    if (!D.composting) return Object.assign(S, { crumbs: [], sections: [], more: [], blogCta: null, toProduct: () => {} });
+    return Object.assign(S, {
+      crumbs: [{ label: 'Home', href: 'Home Page.dc.html' }, { label: 'Knowledge hub', href: 'Blog Page.dc.html' }, { label: 'Composting' }],
+      leadImg: window.EGImg ? window.EGImg.post('How to start composting at home', 1400) : undefined,
+      toProduct: () => { location.href = 'Product Page.dc.html'; },
+      sections: [
+        { id: 'why', title: 'Why compost at home?', body: ['A good share of what goes in the average kitchen bin could be composted instead. Doing it at home cuts waste, saves on bin bags and gives you free, rich compost for borders, pots and veg beds.', 'It is easier than it sounds. You do not need a big garden or special skills, just the right composter for your space and a little patience.'] },
+        { id: 'choose', title: 'Choosing the right composter', body: ['Start with two questions: how much space do you have, and what do you want to compost? A standard bin is perfect for garden waste and raw veg peelings. If you want to compost cooked food, meat or dairy, choose a hot composter or a food waste digester.'], product: P('compost330') },
+        { id: 'mix', title: 'Getting the mix right', body: ['Compost needs a balance of greens (fruit and veg scraps, grass cuttings) and browns (cardboard, dry leaves, shredded paper). Too many greens and it turns slimy; too many browns and it slows right down.'], tip: 'Aim for roughly half greens and half browns. Scrunched-up cardboard egg boxes are a great brown.' },
+        { id: 'speed', title: 'Speeding things up', body: ['Hot composters keep the heap at a higher temperature, so you can have usable compost in 1 to 3 months instead of a year. Turning the heap every couple of weeks also helps.'], product: P('hotbin450') },
+        { id: 'use', title: 'Using your compost', body: ['Compost is ready when it is dark, crumbly and smells earthy. Spread it on borders, mix it into pots or dig it into veg beds before planting.'] },
+      ],
+      more: (D.posts || []).filter((p) => p.title !== 'How to start composting at home').slice(0, 3),
+      blogCta: { label: 'Browse all guides', href: 'Blog Page.dc.html' },
+    });
+  }
+}
+</script>
+</body>
+</html>
