@@ -175,7 +175,7 @@
     </div>
   </sc-if>
 
-  <!-- Spread the cost panel (T-056). Bottom sheet under 900px, small dialog above. In the build each row is the provider's own message: Shopify's payment_terms banner and PayPal's Pay Later message. -->
+  <!-- Spread the cost panel (T-056). Bottom sheet under 900px, small dialog above. In the build each row is the provider's own message: Shopify's payment_terms banner, PayPal's Pay Later message and Klarna's On-site Messaging placement. Klarna (T-058) is already enabled at checkout on EG and GGS; GG and SW would need it switched on in Shopify Payments first. Learn more sits inline after each row's sub line so three rows fit a 390x844 sheet without scrolling. -->
   <sc-if value="{{ payOpen }}" hint-placeholder-val="{{ false }}">
     <div>
       <div class="eg-scrim" onClick="{{ closePay }}" aria-hidden="true"></div>
@@ -187,19 +187,18 @@
         <div class="eg-drawer__body" style="display:grid;gap:16px;padding-top:20px;min-height:0">
           <p style="margin:0;font-size:var(--eg-text-body-sm);line-height:1.5">Split {{ priceLabel }} into 3 interest-free payments: the first at checkout, then two monthly.</p>
           <ul role="list" style="list-style:none;margin:0;padding:0;display:grid;gap:12px">
-            <sc-for list="{{ payOptions }}" as="o" hint-placeholder-count="2">
+            <sc-for list="{{ payOptions }}" as="o" hint-placeholder-count="3">
               <li style="display:grid;gap:6px;padding:16px;border:1px solid var(--eg-color-border);border-radius:var(--eg-leaf-sm)">
                 <div style="display:flex;align-items:center;justify-content:space-between;gap:12px">
                   <strong style="font-weight:var(--eg-weight-strong)">{{ o.title }}</strong>
                   <span style="padding:2px 8px;border:1px solid var(--eg-color-border-strong);font:600 var(--eg-text-caption)/1.5 var(--eg-font-body);letter-spacing:.04em;white-space:nowrap">{{ o.mark }}</span>
                 </div>
                 <span>{{ o.amount }}</span>
-                <span style="font-size:var(--eg-text-body-sm);line-height:1.5;color:var(--eg-color-text-muted)">{{ o.sub }}</span>
-                <div><a href="#" onClick="{{ o.learn }}" class="eg-link-cta" style="font-size:var(--eg-text-body-sm);min-height:24px;display:inline-flex;align-items:center">Learn more<span style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)"> about {{ o.title }}</span></a></div>
+                <span style="font-size:var(--eg-text-body-sm);line-height:1.5;color:var(--eg-color-text-muted)">{{ o.sub }} <a href="#" onClick="{{ o.learn }}" class="eg-link-cta" style="font-size:var(--eg-text-body-sm);display:inline;white-space:nowrap">Learn more<span style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)"> about {{ o.title }}</span></a></span>
               </li>
             </sc-for>
           </ul>
-          <p style="margin:0;font-size:var(--eg-text-caption);line-height:1.5;color:var(--eg-color-text-muted)">Subject to status. Choose at checkout. 18+ UK residents only. Shop Pay Installments offers credit with Affirm as lender. PayPal Pay in 3 is a credit agreement with PayPal UK Ltd.</p>
+          <p style="margin:0;font-size:var(--eg-text-caption);line-height:1.5;color:var(--eg-color-text-muted)">Subject to status. Choose at checkout. 18+ UK residents only. Shop Pay Installments offers credit with Affirm as lender. PayPal Pay in 3 is a credit agreement with PayPal UK Ltd. Klarna: borrowing more than you can afford or paying late may negatively impact your financial status and ability to obtain credit. Ts&amp;Cs and late fees apply.</p>
         </div>
       </div>
     </div>
@@ -302,6 +301,8 @@ class Component extends DCLogic {
       payOptions: [
         { title: 'Pay in 3 with Shop Pay', mark: 'Shop Pay', amount: '3 interest-free instalments of £' + (Math.floor(price / 3 * 100) / 100).toFixed(2), sub: 'Choose Shop Pay at checkout.', learn: (e) => e.preventDefault() },
         { title: 'Pay in 3 with PayPal', mark: 'PayPal', amount: '3 interest-free payments of £' + (Math.floor(price / 3 * 100) / 100).toFixed(2), sub: 'Choose PayPal at checkout. You can also pay the full amount in 30 days.', learn: (e) => e.preventDefault() },
+        // Klarna (T-058): already enabled at checkout on EG and GGS via Shopify Payments. In the build this row is Klarna's On-site Messaging placement, which renders Klarna's own approved copy and disclosure.
+        { title: 'Pay in 3 with Klarna', mark: 'Klarna', amount: '3 interest-free instalments of £' + (Math.floor(price / 3 * 100) / 100).toFixed(2), sub: 'Choose Klarna at checkout.', learn: (e) => e.preventDefault() },
       ],
       excerpts: (m ? quotes.slice(0, 1) : quotes).map((q) => Object.assign({}, q, { inlineLink: m })),
       capacities: caps, cap: this.state.cap, setCap: (v) => this.setState({ cap: v }),
