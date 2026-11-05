@@ -335,7 +335,7 @@ class Component extends DCLogic {
       wished: this.state.wished, wishLabel: this.state.wished ? 'Remove from wishlist' : 'Add to wishlist', toggleWish: () => this.setState((s) => ({ wished: !s.wished })),
       showSticky: m && this.state.showSticky && !this.state.drawerOpen && !this.state.payOpen,
       inStock: !soldOut, soldOut: soldOut,
-      soldOutText: 'Sold out with the jacket. The 330L bin on its own is in stock.',
+      soldOutText: 'Sold out',
       openNotify: (e) => this.openNotify(e && e.currentTarget),
       stickyLabel: soldOut ? 'Email me' : 'Add to bag', stickyIcon: soldOut ? 'mail' : undefined,
       stickyAct: soldOut ? (e) => this.openNotify(e && e.currentTarget) : () => this.setState((s) => ({ bag: s.bag + s.qty, drawerOpen: true })),
