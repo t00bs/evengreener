@@ -4,15 +4,15 @@
 <meta charset="utf-8">
 <link rel="icon" href="data:,">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="./support.js?v=6nov3"></script>
+<script src="./support.js?v=6nov4"></script>
 </head>
 <body>
 <x-dc>
 <helmet>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="_ds/evengreener-design-system-ede5a68e-3ce4-4c3a-82c1-af597595dcea/styles.css?v=6nov3">
-<script src="_ds/evengreener-design-system-ede5a68e-3ce4-4c3a-82c1-af597595dcea/_ds_bundle.js?v=6nov3"></script>
-<script src="eg-shared.js?v=6nov3"></script>
+<link rel="stylesheet" href="_ds/evengreener-design-system-ede5a68e-3ce4-4c3a-82c1-af597595dcea/styles.css?v=6nov4">
+<script src="_ds/evengreener-design-system-ede5a68e-3ce4-4c3a-82c1-af597595dcea/_ds_bundle.js?v=6nov4"></script>
+<script src="eg-shared.js?v=6nov4"></script>
 <style>body{margin:0;background:#fff}a{color:var(--eg-color-link)}a:hover{color:var(--eg-color-link-hover)}</style>
 </helmet>
 <div style="position:relative;background:var(--eg-white);color:var(--eg-color-text)">
@@ -43,8 +43,8 @@
       <div style="max-width:var(--eg-container-max);margin-inline:auto;padding-inline:{{ gut }};display:grid;gap:{{ L.headGap }}">
         <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.Breadcrumb" items="{{ crumbs }}" hint-size="200px,20px"></x-import>
         <div style="display:grid;gap:8px;max-width:760px">
-          <h1 class="eg-h1" style="margin:0">Knowledge hub</h1>
-          <p class="eg-muted" style="margin:0;font-size:{{ L.standfirst }};text-wrap:pretty">Practical, tried-and-tested advice from our team on composting, saving water and cutting food waste.</p>
+          <h1 class="eg-h1" style="margin:0">{{ pageTitle }}</h1>
+          <p class="eg-muted" style="margin:0;font-size:{{ L.standfirst }};text-wrap:pretty">{{ standfirst }}</p>
         </div>
       </div>
     </section>
@@ -54,10 +54,10 @@
         <a href="Article Page.dc.html" style="display:grid;grid-template-columns:{{ L.featCols }};gap:{{ L.featGap }};align-items:center;color:inherit;text-decoration:none">
           <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.Media" kind="lifestyle" ratio="editorial" leaf="lg" src="{{ featured.image }}" alt="" hint-size="100%,420px"></x-import>
           <div style="display:grid;gap:12px;justify-items:start">
-            <p class="eg-eyebrow" style="margin:0">Start here · {{ featured.meta }}</p>
+            <p class="eg-eyebrow" style="margin:0">{{ featLabel }} · {{ featured.meta }}</p>
             <h2 class="eg-h2" style="margin:0">{{ featured.title }}</h2>
             <p class="eg-muted" style="margin:0;text-wrap:pretty">{{ featured.excerpt }}</p>
-            <span class="eg-link-cta">Read the guide</span>
+            <span class="eg-link-cta">{{ featCta }}</span>
           </div>
         </a>
 
@@ -76,35 +76,6 @@
             <span>Page 1 of 3</span>
             <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.IconButton" icon="chevron-right" label="Next page" hint-size="48px,48px"></x-import>
           </nav>
-        </div>
-      </div>
-    </section>
-
-    <!-- 5 Nov review: instruction manuals library. Build: every product with a Manual (file) metafield is listed here,
-         grouped by top-level collection, so a manual is uploaded once and shows on the product page and here. -->
-    <section id="manuals" data-note="M2" aria-labelledby="manuals-title" style="background:var(--eg-color-bg-alt);padding-block:{{ secPad }}">
-      <div style="max-width:var(--eg-container-max);margin-inline:auto;padding-inline:{{ gut }};display:grid;gap:{{ L.headGap }}">
-        <div style="display:grid;gap:8px;max-width:760px">
-          <h2 id="manuals-title" class="eg-h2" style="margin:0">Instruction manuals</h2>
-          <p class="eg-muted" style="margin:0;text-wrap:pretty">Lost the leaflet? Download the assembly and care instructions for your product.</p>
-        </div>
-        <div style="display:grid;grid-template-columns:{{ L.manCols }};gap:{{ L.manGap }}">
-          <sc-for list="{{ manualGroups }}" as="g" hint-placeholder-count="3">
-            <div style="display:grid;gap:8px;align-content:start">
-              <h3 class="eg-h5" style="margin:0">{{ g.title }}</h3>
-              <ul role="list" style="list-style:none;margin:0;padding:0;border-top:1px solid var(--eg-color-border-on-alt)">
-                <sc-for list="{{ g.items }}" as="it" hint-placeholder-count="3">
-                  <li style="border-bottom:1px solid var(--eg-color-border-on-alt)">
-                    <a href="#" style="display:grid;grid-template-columns:48px minmax(0,1fr) auto;gap:12px;align-items:center;min-height:64px;padding-block:8px;color:var(--eg-color-text);text-decoration:none;font-size:var(--eg-text-body-sm)">
-                      <img src="{{ it.image }}" alt="" style="width:48px;height:48px;object-fit:cover;background:var(--eg-color-bg-image-well);display:block">
-                      <span style="font-weight:500">{{ it.title }}</span>
-                      <span style="display:inline-flex;align-items:center;gap:6px;color:var(--eg-color-link);font-weight:500"><x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.Icon" name="file-text" size="{{ 18 }}" hint-size="18px,18px"></x-import>PDF</span>
-                    </a>
-                  </li>
-                </sc-for>
-              </ul>
-            </div>
-          </sc-for>
         </div>
       </div>
     </section>
@@ -142,24 +113,30 @@ class Component extends DCLogic {
   renderVals() {
     const D = window.EGData || {}; const S = window.EGUtil ? window.EGUtil.shell(this) : {};
     const m = this.state.w < 900;
-    const all = D.posts || [];
+    // ?type=guides (How-to guides) | blog (Blog); no type shows both.
+    const type = (new URLSearchParams(location.search).get('type') || '').toLowerCase();
+    const want = type === 'blog' ? 'blog' : type === 'guides' ? 'guide' : null;
+    const all = (D.posts || []).filter((p) => !want || p.type === want);
     const rest = all.slice(1);
-    const names = ['Composting', 'Water saving', 'Food waste', 'Gardening'];
+    const names = ['Composting', 'Water saving', 'Food waste', 'Gardening'].filter((n) => rest.some((p) => p.topic === n));
     const topics = [{ label: 'All topics', count: rest.length }].concat(names.map((n) => ({ label: n, count: rest.filter((p) => p.topic === n).length })));
     const t = this.state.topic;
+    const pageTitle = want === 'blog' ? 'Blog' : want === 'guide' ? 'How-to guides' : 'Guides and blog';
+    const word = want === 'blog' ? 'posts' : 'guides';
     return Object.assign(S, {
       L: {
         headPad: m ? '20px 24px' : '40px 48px', headGap: m ? '16px' : '24px', standfirst: m ? 'var(--eg-text-body)' : 'var(--eg-text-body-lg)', gap: m ? '32px' : '56px',
         featCols: m ? 'minmax(0,1fr)' : 'minmax(0,7fr) minmax(0,5fr)', featGap: m ? '16px' : '56px',
-        manCols: m ? 'minmax(0,1fr)' : 'repeat(3,minmax(0,1fr))', manGap: m ? '24px' : 'var(--eg-grid-gap)',
         cols: m ? 'minmax(0,1fr)' : 'repeat(3,minmax(0,1fr))', cardGap: m ? '32px' : 'var(--eg-grid-gap)', stripPad: m ? '24px' : '40px',
       },
-      crumbs: [{ label: 'Home', href: 'Home Page.dc.html' }, { label: 'Knowledge hub' }],
+      crumbs: [{ label: 'Home', href: 'Home Page.dc.html' }, { label: 'Knowledge hub', href: 'Knowledge Hub Page.dc.html' }, { label: pageTitle }],
+      pageTitle: pageTitle,
+      standfirst: want === 'blog' ? 'Seasonal ideas and news from the team on greener gardens and kitchens.' : 'Practical, tried-and-tested advice from our team on composting, saving water and cutting food waste.',
+      featLabel: want === 'blog' ? 'Latest' : 'Start here', featCta: want === 'blog' ? 'Read the post' : 'Read the guide',
       featured: all[0] || { title: '', meta: '', excerpt: '' },
-      listTitle: t === 'All topics' ? 'All guides' : t + ' guides',
+      listTitle: t === 'All topics' ? 'All ' + word : t + ' ' + word,
       topics: topics, topic: t, pickTopic: (x) => this.setState({ topic: x.label }),
       posts: t === 'All topics' ? rest : rest.filter((p) => p.topic === t),
-      manualGroups: ['Composting', 'Indoor and kitchen', 'Water butts and tanks'].map((g) => ({ title: g, items: (D.manuals || []).filter((x) => x.group === g) })),
     });
   }
 }

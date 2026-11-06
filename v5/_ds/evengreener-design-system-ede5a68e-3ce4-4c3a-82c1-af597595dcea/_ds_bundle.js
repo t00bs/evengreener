@@ -1662,7 +1662,12 @@ function MegaMenu({
     }), /*#__PURE__*/React.createElement("span", null, f.label), /*#__PURE__*/React.createElement(__ds_scope.Icon, {
       name: "chevron-right",
       size: 18
-    }))))), /*#__PURE__*/React.createElement("div", {
+    })))), m.all ? /*#__PURE__*/React.createElement("li", {
+      className: "eg-mega__all-item"
+    }, /*#__PURE__*/React.createElement(__ds_scope.LinkCta, {
+      href: m.all.href || '#',
+      onClick: go(m.all)
+    }, m.all.label)) : null), /*#__PURE__*/React.createElement("div", {
       className: "eg-mega__panel"
     }, /*#__PURE__*/React.createElement("div", {
       className: "eg-mega__panel-head"
@@ -1784,7 +1789,7 @@ function MobileNav({
   }, /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("a", {
     href: item.href || '#',
     onClick: go(item)
-  }, /*#__PURE__*/React.createElement("strong", null, 'Shop all ' + item.label.toLowerCase()))), item.mega.columns.reduce((a, c) => a.concat(c.links), []).map((l, j) => /*#__PURE__*/React.createElement("li", {
+  }, /*#__PURE__*/React.createElement("strong", null, item.allLabel || 'Shop all ' + item.label.toLowerCase()))), item.mega.columns.reduce((a, c) => a.concat(c.links), []).map((l, j) => /*#__PURE__*/React.createElement("li", {
     key: j
   }, /*#__PURE__*/React.createElement("a", {
     href: l.href || '#',

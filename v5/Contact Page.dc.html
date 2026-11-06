@@ -4,15 +4,15 @@
 <meta charset="utf-8">
 <link rel="icon" href="data:,">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="./support.js?v=6nov3"></script>
+<script src="./support.js?v=6nov4"></script>
 </head>
 <body>
 <x-dc>
 <helmet>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="_ds/evengreener-design-system-ede5a68e-3ce4-4c3a-82c1-af597595dcea/styles.css?v=6nov3">
-<script src="_ds/evengreener-design-system-ede5a68e-3ce4-4c3a-82c1-af597595dcea/_ds_bundle.js?v=6nov3"></script>
-<script src="eg-shared.js?v=6nov3"></script>
+<link rel="stylesheet" href="_ds/evengreener-design-system-ede5a68e-3ce4-4c3a-82c1-af597595dcea/styles.css?v=6nov4">
+<script src="_ds/evengreener-design-system-ede5a68e-3ce4-4c3a-82c1-af597595dcea/_ds_bundle.js?v=6nov4"></script>
+<script src="eg-shared.js?v=6nov4"></script>
 <style>body{margin:0;background:#fff}a{color:var(--eg-color-link)}a:hover{color:var(--eg-color-link-hover)}</style>
 </helmet>
 <div style="position:relative;background:var(--eg-white);color:var(--eg-color-text)">
@@ -123,7 +123,7 @@ class Component extends DCLogic {
         cols: m ? 'minmax(0,1fr)' : 'minmax(0,7fr) minmax(0,4fr)', colGap: m ? '32px' : '64px',
         formOrder: m ? 2 : 1, asideOrder: m ? 1 : 2, panelPad: m ? '20px 16px' : '28px', bleed: m ? '-16px' : '0',
       },
-      crumbs: [{ label: 'Home', href: 'Home Page.dc.html' }, { label: 'Contact us' }],
+      crumbs: [{ label: 'Home', href: 'Home Page.dc.html' }, { label: 'Knowledge hub', href: 'Knowledge Hub Page.dc.html' }, { label: 'Contact us' }],
       topics: ['Choosing a product', 'An order I have placed', 'Delivery', 'Returns and refunds', 'Spare parts', 'Something else'],
       errors: Object.assign({ name: '', email: '', msg: '' }, this.state.errors), sent: !!this.state.sent, notSent: !this.state.sent, sentTo: this.state.sent,
       submit: (e) => {

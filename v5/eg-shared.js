@@ -131,7 +131,8 @@
   var POST = {
     'Which composter is right for me?': 'C_hot', 'How to start composting at home': 'L_conv330', 'Hot composting: compost in 1 to 3 months': 'C_hotbin',
     'How to set up a water butt': 'L_ward3', 'Composting in a flat': 'L_steelCaddy', 'Water-saving tips for summer gardens': 'L_indoorCan',
-    'Can I compost cooked food?': 'C_greenCone', 'Composting through winter': 'L_hot450', 'Making a wildlife-friendly corner': 'C_hedgehog'
+    'Can I compost cooked food?': 'C_greenCone', 'Composting through winter': 'L_hot450', 'Making a wildlife-friendly corner': 'C_hedgehog',
+    'Can I use wastewater in my garden?': 'C_rainsaver', 'Cutting kitchen waste': 'C_kitchen'
   };
   // Category and collection cards
   var CAT = {
@@ -157,6 +158,7 @@
   // Each menu: columns (mobile accordion) + featured (desktop: sub-collection list | 4 products for the hovered one)
   function P(title, price, extra) { return Object.assign({ title: title, price: price }, extra || {}); }
   function T(title) { return { title: title, kind: 'lifestyle', image: TILE[title] ? img(TILE[title], 600) : undefined }; }
+  function Mt(k, title) { return { title: title, kind: 'packshot', manual: true, image: img(k, 600) }; }
   function F(label, products, cta) { return { label: label, href: '#', cta: cta || 'Shop all', products: products, image: products[0] && products[0].image }; }
   function top(label, featured, mobileLinks) {
     return { label: label, href: '#', mega: { columns: [col(label, mobileLinks || featured.map(function (f) { return f.label; }))], featured: featured } };
@@ -224,6 +226,7 @@
     ]),
     top('Knowledge hub', [
       F('How-to guides', [T('Which composter is right for me?'), T('How to start composting at home'), T('How to set up a water butt'), T('Water-saving tips for summer gardens')], 'View all guides'),
+      F('Instruction manuals', [Mt('johanna', 'Green Johanna 330L Compost Bin'), Mt('hot450', 'HOTBIN Mega 450 and 700 Litre'), Mt('reencle', 'Reencle Electric Composter'), Mt('butt210', 'Straight Water Butt Kits')], 'View all manuals'),
       F('FAQs', [T('Will my composter smell?'), T('Can I compost cooked food?'), T('How do I fit a diverter?'), T('Delivery and returns')], 'View all FAQs'),
       F('Blog', [T('Can I use wastewater in my garden?'), T('Composting through winter'), T('Wildlife-friendly gardens'), T('Cutting kitchen waste')], 'View the blog'),
       F('Contact us', [T('Email our Customer Care Team'), T('Bulk enquiries'), T('Track an order'), T('Returns')], 'Contact us')
@@ -233,7 +236,7 @@
   var scopes = ['All', 'Water butts and tanks', 'Composting', 'Indoor and kitchen', 'In the garden', 'Gifts'];
   var footer = [
     { title: 'Shop', links: ['Water butts and tanks', 'Composting', 'Indoor and kitchen', 'In the garden', 'Gifts'] },
-    { title: 'Knowledge hub', links: ['How-to guides', 'Instruction manuals', 'FAQs', 'Blog', 'Contact us'] },
+    { title: 'Knowledge hub', links: ['Knowledge hub home', 'How-to guides', 'Instruction manuals', 'FAQs', 'Blog', 'Contact us'] },
     { title: 'Good to know', links: ['About us', 'Bulk enquiries', 'Outside the UK', 'Customer reviews'] },
     { title: 'Connect', links: ['Instagram', 'TikTok', 'YouTube', 'Facebook', 'Pinterest'] },
     { title: 'Account', links: ['Manage account', 'Orders and returns'] },
@@ -311,7 +314,8 @@
       if (t === 'Good to know') return o === 'Made in Britain' ? !!pp.uk : !!pp.cooked;
       return true; }); });
   }
-  function post(title, topic, mins, excerpt) { return { title: title, topic: topic, excerpt: excerpt, meta: topic === 'Blog' ? 'Blog' : 'Guide' /* 5 Nov: reading-time estimates removed */, image: POST[title] ? img(POST[title], 900) : undefined }; }
+  // type: 'guide' (How-to guides) or 'blog' (Blog). Both live in the knowledge hub; the Blog page filters with ?type=guides|blog.
+  function post(title, topic, mins, excerpt, type) { type = type || 'guide'; return { title: title, topic: topic, type: type, excerpt: excerpt, meta: type === 'blog' ? 'Blog' : 'Guide' /* 5 Nov: reading-time estimates removed */, image: POST[title] ? img(POST[title], 900) : undefined }; }
   var posts = [
     post('Which composter is right for me?', 'Composting', 7, 'Space, speed and what you want to compost. Three questions that point you to the right bin.'),
     post('How to start composting at home', 'Composting', 6, 'Everything you need to turn scraps into rich compost, whatever the size of your space.'),
@@ -320,8 +324,10 @@
     post('Composting in a flat', 'Food waste', 5, 'Kitchen caddies, bokashi and electric composters that fit small spaces and won\u2019t smell.'),
     post('Water-saving tips for summer gardens', 'Water saving', 4, 'Simple habits that keep borders and pots going through a dry spell.'),
     post('Can I compost cooked food?', 'Food waste', 4, 'What goes in which bin, and the composters that take meat, fish and dairy.'),
-    post('Composting through winter', 'Composting', 5, 'Keep your heap working when the temperature drops.'),
-    post('Making a wildlife-friendly corner', 'Gardening', 6, 'Bug hotels, hedgehog houses and planting that brings the garden to life.')
+    post('Composting through winter', 'Composting', 5, 'Keep your heap working when the temperature drops.', 'blog'),
+    post('Making a wildlife-friendly corner', 'Gardening', 6, 'Bug hotels, hedgehog houses and planting that brings the garden to life.', 'blog'),
+    post('Can I use wastewater in my garden?', 'Water saving', 4, 'Which grey water is safe for plants, and which to keep off the veg patch.', 'blog'),
+    post('Cutting kitchen waste', 'Food waste', 4, 'Small changes that shrink the food bin, and what to do with what is left.', 'blog')
   ];
   var orders = [
     { id: 'EG10482', date: '12 October 2026', dispatched: '14 October 2026', courier: 'DPD', tracked: true, status: 'Dispatched', total: 164.98, items: [{ title: 'Green Johanna 330L Compost Bin', variant: 'Green', qty: 1, price: 124.99 }, { title: 'Straight 330 Litre Recycled Compost Converter', variant: '330L, Green', qty: 1, price: 39.99 }] },
@@ -394,12 +400,13 @@
   // ---- 28 Oct review: page links, mobile category bar (nav options A/B/C), shared water butt finder ----
   var PG = { home: 'Home Page.dc.html', coll: 'Collection Page.dc.html', list: 'Collections List Page.dc.html', pdp: 'Product Page.dc.html', blog: 'Blog Page.dc.html',
     article: 'Article Page.dc.html', faq: 'FAQ Page.dc.html', contact: 'Contact Page.dc.html', about: 'About Page.dc.html', bulk: 'Bulk Enquiry Page.dc.html',
-    account: 'Account Page.dc.html', search: 'Search Page.dc.html', cart: 'Cart Page.dc.html', gift: 'Gift Card Page.dc.html' };
-  var TOP_HREF = { 'Water butts and tanks': PG.coll + '?c=water', 'Composting': PG.coll, 'Indoor and kitchen': PG.list, 'In the garden': PG.list, 'Gifts': PG.list, 'Knowledge hub': PG.blog };
-  var HUB_HREF = { 'How-to guides': PG.blog, 'Instruction manuals': PG.blog + '#manuals', 'FAQs': PG.faq, 'Blog': PG.blog, 'Contact us': PG.contact };
+    account: 'Account Page.dc.html', search: 'Search Page.dc.html', cart: 'Cart Page.dc.html', gift: 'Gift Card Page.dc.html',
+    hub: 'Knowledge Hub Page.dc.html', manuals: 'Instruction Manuals Page.dc.html', guides: 'Blog Page.dc.html?type=guides', blogOnly: 'Blog Page.dc.html?type=blog' };
+  var TOP_HREF = { 'Water butts and tanks': PG.coll + '?c=water', 'Composting': PG.coll, 'Indoor and kitchen': PG.list, 'In the garden': PG.list, 'Gifts': PG.list, 'Knowledge hub': PG.hub };
+  var HUB_HREF = { 'Knowledge hub': PG.hub, 'How-to guides': PG.guides, 'Instruction manuals': PG.manuals, 'FAQs': PG.faq, 'Blog': PG.blogOnly, 'Contact us': PG.contact };
   var COMPOST_SUBS = ['Standard composters', 'Hot composters', 'Food waste composting', 'Electric composters', 'Wooden composters', 'Tumblers', 'Bokashi composters', 'Worm composters'];
   function subHref(top, label) {
-    if (top === 'Knowledge hub') return HUB_HREF[label] || PG.blog;
+    if (top === 'Knowledge hub') return HUB_HREF[label] || PG.hub;
     if (top === 'Composting') return COMPOST_SUBS.indexOf(label) > -1 ? PG.coll + '?sub=' + encodeURIComponent(label) : PG.coll;
     if (top === 'Water butts and tanks') return PG.coll + '?c=water';
     return TOP_HREF[top] || PG.list;
@@ -408,9 +415,11 @@
     n.href = TOP_HREF[n.label] || PG.list;
     (n.mega.featured || []).forEach(function (f) {
       f.href = subHref(n.label, f.label);
-      (f.products || []).forEach(function (pp) { if (!pp.href) pp.href = pp.price ? PG.pdp : (n.label === 'Knowledge hub' ? (f.label === 'FAQs' ? PG.faq : f.label === 'Contact us' ? PG.contact : PG.article) : f.href); });
+      (f.products || []).forEach(function (pp) { if (!pp.href) pp.href = pp.price ? PG.pdp : (n.label === 'Knowledge hub' ? (f.label === 'FAQs' ? PG.faq : f.label === 'Contact us' ? PG.contact : pp.manual ? PG.manuals : PG.article) : f.href); });
     });
     (n.mega.columns || []).forEach(function (c) { c.links.forEach(function (l) { l.href = subHref(n.label, l.label); }); });
+    // Knowledge hub has its own landing page that links out to each section: link to it from the menu (desktop and mobile).
+    if (n.label === 'Knowledge hub') { n.allLabel = 'Visit the knowledge hub'; n.mega.all = { label: 'Visit the knowledge hub', href: PG.hub }; }
   });
   var UTIL_HREF = { 'Delivery': PG.faq, 'Bulk enquiries': PG.bulk };
   utility.forEach(function (u) { u.href = UTIL_HREF[u.label] || '#'; });
@@ -419,7 +428,7 @@
   footer.forEach(function (col) {
     col.links = col.links.map(function (l) {
       var label = typeof l === 'string' ? l : l.label;
-      var href = TOP_HREF[label] || HUB_HREF[label] || FOOT_HREF[label];
+      var href = label === 'Knowledge hub home' ? PG.hub : TOP_HREF[label] || HUB_HREF[label] || FOOT_HREF[label];
       return href ? { label: label, href: href } : { label: label };
     });
   });
@@ -435,7 +444,7 @@
     return q === 'a' || q === 'b' ? q : 'c';
   }
   var catBar = nav.filter(function (n) { return n.label !== 'Knowledge hub'; }).map(function (n) { return { label: n.label, href: n.href }; })
-    .concat([{ label: 'Bulk buy', href: PG.bulk }, { label: 'Knowledge hub', href: PG.blog }]);
+    .concat([{ label: 'Bulk buy', href: PG.bulk }, { label: 'Knowledge hub', href: PG.hub }]);
   try {
     var cs = document.createElement('style'); cs.setAttribute('data-eg-catbar', '');
     cs.textContent = [
@@ -457,6 +466,7 @@
       '.eg-media>img.eg-product-card__hover{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;padding:0;opacity:0;transition:opacity var(--eg-duration-fast,.2s) var(--eg-ease,ease);pointer-events:none;z-index:0}',
       '@media (hover:hover){.eg-product-card:hover .eg-product-card__hover,.eg-product-card:focus-within .eg-product-card__hover{opacity:1}}',
       '@media (prefers-reduced-motion:reduce){.eg-product-card__hover{transition:none}}',
+      '.eg-mega__all-item{margin-top:var(--eg-space-3,12px);padding:8px 20px}',
       /* 5 Nov: quick view (eye) button on related products */
       '.eg-product-card__quick{position:absolute;top:8px;right:8px;z-index:2}',
       '.eg-product-card__quick .eg-icon-btn{background:var(--eg-white,#fff);box-shadow:var(--eg-shadow-sm,0 1px 2px rgba(0,0,0,.12))}',
@@ -491,7 +501,7 @@
     else if (a.tagName === 'A' && a.closest('.eg-cat-card')) { var tt = a.closest('.eg-cat-card').textContent; go = /water/i.test(tt) ? PG.coll + '?c=water' : /^\s*compost/i.test(tt) ? PG.coll : PG.list; }
     else if (a.tagName === 'A') {
       var tx = (a.textContent || '').trim();
-      go = /bulk/i.test(tx) ? PG.bulk : /delivery/i.test(tx) ? PG.faq : /guides|blog/i.test(tx) ? PG.blog : /^shop all/i.test(tx) ? PG.list : /contact/i.test(tx) ? PG.contact : null;
+      go = /bulk/i.test(tx) ? PG.bulk : /delivery/i.test(tx) ? PG.faq : /manual/i.test(tx) ? PG.manuals : /knowledge hub/i.test(tx) ? PG.hub : /guides|blog/i.test(tx) ? PG.blog : /^shop all/i.test(tx) ? PG.list : /contact/i.test(tx) ? PG.contact : null;
     }
     if (go) { e.preventDefault(); location.href = go; }
   }, true);
@@ -539,7 +549,14 @@
     }
     var iv = setInterval(function () { bind(); if (Date.now() - t0 > 20000) { clearInterval(iv); setInterval(bind, 1000); } }, 150);
   })();
-  window.EGData = { waterFacets: waterFacets, waterSteps: waterSteps, foodWaste: foodWaste, pages: PG, nav: nav, utility: utility, scopes: scopes, footer: footer, bestsellers: bestsellers, homeReviews: homeReviews, cart: cart, aerator: aerator, payments: payments, composting: composting, water: water, catalogue: catalogue, compostFacets: compostFacets, facetsFor: facetsFor, filterFn: filterFn, capTest: capTest, priceTest: priceTest, posts: posts, orders: orders, addresses: addresses, manuals: manuals };
+  var hubSections = [
+    { title: 'How-to guides', text: 'Choosing, setting up and getting the best from your composter or water butt.', cta: 'Read the guides', href: PG.guides, image: img('C_hot', 900) },
+    { title: 'Instruction manuals', text: 'Lost the leaflet? Download assembly and care instructions for your product.', cta: 'Find your manual', href: PG.manuals, image: img('L_johanna0', 900) },
+    { title: 'FAQs', text: 'Quick answers on delivery, returns, smells, pests and what goes in which bin.', cta: 'Read the FAQs', href: PG.faq, image: img('L_johanna3', 900) },
+    { title: 'Blog', text: 'Seasonal ideas and news from the team on greener gardens and kitchens.', cta: 'Read the blog', href: PG.blogOnly, image: img('C_hedgehog', 900) },
+    { title: 'Contact us', text: 'Ask our Customer Care Team. We reply within 1 working day.', cta: 'Get in touch', href: PG.contact, image: img('L_harco', 900) }
+  ];
+  window.EGData = { hubSections: hubSections, waterFacets: waterFacets, waterSteps: waterSteps, foodWaste: foodWaste, pages: PG, nav: nav, utility: utility, scopes: scopes, footer: footer, bestsellers: bestsellers, homeReviews: homeReviews, cart: cart, aerator: aerator, payments: payments, composting: composting, water: water, catalogue: catalogue, compostFacets: compostFacets, facetsFor: facetsFor, filterFn: filterFn, capTest: capTest, priceTest: priceTest, posts: posts, orders: orders, addresses: addresses, manuals: manuals };
   window.EGUtil = { pins: pins, fmt: fmt, param: param, shell: shell, waterRecommend: waterRecommend, navOption: navOption };
   window.EGImg = {
     src: img, item: itemImg,

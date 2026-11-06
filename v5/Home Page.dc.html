@@ -4,15 +4,15 @@
 <meta charset="utf-8">
 <link rel="icon" href="data:,">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="./support.js?v=6nov3"></script>
+<script src="./support.js?v=6nov4"></script>
 </head>
 <body>
 <x-dc>
 <helmet>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="_ds/evengreener-design-system-ede5a68e-3ce4-4c3a-82c1-af597595dcea/styles.css?v=6nov3">
-<script src="_ds/evengreener-design-system-ede5a68e-3ce4-4c3a-82c1-af597595dcea/_ds_bundle.js?v=6nov3"></script>
-<script src="eg-shared.js?v=6nov3"></script>
+<link rel="stylesheet" href="_ds/evengreener-design-system-ede5a68e-3ce4-4c3a-82c1-af597595dcea/styles.css?v=6nov4">
+<script src="_ds/evengreener-design-system-ede5a68e-3ce4-4c3a-82c1-af597595dcea/_ds_bundle.js?v=6nov4"></script>
+<script src="eg-shared.js?v=6nov4"></script>
 <style>body{margin:0;background:#fff}a{color:var(--eg-color-link)}a:hover{color:var(--eg-color-link-hover)}</style>
 </helmet>
 <div style="position:relative;background:var(--eg-white);color:var(--eg-color-text)">
@@ -257,7 +257,7 @@ class Component extends DCLogic {
       quickAdd: (p) => this.setState((s) => ({ added: s.added.some((a) => a.id === p.id) ? s.added : s.added.concat([{ id: p.id, title: p.title, variant: 'One size', price: p.price, qty: 1 }]), drawerOpen: true })),
       recommend: () => best.slice(0, 3),
       reviews: D.homeReviews || [],
-      blogCta: { label: 'Browse all guides', href: 'Blog Page.dc.html' },
+      blogCta: { label: 'Browse all guides', href: 'Blog Page.dc.html?type=guides' },
       posts: [
         { title: 'How to start composting at home', excerpt: 'Everything you need to turn scraps into rich compost, whatever the size of your space.', meta: 'Guide', image: I.post('How to start composting at home') },
         { title: 'Hot composting: compost in 1 to 3 months', excerpt: 'How hot composters work, what to put in them and how to keep the heat up all year.', meta: 'Guide', image: I.post('Hot composting: compost in 1 to 3 months') },
