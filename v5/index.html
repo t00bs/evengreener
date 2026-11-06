@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="data:,">
+<title>EvenGreener design suite for review</title>
+<link rel="stylesheet" href="_ds/evengreener-design-system-ede5a68e-3ce4-4c3a-82c1-af597595dcea/styles.css">
+<style>
+*{box-sizing:border-box}body{margin:0;background:var(--eg-oat-100);color:var(--eg-forest-900);font-family:var(--eg-font-body);}
+a{color:var(--eg-forest-700)}a:hover{color:var(--eg-forest-900)}
+.wrap{max-width:1180px;margin:0 auto;padding:40px 32px 64px}
+.top{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:32px}
+.top img{height:34px}
+.kicker{font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--eg-leaf-700);margin:0 0 8px}
+h1{font-family:var(--eg-font-display);font-weight:800;font-size:44px;line-height:1.05;margin:0 0 12px}
+h2{font-family:var(--eg-font-display);font-weight:800;font-size:26px;margin:0 0 12px}
+p{line-height:1.6;margin:0 0 12px;max-width:62ch}
+.proto{display:grid;grid-template-columns:420px minmax(0,1fr);gap:56px;align-items:start}
+.phone{width:414px;height:868px;border-radius:52px;background:#101512;padding:12px;box-shadow:0 30px 60px rgba(20,51,36,.25);position:relative}
+.phone iframe{width:390px;height:844px;border:0;border-radius:40px;background:#fff;display:block}
+.changes{padding-left:20px;line-height:1.6;margin:0 0 32px;max-width:80ch}.changes li{margin-bottom:8px}
+.notes ol{padding-left:20px;line-height:1.7;margin:0 0 20px}
+.switch{display:flex;gap:8px;flex-wrap:wrap;margin:20px 0 24px}
+.switch a{padding:10px 16px;border-radius:999px;border:1px solid var(--eg-forest-700);text-decoration:none;font-weight:600;font-size:14px}
+.switch a.on{background:var(--eg-forest-700);color:#fff}
+.small{font-size:14px;color:var(--eg-stone-600)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px;margin:0 0 40px;padding:0;list-style:none}
+.grid a{display:block;background:#fff;border:1px solid var(--eg-oat-300);border-radius:16px 4px;padding:16px 18px;text-decoration:none;font-weight:600}
+.grid a span{display:block;font-weight:400;font-size:13px;color:var(--eg-stone-600);margin-top:4px}
+.grid a:hover{border-color:var(--eg-forest-700)}
+@media (max-width:900px){.proto{grid-template-columns:1fr}.phone{transform:scale(.85);transform-origin:0 0;margin-bottom:-130px}h1{font-size:34px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top"><img src="_ds/evengreener-design-system-ede5a68e-3ce4-4c3a-82c1-af597595dcea/assets/logos/evengreener-logo-full-colour-trim.png" alt="EvenGreener"><span class="small">Design suite, updated after the 5 November review</span></div>
+  <p class="kicker">For internal review</p>
+  <h1>EvenGreener design suite</h1>
+  <p>Every page in the redesign, all clickable. Links between pages work, so you can move through the site as a shopper would. Pages adapt to your screen, so open them on a phone too.</p>
+  <h2>Changes since the 5 November review</h2>
+  <p>Decided on 5 November: Option C for mobile navigation, the top announcement bar stays, both EvenGreener Gang sign-ups stay, grid view is the default on collections, and the compare tool takes up to 4 items.</p>
+  <ol class="changes">
+    <li><strong>Mobile navigation.</strong> Option C is now the default on every page: a compact category row that hides as you scroll down and comes back when you scroll up. Options A and B stay switchable (?nav=a or ?nav=b) for the one-month test.</li>
+    <li><strong>Header logo.</strong> The logo now sits in the true centre of the mobile header, whichever navigation option is on.</li>
+    <li><strong>Homepage finder.</strong> One finder with an explicit first question: Composting, or Water butts and tanks. The next three questions belong to that range, and the water butt questions are the same ones as on the water butt collection page.</li>
+    <li><strong>Homepage tidy.</strong> "Online since 2001" now appears once (the USP strip). Free delivery stays in the announcement bar only, and its USP slot now points to guides and instruction manuals. The bulk strip moved below the finder and is the only bulk block on the page. Bestsellers lead with the Green Johanna and the other high-ticket lines.</li>
+    <li><strong>Product cards.</strong> Cutout image first, lifestyle shot on hover. Products without a cutout yet show their lifestyle shot only (see the Strata Two Bay).</li>
+    <li><strong>Quick view.</strong> Add-ons on the product page and the new "You might also like" row have a small eye button. It opens the item’s description in a panel, so shoppers stay on the page. Same panel pattern as Spread the cost: Esc closes, focus stays inside.</li>
+    <li><strong>Instruction manuals.</strong> New manuals library in the knowledge hub, and an "Instruction manual (PDF)" link under the product details.</li>
+    <li><strong>Reading times.</strong> Removed from the knowledge hub, guide pages and the homepage guides.</li>
+    <li><strong>Search page.</strong> The search field and button are one input group now, the same leaf shape as the newsletter sign-up, so nothing sits out of line.</li>
+    <li><strong>Order view.</strong> Orders show the order date and dispatch date. Parcels sent with a courier that doesn’t track get a plain "This parcel isn’t tracked" notice instead of a Track button.</li>
+    <li><strong>Bulk enquiries.</strong> Sketch of Natalie’s idea: pick products from the bulk range at the top of the page and they are added to the enquiry form.</li>
+    <li><strong>Sold out.</strong> Back in stock state from T-086 carried into this round: one "Email me when it’s back" button and a "Back soon" link on sold-out cards.</li>
+  </ol>
+  <p class="small">For the build, after sign-off: Theme setting for the mobile category row (off / swipe row / compact row), with hotspot tracking on the row for the one-month test. Cart drawer "Goes well with your bag": picked from what is in the basket (rules by product type and collection), not one fixed list of five. Untracked courier notice: a list of untracked carriers in theme settings decides whether the order page shows Track parcel or the notice. Contact form on ElectricForms (fixes blank customer replies and spam), not a mailto. Manual (file) metafield on products, feeding both the product page link and the manuals library. Favourites: a small custom script that saves favourites in the browser and to the customer account, no subscription app. The current site’s wishlist link 404s, so it is replaced.</p>
+  <h2>Mobile navigation prototypes</h2>
+  <p>Option C is the default across the suite since the 5 November review. A and B stay here, and switchable with ?nav=a or ?nav=b, for the one-month test.</p>
+  <ul class="grid"><li><a href="Mobile%20Nav%20A.html">Option A: burger menu only<span>The header stays as it is today</span></a></li><li><a href="Mobile%20Nav%20B.html">Option B: swipeable category row<span>One row of full category names under the header, swiped sideways</span></a></li><li><a href="Mobile%20Nav%20C.html">Option C (chosen): compact row that hides on scroll<span>A slimmer text row that stays under the header</span></a></li></ul>
+  <h2>Shop</h2><ul class="grid"><li><a href="Home%20Page.dc.html">Homepage<span>Two-way finder, bulk strip below it, bestsellers</span></a></li><li><a href="Collections%20List%20Page.dc.html">All collections</a></li><li><a href="Collection%20Page.dc.html">Collection: composting<span>Composter finder on the page</span></a></li><li><a href="Collection%20Page.dc.html?c=water">Collection: water butts and tanks<span>Water butt finder on the page</span></a></li><li><a href="Collection%20Page.dc.html?sub=Food%20waste%20composting">Collection: food waste composting<span>New sub-collection under Composting</span></a></li><li><a href="Product%20Page.dc.html">Product page<span>Green Johanna 330L</span></a></li><li><a href="Product%20Page.dc.html?soldout=1">Product page: sold out<span>Email me when it&rsquo;s back, the back in stock sign-up</span></a></li><li><a href="Search%20Page.dc.html?q=water%20butt">Search results</a></li><li><a href="Search%20Page.dc.html?q=compost%20tea">Search, no results</a></li></ul><h2>Basket</h2><ul class="grid"><li><a href="Cart%20Page.dc.html">Cart page</a></li><li><a href="Cart%20Drawer.dc.html">Cart drawer</a></li><li><a href="Gift%20Card%20Page.dc.html">Gift card</a></li></ul><h2>Help and content</h2><ul class="grid"><li><a href="Blog%20Page.dc.html">Knowledge hub<span>Now with instruction manuals</span></a></li><li><a href="Article%20Page.dc.html">Guide article</a></li><li><a href="FAQ%20Page.dc.html">Help and FAQs</a></li><li><a href="Contact%20Page.dc.html">Contact us</a></li><li><a href="About%20Page.dc.html">About us</a></li><li><a href="Bulk%20Enquiry%20Page.dc.html">Bulk enquiries</a></li></ul><h2>Account and utility</h2><ul class="grid"><li><a href="Account%20Page.dc.html?view=login">Sign in</a></li><li><a href="Account%20Page.dc.html?view=register">Create account</a></li><li><a href="Account%20Page.dc.html?view=orders">Account: orders</a></li><li><a href="Account%20Page.dc.html?view=order&amp;order=EG10217">Order, untracked courier<span>Order and dispatch dates, no tracking notice</span></a></li><li><a href="Account%20Page.dc.html?view=addresses">Addresses</a></li><li><a href="404%20Page.dc.html">Page not found</a></li><li><a href="Password%20Page.dc.html">Password page</a></li></ul><h2>Overview</h2><ul class="grid"><li><a href="Desktop%20Viewer.dc.html">Desktop viewer<span>Every page at 1440px with a page picker</span></a></li><li><a href="CRO%20Redesign%20Board.dc.html">Redesign board<span>All templates side by side</span></a></li><li><a href="../v3/CRO%20Redesign%20Deck.dc.html">28 October review deck<span>As presented on the day</span></a></li><li><a href="../v4/index.html">5 November review suite<span>The previous round, as reviewed</span></a></li></ul>
+  <p class="small">Product details, prices and review counts are placeholders. Reviews will come from Yotpo in the build.</p>
+</div>
+</body>
+</html>

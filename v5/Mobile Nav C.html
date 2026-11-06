@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="data:,">
+<title>EvenGreener mobile navigation, Option C: compact row that hides on scroll</title>
+<link rel="stylesheet" href="_ds/evengreener-design-system-ede5a68e-3ce4-4c3a-82c1-af597595dcea/styles.css">
+<style>
+*{box-sizing:border-box}body{margin:0;background:var(--eg-oat-100);color:var(--eg-forest-900);font-family:var(--eg-font-body);}
+a{color:var(--eg-forest-700)}a:hover{color:var(--eg-forest-900)}
+.wrap{max-width:1180px;margin:0 auto;padding:40px 32px 64px}
+.top{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:32px}
+.top img{height:34px}
+.kicker{font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--eg-leaf-700);margin:0 0 8px}
+h1{font-family:var(--eg-font-display);font-weight:800;font-size:44px;line-height:1.05;margin:0 0 12px}
+h2{font-family:var(--eg-font-display);font-weight:800;font-size:26px;margin:0 0 12px}
+p{line-height:1.6;margin:0 0 12px;max-width:62ch}
+.proto{display:grid;grid-template-columns:420px minmax(0,1fr);gap:56px;align-items:start}
+.phone{width:414px;height:868px;border-radius:52px;background:#101512;padding:12px;box-shadow:0 30px 60px rgba(20,51,36,.25);position:relative}
+.phone iframe{width:390px;height:844px;border:0;border-radius:40px;background:#fff;display:block}
+.notes ol{padding-left:20px;line-height:1.7;margin:0 0 20px}
+.switch{display:flex;gap:8px;flex-wrap:wrap;margin:20px 0 24px}
+.switch a{padding:10px 16px;border-radius:999px;border:1px solid var(--eg-forest-700);text-decoration:none;font-weight:600;font-size:14px}
+.switch a.on{background:var(--eg-forest-700);color:#fff}
+.small{font-size:14px;color:var(--eg-stone-600)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px;margin:0 0 40px;padding:0;list-style:none}
+.grid a{display:block;background:#fff;border:1px solid var(--eg-oat-300);border-radius:16px 4px;padding:16px 18px;text-decoration:none;font-weight:600}
+.grid a span{display:block;font-weight:400;font-size:13px;color:var(--eg-stone-600);margin-top:4px}
+.grid a:hover{border-color:var(--eg-forest-700)}
+@media (max-width:900px){.proto{grid-template-columns:1fr}.phone{transform:scale(.85);transform-origin:0 0;margin-bottom:-130px}h1{font-size:34px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top"><a href="index.html"><img src="_ds/evengreener-design-system-ede5a68e-3ce4-4c3a-82c1-af597595dcea/assets/logos/evengreener-logo-full-colour-trim.png" alt="EvenGreener design suite"></a><a href="index.html" class="small">All designs</a></div>
+  <div class="proto">
+    <div class="phone"><iframe src="Home%20Page.dc.html?nav=c" title="Option C: compact row that hides on scroll, interactive prototype"></iframe></div>
+    <div class="notes">
+      <p class="kicker">Mobile navigation prototype</p>
+      <h1>Option C: compact row that hides on scroll</h1>
+      <p>A slimmer text row that stays under the header. It slides away as you scroll down the page and comes back as soon as you scroll up.</p>
+      <div class="switch"><a href="Mobile Nav A.html" class="">Option A</a><a href="Mobile Nav B.html" class="">Option B</a><a href="Mobile Nav C.html" class="on">Option C</a></div>
+      <h2>What to try</h2>
+      <ol><li>Scroll down a product list, then flick back up. Does the row come back when you want it?</li><li>Is the hiding distracting?</li><li>Is the compact row easy enough to tap?</li></ol>
+      <p>The prototype is fully clickable: open the menu, tap a category, add something to the bag. Your choice of option carries on as you move between pages.</p>
+      <p><a href="Home%20Page.dc.html?nav=c">Open this option full screen</a>, best on your phone.</p>
+      <p class="small">Desktop keeps the full category names in the header for every option.</p>
+    </div>
+  </div>
+</div>
+</body>
+</html>

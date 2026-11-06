@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="icon" href="data:,">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="_ds/evengreener-design-system-ede5a68e-3ce4-4c3a-82c1-af597595dcea/styles.css">
+<script src="_ds/evengreener-design-system-ede5a68e-3ce4-4c3a-82c1-af597595dcea/_ds_bundle.js"></script>
+<script src="eg-shared.js"></script>
+<style>body{margin:0;background:#fff}a{color:var(--eg-color-link)}a:hover{color:var(--eg-color-link-hover)}</style>
+</helmet>
+<div style="position:relative;background:var(--eg-white);color:var(--eg-color-text)">
+  <div ref="{{ pinLayer }}" aria-hidden="true" style="position:absolute;top:0;left:0;width:0;height:0;z-index:300;pointer-events:none;visibility:{{ pinVis }}">
+    <sc-for list="{{ pins }}" as="p" hint-placeholder-count="0">
+      <div style="position:absolute;top:{{ p.top }};left:{{ p.left }};min-width:24px;height:24px;padding:0 6px;border-radius:999px;background:#C8285E;color:#fff;font:600 12px/24px Poppins,sans-serif;text-align:center;box-shadow:0 0 0 2px #fff">{{ p.n }}</div>
+    </sc-for>
+  </div>
+
+  <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.AnnouncementBar" hint-size="100%,32px"></x-import>
+  <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.Header" nav="{{ nav }}" utility-links="{{ utility }}" search-scopes="{{ scopes }}" current="Composting" bag-count="{{ bagCount }}" bag-total="{{ bagTotal }}" on-bag="{{ openDrawer }}" hint-size="100%,60px"></x-import>
+  <!-- Mobile category bar (28 Oct review). Option B default: one swipeable row of full category names. Option C: compact, sticky, hides on scroll down. ?nav=a|b|c -->
+  <sc-if value="{{ catBarB }}" hint-placeholder-val="{{ false }}">
+    <nav class="egx-catbar" data-note="N1" aria-label="Shop by category">
+      <ul role="list">
+        <sc-for list="{{ catBar }}" as="q" hint-placeholder-count="7">
+          <li><a href="{{ q.href }}" class="eg-chip">{{ q.label }}</a></li>
+        </sc-for>
+      </ul>
+    </nav>
+  </sc-if>
+  <sc-if value="{{ catBarC }}" hint-placeholder-val="{{ false }}">
+    <nav class="egx-catbar egx-catbar--c" data-note="N1" aria-label="Shop by category">
+      <ul role="list">
+        <sc-for list="{{ catBar }}" as="q" hint-placeholder-count="7">
+          <li><a href="{{ q.href }}" class="eg-chip">{{ q.label }}</a></li>
+        </sc-for>
+      </ul>
+    </nav>
+  </sc-if>
+
+  <main>
+    <section aria-label="Product" style="padding:{{ L.topPad }}">
+      <div style="max-width:var(--eg-container-max);margin-inline:auto;padding-inline:{{ L.gut }};display:grid;grid-template-columns:{{ L.pdpCols }};gap:{{ L.pdpGap }};align-items:start">
+
+        <sc-if value="{{ mobile }}" hint-placeholder-val="{{ true }}">
+          <div data-note="1" style="position:relative;margin-inline:-16px">
+            <div ref="{{ galRef }}" onScroll="{{ onGalScroll }}" role="region" aria-label="Product images, swipe for more" tabindex="0" style="display:grid;grid-auto-flow:column;grid-auto-columns:84%;gap:8px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding:0 16px;scroll-padding-inline:16px">
+              <sc-for list="{{ gallery }}" as="g" hint-placeholder-count="2">
+                <div style="scroll-snap-align:start">
+                  <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.Media" kind="{{ g.kind }}" ratio="wide" src="{{ g.src }}" alt="{{ g.label }}" label="{{ g.label }}" hint-size="100%,206px"></x-import>
+                </div>
+              </sc-for>
+            </div>
+            <span style="position:absolute;left:28px;bottom:10px;padding:3px 10px;border-radius:999px;background:var(--eg-forest-900);color:var(--eg-white);font:500 12px/1.4 var(--eg-font-body)" aria-live="polite">{{ galLabel }}</span>
+          </div>
+        </sc-if>
+        <sc-if value="{{ desktop }}" hint-placeholder-val="{{ false }}">
+          <div data-note="1" style="display:grid;gap:12px;position:sticky;top:84px">
+            <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.Media" kind="{{ mainImg.kind }}" ratio="wide" class-name="eg-media--pdp-main" src="{{ mainImg.src }}" alt="{{ mainImg.label }}" label="{{ mainImg.label }}" hint-size="100%,560px"></x-import>
+            <div style="display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:12px">
+              <sc-for list="{{ thumbs }}" as="t" hint-placeholder-count="6">
+                <button onClick="{{ t.select }}" aria-label="{{ t.aria }}" aria-pressed="{{ t.on }}" style="padding:0;border:1px solid {{ t.border }};background:none;cursor:pointer;display:block">
+                  <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.Media" kind="{{ t.kind }}" src="{{ t.src }}" label="" hint-size="100%,96px"></x-import>
+                </button>
+              </sc-for>
+            </div>
+          </div>
+        </sc-if>
+
+        <div style="display:flex;flex-direction:column;gap:{{ L.bbGap }};min-width:0">
+          <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.Breadcrumb" items="{{ crumbs }}" hint-size="100%,22px"></x-import>
+          <div data-note="2" style="display:grid;gap:6px">
+            <h1 class="eg-h2" style="margin:0">Green Johanna 330L Compost Bin</h1>
+            <div data-note="3"><x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.Rating" value="{{ 4.9 }}" label="4.9 (23 reviews)" href="#reviews" hint-size="180px,22px"></x-import></div>
+          </div>
+          <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.Price" price="{{ price }}" size="lg" hint-size="100px,28px"></x-import>
+
+          <div data-note="4" style="display:grid;gap:10px">
+            <sc-for list="{{ excerpts }}" as="r" hint-placeholder-count="1">
+              <figure style="margin:0;display:grid;gap:2px;min-width:0">
+                <figcaption style="display:flex;align-items:center;gap:8px;font-size:var(--eg-text-body-sm)">
+                  <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.Rating" value="{{ r.rating }}" hint-size="90px,18px"></x-import>
+                  <span style="font-weight:500">{{ r.name }}</span>
+                  <sc-if value="{{ r.inlineLink }}" hint-placeholder-val="{{ false }}"><a href="#reviews" style="margin-left:auto;font-weight:500;color:var(--eg-color-link);text-underline-offset:3px;min-height:24px;display:inline-flex;align-items:center">Read all reviews</a></sc-if>
+                </figcaption>
+                <blockquote style="margin:0;font-size:var(--eg-text-body-sm);line-height:1.5;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">“{{ r.quote }}”</blockquote>
+              </figure>
+            </sc-for>
+            <sc-if value="{{ desktop }}" hint-placeholder-val="{{ false }}">
+              <div><x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.LinkCta" href="#reviews" hint-size="130px,24px">Read all reviews</x-import></div>
+            </sc-if>
+          </div>
+
+          <div data-note="5" style="display:flex;flex-wrap:wrap;gap:12px 16px;align-items:flex-start">
+            <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.CapacityChips" label="Capacity" options="{{ capacities }}" value="{{ cap }}" onChange="{{ setCap }}" hint-size="200px,70px"></x-import>
+            <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.ColourSwatches" label="Colour" options="{{ swatches }}" default-value="Green" size="lg" hint-size="96px,70px"></x-import>
+          </div>
+
+          <sc-if value="{{ inStock }}" hint-placeholder-val="{{ true }}">
+          <div data-note="6" ref="{{ buyRef }}" class="eg-buy-row" style="flex-wrap:nowrap">
+            <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.QuantityStepper" value="{{ qty }}" onChange="{{ setQty }}" min="{{ 1 }}" label="Quantity" hint-size="128px,48px"></x-import>
+            <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.Button" onClick="{{ addToBag }}" style="flex:1;display:flex" block="{{ true }}" hint-size="100%,48px">Add to bag</x-import>
+            <sc-if value="{{ desktop }}" hint-placeholder-val="{{ false }}">
+              <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.IconButton" icon="heart" label="{{ wishLabel }}" pressed="{{ wished }}" onClick="{{ toggleWish }}" hint-size="48px,48px"></x-import>
+            </sc-if>
+          </div>
+          <!-- Spread the cost (T-056, 5 Nov review): one quiet text line under the buy row, opens the Pay Later panel. No logos under Add to bag. -->
+          <p data-note="P1" style="margin:{{ L.payPull }} 0 0;display:flex;flex-wrap:wrap;align-items:center;column-gap:8px;font-size:var(--eg-text-body-sm);line-height:1.4">
+            <span>Spread the cost from {{ perMonth }} a month.</span>
+            <button ref="{{ payTrigRef }}" type="button" onClick="{{ openPay }}" aria-haspopup="dialog" aria-expanded="{{ payOpen }}" aria-controls="pay-later-panel" class="eg-link-cta" style="background-color:transparent;font-size:var(--eg-text-body-sm);min-height:24px">See options</button>
+          </p>
+          <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.StockNote" status="in" hint-size="100%,22px">In stock. Free UK delivery over £65, usually 2 to 4 working days.</x-import>
+          </sc-if>
+          <!-- Sold out (T-086, 5 Nov): the chosen option is out of stock. Sold out is said once, in the stock note, and the button slot holds one
+               Email me when it's back button. No quantity, no Spread the cost line, no second bar. Build: STOQ back-in-stock via its JS API. -->
+          <sc-if value="{{ soldOut }}" hint-placeholder-val="{{ false }}">
+            <div data-note="S1" style="display:grid;gap:12px">
+              <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.StockNote" status="out" hint-size="100%,22px">{{ soldOutText }}</x-import>
+              <div ref="{{ buyRef }}" class="eg-buy-row" style="flex-wrap:nowrap">
+                <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.Button" onClick="{{ openNotify }}" iconStart="mail" aria-haspopup="dialog" style="flex:1;display:flex" block="{{ true }}" hint-size="100%,48px">Email me when it’s back</x-import>
+                <sc-if value="{{ desktop }}" hint-placeholder-val="{{ false }}">
+                  <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.IconButton" icon="heart" label="{{ wishLabel }}" pressed="{{ wished }}" onClick="{{ toggleWish }}" hint-size="48px,48px"></x-import>
+                </sc-if>
+              </div>
+            </div>
+          </sc-if>
+
+          <div data-note="8" style="display:grid;gap:6px;padding-top:4px;border-top:1px solid var(--eg-color-border);padding-top:16px">
+            <p id="desc" style="margin:0;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:{{ descClamp }};overflow:hidden;text-wrap:pretty">Recycle all your food waste, including cooked food, meat, fish and dairy, along with garden waste, into rich compost. The insulated, ventilated design keeps the heap working hot through the year, even in winter, and the wide lid makes it easy to add scraps straight from the kitchen caddy. Most households can expect finished compost in 4 to 6 months.</p>
+            <div><button onClick="{{ toggleDesc }}" aria-controls="desc" aria-expanded="{{ descOpen }}" class="eg-link-cta" style="background-color:transparent;min-height:24px">{{ descLabel }}</button></div>
+          </div>
+
+          <div data-note="9" style="display:grid">
+            <p class="eg-h5" style="margin:0 0 4px">Add these extras</p>
+            <sc-for list="{{ extras }}" as="x" hint-placeholder-count="2">
+              <div class="eg-cart__extra" style="border-top:1px solid var(--eg-color-border)">
+                <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.Media" src="{{ x.image }}" label="" hint-size="56px,56px"></x-import>
+                <div><div>{{ x.title }}</div><x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.Price" price="{{ x.price }}" hint-size="60px,22px"></x-import></div>
+                <div style="display:flex;align-items:center;gap:4px">
+                  <!-- 5 Nov review: eye button opens the add-on's description in a quick view, so nobody has to leave the page -->
+                  <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.IconButton" icon="eye" ghost="{{ true }}" label="{{ x.qvLabel }}" onClick="{{ x.view }}" data-note="Q1" hint-size="44px,44px"></x-import>
+                  <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.Button" variant="secondary" iconStart="{{ x.icon }}" onClick="{{ x.add }}" hint-size="80px,48px">{{ x.label }}</x-import>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+
+          <div data-note="10" style="display:flex;flex-wrap:wrap;gap:8px">
+            <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.Badge" type="bestseller" hint-size="100px,24px"></x-import>
+            <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.Badge" type="recycled" hint-size="150px,24px"></x-import>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="details" data-note="11" aria-labelledby="details-title" style="background:var(--eg-color-bg-tint);padding-block:{{ L.secPad }}">
+      <div style="max-width:var(--eg-container-max);margin-inline:auto;padding-inline:{{ L.gut }};display:grid;grid-template-columns:{{ L.detCols }};gap:{{ L.detGap }};align-items:start">
+        <div style="display:grid;gap:20px">
+          <h2 id="details-title" class="eg-h2" style="margin:0">Product details</h2>
+          <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.SpecTable" rows="{{ specs }}" hint-size="100%,220px"></x-import>
+          <!-- 5 Nov review: instruction manual link. Build: a Manual (file) metafield; the link only shows when the product has one. -->
+          <a data-note="M1" href="Blog Page.dc.html#manuals" class="eg-link-cta" style="justify-self:start;display:inline-flex;align-items:center;gap:8px;min-height:24px"><x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.Icon" name="file-text" size="{{ 20 }}" hint-size="20px,20px"></x-import>Instruction manual (PDF)</a>
+        </div>
+        <div style="display:grid;gap:16px">
+          <h3 class="eg-h4" style="margin:0">Why we love this product</h3>
+          <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.LeafList" items="{{ why }}" hint-size="100%,140px"></x-import>
+          <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.Tags" items="{{ tags }}" hint-size="100%,28px"></x-import>
+        </div>
+      </div>
+      <div data-note="12" style="max-width:var(--eg-container-max);margin:{{ L.accMargin }} auto 0;padding-inline:{{ L.gut }}">
+        <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.Accordion" items="{{ accordion }}" hint-size="100%,130px"></x-import>
+      </div>
+    </section>
+
+    <!-- 5 Nov review: related products. The eye button opens a quick view with the description, so shoppers stay on this page. -->
+    <section data-note="R1" aria-labelledby="related-title" style="padding-block:{{ L.secPad }}">
+      <div style="max-width:var(--eg-container-max);margin-inline:auto;padding-inline:{{ L.gut }};display:grid;gap:{{ L.relHead }}">
+        <h2 id="related-title" class="eg-h2" style="margin:0">You might also like</h2>
+        <div role="list" style="display:grid;grid-template-columns:{{ L.relCols }};gap:{{ L.relGap }}">
+          <sc-for list="{{ related }}" as="p" hint-placeholder-count="4">
+            <div role="listitem" style="min-width:0;display:grid">
+              <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.ProductCard" product="{{ p }}" on-quick-view="{{ quickView }}" on-add="{{ addRelated }}" hint-size="100%,380px"></x-import>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </section>
+
+    <div id="reviews" data-note="13">
+      <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.Reviews" title="Customer reviews" average="{{ 4.9 }}" count="{{ 23 }}" distribution="{{ dist }}" reviews="{{ reviews }}" tone="alt" hint-size="100%,560px"></x-import>
+    </div>
+  </main>
+
+  <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.Newsletter" hint-size="100%,320px"></x-import>
+  <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.Footer" columns="{{ footerCols }}" hint-size="100%,520px"></x-import>
+
+  <sc-if value="{{ showSticky }}" hint-placeholder-val="{{ false }}">
+    <div data-note="7" role="region" aria-label="Quick add to bag" style="position:fixed;left:0;right:0;bottom:0;z-index:60;display:flex;align-items:center;gap:12px;padding:12px 16px;background:var(--eg-white);border-top:1px solid var(--eg-color-border)">
+      <div style="flex:1;min-width:0;display:grid;gap:2px">
+        <span style="font-size:var(--eg-text-body-sm);line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Green Johanna 330L Compost Bin</span>
+        <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.Price" price="{{ price }}" hint-size="80px,22px"></x-import>
+      </div>
+      <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.Button" onClick="{{ stickyAct }}" iconStart="{{ stickyIcon }}" hint-size="136px,48px">{{ stickyLabel }}</x-import>
+    </div>
+  </sc-if>
+
+  <!-- Spread the cost panel (T-056). Bottom sheet under 900px, small dialog above. In the build each row is the provider's own message: Shopify's payment_terms banner, PayPal's Pay Later message and Klarna's On-site Messaging placement. Klarna (T-058) is already enabled at checkout on EG and GGS; GG and SW would need it switched on in Shopify Payments first. Learn more sits inline after each row's sub line so three rows fit a 390x844 sheet without scrolling. -->
+  <sc-if value="{{ payOpen }}" hint-placeholder-val="{{ false }}">
+    <div>
+      <div class="eg-scrim" onClick="{{ closePay }}" aria-hidden="true"></div>
+      <div id="pay-later-panel" ref="{{ payRef }}" role="dialog" aria-modal="true" aria-labelledby="pay-later-title" style="position:fixed;z-index:100;display:flex;flex-direction:column;background:var(--eg-white);box-shadow:var(--eg-shadow-overlay);overflow:hidden;{{ L.paySheet }}">
+        <div class="eg-drawer__head">
+          <h2 id="pay-later-title" class="eg-h4" style="margin:0">Spread the cost</h2>
+          <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.IconButton" icon="x" ghost="{{ true }}" label="Close" onClick="{{ closePay }}" hint-size="44px,44px"></x-import>
+        </div>
+        <div class="eg-drawer__body" style="display:grid;gap:16px;padding-top:20px;min-height:0">
+          <p style="margin:0;font-size:var(--eg-text-body-sm);line-height:1.5">Split {{ priceLabel }} into 3 interest-free payments: the first at checkout, then two monthly.</p>
+          <ul role="list" style="list-style:none;margin:0;padding:0;display:grid;gap:12px">
+            <sc-for list="{{ payOptions }}" as="o" hint-placeholder-count="3">
+              <li style="display:grid;gap:6px;padding:16px;border:1px solid var(--eg-color-border);border-radius:var(--eg-leaf-sm)">
+                <div style="display:flex;align-items:center;justify-content:space-between;gap:12px">
+                  <strong style="font-weight:var(--eg-weight-strong)">{{ o.title }}</strong>
+                  <span style="padding:2px 8px;border:1px solid var(--eg-color-border-strong);font:600 var(--eg-text-caption)/1.5 var(--eg-font-body);letter-spacing:.04em;white-space:nowrap">{{ o.mark }}</span>
+                </div>
+                <span>{{ o.amount }}</span>
+                <span style="font-size:var(--eg-text-body-sm);line-height:1.5;color:var(--eg-color-text-muted)">{{ o.sub }} <a href="#" onClick="{{ o.learn }}" class="eg-link-cta" style="font-size:var(--eg-text-body-sm);display:inline;white-space:nowrap">Learn more<span style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)"> about {{ o.title }}</span></a></span>
+              </li>
+            </sc-for>
+          </ul>
+          <p style="margin:0;font-size:var(--eg-text-caption);line-height:1.5;color:var(--eg-color-text-muted)">Subject to status. Choose at checkout. 18+ UK residents only. Shop Pay Installments offers credit with Affirm as lender. PayPal Pay in 3 is a credit agreement with PayPal UK Ltd. Klarna: borrowing more than you can afford or paying late may negatively impact your financial status and ability to obtain credit. Ts&amp;Cs and late fees apply.</p>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ drawerOpen }}" hint-placeholder-val="{{ false }}">
+    <dc-import name="Cart Drawer" open="{{ true }}" items="{{ drawerItems }}" upsell="{{ drawerUpsell }}" on-close="{{ closeDrawer }}" hint-size="0px,0px"></dc-import>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { w: window.innerWidth, ready: !!window.EGData, pins: [], gal: 0, img: 0, cap: '330L', qty: 1, descOpen: false, added: {}, wished: false, showSticky: false, drawerOpen: false, bag: 0, payOpen: false };
+  pinLayer = React.createRef(); galRef = React.createRef(); buyRef = React.createRef(); payRef = React.createRef(); payTrigRef = React.createRef();
+  focusables() { const box = this.payRef.current; return box ? Array.prototype.slice.call(box.querySelectorAll('a[href],button:not([disabled]),[tabindex]:not([tabindex="-1"])')) : []; }
+  openPay() {
+    this.setState({ payOpen: true }, () => {
+      document.documentElement.style.overflow = 'hidden';
+      let n = 0; const go = () => { const f = this.focusables(); if (f.length) f[0].focus(); else if (n++ < 20) requestAnimationFrame(go); }; go();
+    });
+  }
+  // Back in stock (T-086): the shared EGNotify panel in eg-shared.js. In the build this is window._RestockRocket.openModal() from STOQ.
+  openNotify(trigger) { if (window.EGNotify) window.EGNotify.open({ title: 'Green Johanna 330L Compost Bin', variant: this.state.cap + ', Green', image: window.EGImg && window.EGImg.johanna && window.EGImg.johanna[5].src, trigger: trigger }); }
+  closePay() {
+    if (!this.state.payOpen) return;
+    this.setState({ payOpen: false }, () => { document.documentElement.style.overflow = ''; const t = this.payTrigRef.current; if (t) t.focus(); });
+  }
+  componentDidMount() {
+    const U = () => window.EGUtil;
+    // Spread the cost panel: Esc closes, Tab and Shift+Tab stay inside the dialog while it is open.
+    this.onK = (e) => {
+      if (!this.state.payOpen) return;
+      if (e.key === 'Escape') { e.preventDefault(); this.closePay(); return; }
+      if (e.key !== 'Tab') return;
+      const f = this.focusables(); if (!f.length) return;
+      const box = this.payRef.current, a = document.activeElement, first = f[0], last = f[f.length - 1];
+      if (e.shiftKey && (a === first || !box.contains(a))) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && (a === last || !box.contains(a))) { e.preventDefault(); first.focus(); }
+    };
+    document.addEventListener('keydown', this.onK);
+    this.onR = () => this.setState({ w: window.innerWidth });
+    window.addEventListener('resize', this.onR);
+    this.onS = () => {
+      const el = this.buyRef.current; if (!el) return;
+      const r = el.getBoundingClientRect();
+      const show = this.state.w < 900 && r.bottom < 0;
+      if (show !== this.state.showSticky) this.setState({ showSticky: show });
+    };
+    window.addEventListener('scroll', this.onS, { passive: true });
+    this.t = setInterval(() => {
+      if (!this.state.ready && window.EGData) this.setState({ ready: true });
+      if (U() && !this.flagsRead) { this.flagsRead = true; this.notes = U().param('notes') != null; if (U().param('drawer') != null) this.setState({ drawerOpen: true, bag: 1 }); if (U().param('pay') != null) this.openPay();
+        // ?soldout=1 opens on the sold-out option; ?notify=1 also opens the back in stock panel (T-086).
+        if (U().param('soldout') != null || U().param('notify') != null) this.setState({ cap: 'With jacket' });
+        if (U().param('notify') != null) setTimeout(() => this.openNotify(), 600); }
+      this.onS();
+      if (this.notes && U()) { const p = U().pins(this.pinLayer.current); const k = JSON.stringify(p); if (k !== this.pinKey) { this.pinKey = k; this.setState({ pins: p }); } }
+    }, 500);
+  }
+  componentWillUnmount() { clearInterval(this.t); document.removeEventListener('keydown', this.onK); document.documentElement.style.overflow = ''; window.removeEventListener('resize', this.onR); window.removeEventListener('scroll', this.onS); }
+  renderVals() {
+    const D = window.EGData || {};
+    const m = this.state.w < 900;
+    const gallery = (window.EGImg && window.EGImg.johanna) || [
+      { kind: 'lifestyle', label: 'In a garden border' }, { kind: 'packshot', label: 'Front packshot' }, { kind: 'packshot', label: 'Lid open' },
+      { kind: 'lifestyle', label: 'Adding kitchen scraps' }, { kind: 'packshot', label: 'Base hatch' }, { kind: 'lifestyle', label: 'Finished compost' },
+    ];
+    // Sample stock (T-086): the With jacket option is sold out so the back in stock state can be reviewed. Shopify: variant.available.
+    const caps = [{ value: '330L', label: '330L', price: 124.99, stock: 'in' }, { value: 'With jacket', label: 'With jacket', price: 199.99, stock: 'out' }];
+    const capNow = caps.find((c) => c.value === this.state.cap) || caps[0];
+    const price = capNow.price;
+    const soldOut = capNow.stock === 'out';
+    const extrasData = [
+      { id: 'thermo', title: 'Compost Thermometer', price: 19.99, text: 'A long stainless probe that shows how hot the middle of your heap is, so you can tell at a glance whether the Green Johanna is working hot or needs more greens.' },
+      { id: 'caddy7', title: 'Straight 7 Litre Green Kitchen Caddy', price: 9.99, text: 'A 7 litre caddy for the worktop with a vented lid. Fill it with scraps through the day and empty it straight into the Green Johanna.' }].map((x) => Object.assign(x, { image: window.EGImg && window.EGImg.item(x) }));
+    const quotes = [
+      { rating: 5, name: 'Sarah', quote: 'Takes everything, even cooked leftovers.' },
+      { rating: 5, name: 'Mark', quote: 'Sturdy, easy to fill and it never smells.' },
+    ];
+    // 5 Nov review: quick view panel (shared EGQuickView in eg-shared.js)
+    const qv = (o) => window.EGQuickView && window.EGQuickView.open(o);
+    const REL = ['hotbin450', 'bokTwin', 'maze180', 'wormery'];
+    const related = REL.map((id) => (D.catalogue || []).find((p) => p.id === id)).filter(Boolean);
+    const P = (q, a) => React.createElement('div', { key: q, style: { marginBottom: 12 } }, React.createElement('strong', { style: { fontWeight: 600 } }, q), React.createElement('p', { style: { margin: '4px 0 0' } }, a));
+    return {
+      mobile: m, desktop: !m,
+      L: {
+        topPad: m ? '12px 0 32px' : '24px 0 64px', gut: m ? '16px' : 'var(--eg-gutter)',
+        pdpCols: m ? 'minmax(0,1fr)' : 'minmax(0,7fr) minmax(0,5fr)', pdpGap: m ? '16px' : '64px', bbGap: m ? '12px' : '20px',
+        payPull: m ? '-4px' : '-8px',
+        paySheet: m ? 'left:0;right:0;bottom:0;max-height:88vh;border-radius:0 20px 0 0' : 'top:50%;left:50%;transform:translate(-50%,-50%);width:min(440px,calc(100% - 48px));max-height:calc(100vh - 48px);border-radius:var(--eg-leaf-md)',
+        relCols: m ? 'repeat(2,minmax(0,1fr))' : 'repeat(4,minmax(0,1fr))', relGap: m ? '16px' : 'var(--eg-grid-gap)', relHead: m ? '16px' : '32px',
+        secPad: m ? '40px' : '80px', detCols: m ? 'minmax(0,1fr)' : 'minmax(0,7fr) minmax(0,5fr)', detGap: m ? '32px' : '64px', accMargin: m ? '32px' : '48px',
+      },
+      catBar: (window.EGData || {}).nav ? window.EGUtil.shell(this).catBar : [], catBarB: m && window.EGUtil && window.EGUtil.navOption() === 'b', catBarC: m && window.EGUtil && window.EGUtil.navOption() === 'c',
+      nav: D.nav || [], utility: D.utility || [], scopes: D.scopes || ['All'], footerCols: D.footer,
+      bagCount: this.state.bag, bagTotal: this.state.bag ? this.state.bag * 124.99 : 0,
+      openDrawer: () => this.setState({ drawerOpen: true }), closeDrawer: () => this.setState({ drawerOpen: false }),
+      drawerOpen: this.state.drawerOpen,
+      drawerItems: [{ id: 'johanna', title: 'Green Johanna 330L Compost Bin', variant: this.state.cap + ', Green', price: price, qty: Math.max(1, this.state.qty) }, { id: 'caddy7', title: 'Straight 7 Litre Green Kitchen Caddy', variant: 'Green', price: 9.99, qty: 1 }],
+      drawerUpsell: { id: 'thermo', title: 'Compost Thermometer', price: 19.99 },
+      pins: this.state.pins, pinLayer: this.pinLayer,
+      gallery: gallery, galRef: this.galRef,
+      galLabel: (this.state.gal + 1) + ' of ' + gallery.length,
+      onGalScroll: (e) => { const el = e.currentTarget; const i = Math.round(el.scrollLeft / (el.scrollWidth / gallery.length)); if (i !== this.state.gal) this.setState({ gal: Math.min(gallery.length - 1, i) }); },
+      mainImg: gallery[this.state.img],
+      thumbs: gallery.map((g, i) => ({ kind: g.kind, src: g.src, on: i === this.state.img, border: i === this.state.img ? 'var(--eg-forest-900)' : 'transparent', aria: 'Show image ' + (i + 1) + ' of ' + gallery.length + ': ' + g.label, select: () => this.setState({ img: i }) })),
+      crumbs: m ? [{ label: 'Home', href: '#' }, { label: 'Composting', href: '#' }, { label: 'Hot composters', href: '#' }] : [{ label: 'Home', href: '#' }, { label: 'Composting', href: '#' }, { label: 'Hot composters', href: '#' }, { label: 'Green Johanna 330L Compost Bin' }],
+      price: price,
+      // Spread the cost: price / 3, rounded down to the penny (providers put any rounding on the first payment).
+      perMonth: '£' + (Math.floor(price / 3 * 100) / 100).toFixed(2), priceLabel: '£' + price.toFixed(2),
+      pinVis: this.state.payOpen ? 'hidden' : 'visible', // review pins would float over the open panel
+      payOpen: this.state.payOpen, payRef: this.payRef, payTrigRef: this.payTrigRef,
+      openPay: () => this.openPay(), closePay: () => this.closePay(),
+      payOptions: [
+        { title: 'Pay in 3 with Shop Pay', mark: 'Shop Pay', amount: '3 interest-free instalments of £' + (Math.floor(price / 3 * 100) / 100).toFixed(2), sub: 'Choose Shop Pay at checkout.', learn: (e) => e.preventDefault() },
+        { title: 'Pay in 3 with PayPal', mark: 'PayPal', amount: '3 interest-free payments of £' + (Math.floor(price / 3 * 100) / 100).toFixed(2), sub: 'Choose PayPal at checkout. You can also pay the full amount in 30 days.', learn: (e) => e.preventDefault() },
+        // Klarna (T-058): already enabled at checkout on EG and GGS via Shopify Payments. In the build this row is Klarna's On-site Messaging placement, which renders Klarna's own approved copy and disclosure.
+        { title: 'Pay in 3 with Klarna', mark: 'Klarna', amount: '3 interest-free instalments of £' + (Math.floor(price / 3 * 100) / 100).toFixed(2), sub: 'Choose Klarna at checkout.', learn: (e) => e.preventDefault() },
+      ],
+      excerpts: (m ? quotes.slice(0, 1) : quotes).map((q) => Object.assign({}, q, { inlineLink: m })),
+      capacities: caps, cap: this.state.cap, setCap: (v) => this.setState({ cap: v }),
+      swatches: [{ name: 'Green', color: '#296647' }, { name: 'Black', color: '#1D1D1D' }],
+      qty: this.state.qty, setQty: (n) => this.setState({ qty: n }),
+      addToBag: () => this.setState((s) => ({ bag: s.bag + s.qty, drawerOpen: true })),
+      wished: this.state.wished, wishLabel: this.state.wished ? 'Remove from wishlist' : 'Add to wishlist', toggleWish: () => this.setState((s) => ({ wished: !s.wished })),
+      showSticky: m && this.state.showSticky && !this.state.drawerOpen && !this.state.payOpen,
+      inStock: !soldOut, soldOut: soldOut,
+      soldOutText: 'Sold out',
+      openNotify: (e) => this.openNotify(e && e.currentTarget),
+      stickyLabel: soldOut ? 'Email me' : 'Add to bag', stickyIcon: soldOut ? 'mail' : undefined,
+      stickyAct: soldOut ? (e) => this.openNotify(e && e.currentTarget) : () => this.setState((s) => ({ bag: s.bag + s.qty, drawerOpen: true })),
+      buyRef: this.buyRef,
+      descClamp: this.state.descOpen ? 'unset' : 3, descOpen: this.state.descOpen, descLabel: this.state.descOpen ? 'Read less' : 'Read more',
+      toggleDesc: () => this.setState((s) => ({ descOpen: !s.descOpen })),
+      extras: extrasData.map((x) => { const on = !!this.state.added[x.id]; return Object.assign({}, x, { label: on ? 'Added' : 'Add', icon: on ? 'check' : undefined,
+        qvLabel: 'Quick view: ' + x.title, view: (e) => qv({ title: x.title, price: x.price, image: x.image, text: x.text, trigger: e && e.currentTarget, addLabel: on ? 'Already added' : 'Add to bag', onAdd: on ? null : () => this.setState((s) => ({ added: Object.assign({}, s.added, { [x.id]: true }), bag: s.bag + 1 })) }), add: () => this.setState((s) => ({ added: Object.assign({}, s.added, { [x.id]: !on }), bag: s.bag + (on ? -1 : 1) })) }); }),
+      specs: [['Capacity', '330 litres'], ['Dimensions', 'H 100 cm, W 80 cm, D 80 cm'], ['Material', 'Recycled polyethylene'], ['Country of manufacture', 'Sweden'], ['Recycled content', '80% recycled plastic']],
+      why: ['Composts all food waste, cooked and raw', 'Insulated walls keep it working through winter', 'Wide lid and base hatch make filling and emptying easy'],
+      tags: ['Easy to use', 'All food waste', 'Year round'],
+      accordion: [
+        { title: 'Delivery and returns', content: 'Free UK mainland delivery on orders over £65, usually 2 to 4 working days. Changed your mind? Return unused items within 30 days.' },
+        { title: 'FAQs', content: [P('Can I compost meat and fish?', 'Yes. The Green Johanna is designed for all cooked and uncooked food waste.'), P('Will it smell?', 'Not when it is working properly. Mix in some garden waste and keep the lid closed.'), P('Where should it go?', 'On level soil in partial shade, so worms and microbes can get in from below.')] },
+      ],
+      related: related,
+      quickView: (p) => qv({ title: p.title, price: p.price, image: p.image, text: p.excerpt || '', href: 'Product Page.dc.html', trigger: document.activeElement, onAdd: () => this.setState((s) => ({ bag: s.bag + 1, drawerOpen: true })) }),
+      addRelated: () => this.setState((s) => ({ bag: s.bag + 1, drawerOpen: true })),
+      dist: [88, 8, 2, 1, 1],
+      reviews: [
+        { rating: 5, title: 'Takes everything', body: 'Takes everything, even cooked leftovers. We have stopped putting food in the general bin altogether.', author: 'Sarah', location: 'Harrogate', date: 'Placeholder date' },
+        { rating: 5, title: 'Solid and simple', body: 'Sturdy, easy to fill and it never smells. Went together in about an hour.', author: 'Mark', location: 'Leeds', date: 'Placeholder date' },
+        { rating: 4, title: 'Worth the jacket', body: 'Slows down in a cold snap, so we added the insulating jacket. Works well since.', author: 'Aisha', location: 'Durham', date: 'Placeholder date' },
+      ],
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="icon" href="data:,">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="_ds/evengreener-design-system-ede5a68e-3ce4-4c3a-82c1-af597595dcea/styles.css">
+<script src="_ds/evengreener-design-system-ede5a68e-3ce4-4c3a-82c1-af597595dcea/_ds_bundle.js"></script>
+<script src="eg-shared.js"></script>
+<style>body{margin:0;background:#fff}a{color:var(--eg-color-link)}a:hover{color:var(--eg-color-link-hover)}</style>
+</helmet>
+<div style="position:relative;background:var(--eg-white);color:var(--eg-color-text)">
+  <div ref="{{ pinLayer }}" aria-hidden="true" style="position:absolute;top:0;left:0;width:0;height:0;z-index:300;pointer-events:none">
+    <sc-for list="{{ pins }}" as="p" hint-placeholder-count="0">
+      <div style="position:absolute;top:{{ p.top }};left:{{ p.left }};min-width:24px;height:24px;padding:0 6px;border-radius:999px;background:#C8285E;color:#fff;font:600 12px/24px Poppins,sans-serif;text-align:center;box-shadow:0 0 0 2px #fff">{{ p.n }}</div>
+    </sc-for>
+  </div>
+
+  <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.AnnouncementBar" hint-size="100%,32px"></x-import>
+  <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.Header" nav="{{ nav }}" utility-links="{{ utility }}" search-scopes="{{ scopes }}" bag-count="{{ bagCount }}" bag-total="{{ bagTotal }}" on-bag="{{ openDrawer }}" hint-size="100%,60px"></x-import>
+  <!-- Mobile category bar. Option C is the default since the 5 Nov review (compact, sticky, hides on scroll down). B: one swipeable row. A: none. ?nav=a|b|c -->
+  <sc-if value="{{ catBarB }}" hint-placeholder-val="{{ false }}">
+    <nav class="egx-catbar" data-note="N1" aria-label="Shop by category">
+      <ul role="list">
+        <sc-for list="{{ catBar }}" as="q" hint-placeholder-count="7">
+          <li><a href="{{ q.href }}" class="eg-chip">{{ q.label }}</a></li>
+        </sc-for>
+      </ul>
+    </nav>
+  </sc-if>
+  <sc-if value="{{ catBarC }}" hint-placeholder-val="{{ false }}">
+    <nav class="egx-catbar egx-catbar--c" data-note="N1" aria-label="Shop by category">
+      <ul role="list">
+        <sc-for list="{{ catBar }}" as="q" hint-placeholder-count="7">
+          <li><a href="{{ q.href }}" class="eg-chip">{{ q.label }}</a></li>
+        </sc-for>
+      </ul>
+    </nav>
+  </sc-if>
+
+
+  <main>
+    <div data-note="1">
+      <!-- 28 Oct: mobile USP strip under the header removed (Toby). Desktop UspBar kept. -->
+      <sc-if value="{{ desktop }}" hint-placeholder-val="{{ false }}">
+        <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.UspBar" items="{{ usps }}" hint-size="100%,88px"></x-import>
+      </sc-if>
+    </div>
+
+    <section data-note="2" aria-labelledby="hero-title" style="padding-block:{{ L.heroPad }}">
+      <div style="max-width:var(--eg-container-max);margin-inline:auto;padding-inline:{{ L.gut }};display:grid;grid-template-columns:{{ L.heroCols }};gap:{{ L.heroGap }};align-items:center">
+        <div style="display:grid;gap:{{ L.heroCopyGap }};justify-items:start">
+          <h1 id="hero-title" class="eg-h1" style="margin:0">Make sustainable living easy</h1>
+          <p class="eg-muted" style="margin:0;font-size:{{ L.standfirst }}">Composters, water butts and honest advice for UK homes and gardens.</p>
+          <div style="display:flex;flex-wrap:wrap;align-items:center;gap:12px 16px">
+            <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.Button" href="#finder" hint-size="190px,48px">Help me choose</x-import>
+            <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.Rating" value="{{ 4.8 }}" label="4.8 (1,240 reviews)" hint-size="200px,22px"></x-import>
+          </div>
+        </div>
+        <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.Media" kind="lifestyle" leaf="lg" class-name="eg-media--fill" src="{{ img.hero }}" alt="Water butts collecting rain outside a family home" style="{{ img.heroStyle }}" hint-size="100%,400px"></x-import>
+      </div>
+    </section>
+
+    <section aria-labelledby="cat-title" style="padding-block:{{ L.catPad }}">
+      <div style="max-width:var(--eg-container-max);margin-inline:auto;padding-inline:{{ L.gut }}">
+        <div data-note="3" style="display:flex;justify-content:space-between;align-items:baseline;gap:16px;margin-bottom:{{ L.headGap }}">
+          <h2 id="cat-title" class="eg-h2" style="margin:0">Shop by category</h2>
+        </div>
+        <div data-note="4" role="list" tabindex="0" aria-label="Categories" style="display:grid;grid-auto-flow:{{ L.catFlow }};grid-template-columns:{{ L.catCols }};grid-auto-columns:{{ L.catAuto }};gap:{{ L.cardGap }};overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;margin-inline:{{ L.bleed }};padding-inline:{{ L.bleedPad }};scroll-padding-inline:{{ L.bleedPad }}">
+          <sc-for list="{{ cats }}" as="c" hint-placeholder-count="4">
+            <div role="listitem" style="scroll-snap-align:start;min-width:0;text-align:center">
+              <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.CategoryCard" image="{{ c.image }}" title="{{ c.title }}" text="{{ c.text }}" cta="{{ c.cta }}" label="{{ c.label }}" href="#" hint-size="100%,320px"></x-import>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </section>
+
+    <section data-note="5" aria-labelledby="best-title" style="background:var(--eg-color-bg-alt);padding-block:{{ L.secPad }}">
+      <div style="max-width:var(--eg-container-max);margin-inline:auto;padding-inline:{{ L.gut }}">
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:{{ L.headGap }}">
+          <h2 id="best-title" class="eg-h2" style="margin:0">Bestsellers</h2>
+          <div style="display:flex;align-items:center;gap:16px">
+            <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.LinkCta" href="#" hint-size="70px,24px">Shop all</x-import>
+            <sc-if value="{{ desktop }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex;gap:8px">
+                <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.IconButton" icon="chevron-left" label="Previous bestsellers" onClick="{{ prevBest }}" hint-size="48px,48px"></x-import>
+                <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.IconButton" icon="chevron-right" label="Next bestsellers" onClick="{{ nextBest }}" hint-size="48px,48px"></x-import>
+              </div>
+            </sc-if>
+          </div>
+        </div>
+        <div ref="{{ bestRef }}" role="list" tabindex="0" aria-label="Bestsellers" style="display:grid;grid-auto-flow:column;grid-auto-columns:{{ L.bestAuto }};gap:{{ L.cardGap }};overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;margin-inline:{{ L.bleed }};padding-inline:{{ L.bleedPad }};scroll-padding-inline:{{ L.bleedPad }}">
+          <sc-for list="{{ best }}" as="p" hint-placeholder-count="4">
+            <div role="listitem" style="scroll-snap-align:start;min-width:0;display:grid">
+              <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.ProductCard" product="{{ p }}" variant="detailed" on-add="{{ quickAdd }}" on-select="{{ quickAdd }}" hint-size="100%,420px"></x-import>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </section>
+
+    <section data-note="6" aria-labelledby="gang-strip" style="background:var(--eg-color-bg-tint);border-block:1px solid var(--eg-color-border-on-tint);padding-block:{{ L.stripPad }}">
+      <div style="max-width:var(--eg-container-max);margin-inline:auto;padding-inline:{{ L.gut }};display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px 32px">
+        <div style="display:grid;gap:2px;flex:1 1 320px">
+          <h2 id="gang-strip" class="eg-h4" style="margin:0">Join our EvenGreener Gang!</h2>
+          <p style="margin:0;font-size:var(--eg-text-body-sm);color:var(--eg-color-text-muted)">Seasonal composting and water-saving tips, plus members-only offers.</p>
+        </div>
+        <div style="flex:1 1 320px;max-width:480px">
+          <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.InputGroup" label="Email address for the EvenGreener Gang" button-label="Sign up" hint-size="100%,48px"></x-import>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5 Nov review: Natalie and Julie picked "Composter" and could not tell water butts were a separate finder.
+         One finder now, and question 1 is the explicit choice: Composting, or Water butts and tanks.
+         Questions 2 to 4 are that range's own questions (the water butt ones match the collection page finder). -->
+    <div id="finder" data-note="7">
+      <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.GuideFinder" tone="default" eyebrow="Product finder" title="Not sure what you need?" text="Tell us whether you are composting or saving rainwater, then answer three quick questions about your home and garden." steps="{{ finderSteps }}" recommend="{{ finderRecommend }}" hint-size="100%,520px"></x-import>
+    </div>
+    <!-- 5 Nov review: bulk strip moved below the finder, and it is now the only bulk block on the homepage
+         (the "Bulk buy options" announcement link went, so there is one route: this strip and the header utility link). -->
+    <section data-note="B1" aria-labelledby="bulk-strip" style="padding-block:{{ L.bulkPad }}">
+      <div style="max-width:var(--eg-container-max);margin-inline:auto;padding-inline:{{ L.gut }}">
+        <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px 32px;padding:{{ L.bulkInner }};background:var(--eg-color-bg-tint);border:1px solid var(--eg-color-border-on-tint);border-radius:var(--eg-leaf-md)">
+          <div style="display:grid;gap:4px;flex:1 1 300px">
+            <h2 id="bulk-strip" class="eg-h4" style="margin:0">Buying in bulk?</h2>
+            <p style="margin:0;font-size:var(--eg-text-body-sm);color:var(--eg-color-text-muted)">Trade prices on water butts and composters for builders, developers, schools and councils. Tell us what you need and we will quote.</p>
+          </div>
+          <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.Button" variant="secondary" href="Bulk Enquiry Page.dc.html" hint-size="190px,48px">Get a bulk quote</x-import>
+        </div>
+      </div>
+    </section>
+    <div data-note="8">
+      <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.Reviews" average="{{ 4.8 }}" count="{{ 1240 }}" reviews="{{ reviews }}" tone="alt" hint-size="100%,520px"></x-import>
+    </div>
+    <div data-note="9">
+      <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.BlogTeaser" eyebrow="Guides" title="New to composting?" cta="{{ blogCta }}" posts="{{ posts }}" hint-size="100%,420px"></x-import>
+    </div>
+  </main>
+
+  <div data-note="10">
+    <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.Newsletter" hint-size="100%,320px"></x-import>
+  </div>
+  <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.Footer" columns="{{ footerCols }}" hint-size="100%,520px"></x-import>
+
+  <sc-if value="{{ drawerOpen }}" hint-placeholder-val="{{ false }}">
+    <dc-import name="Cart Drawer" open="{{ true }}" items="{{ drawerItems }}" on-close="{{ closeDrawer }}" hint-size="0px,0px"></dc-import>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = (() => {
+    const q = new URLSearchParams(location.search || (location.hash || '').replace(/^#/, ''));
+    // Review switches, read up front so the first render is already the right variant (?nav=a|b|c lives in eg-shared.js): ?labels=short (5 Nov: the finder tabs and ?finder= switch were replaced by one two-way finder)
+    return { w: window.innerWidth, ready: !!window.EGData, pins: [], drawerOpen: false, added: [],
+      shortLabels: q.get('labels') === 'short' };
+  })();
+  pinLayer = React.createRef(); bestRef = React.createRef();
+  componentDidMount() {
+    this.onR = () => this.setState({ w: window.innerWidth });
+    window.addEventListener('resize', this.onR);
+    this.t = setInterval(() => {
+      const U = window.EGUtil;
+      if (!this.state.ready && window.EGData) this.setState({ ready: true });
+      if (U && !this.flagsRead) { this.flagsRead = true; this.notes = U.param('notes') != null; if (U.param('drawer') != null) this.setState({ drawerOpen: true }); }
+      if (this.notes && U) { const p = U.pins(this.pinLayer.current); const k = JSON.stringify(p); if (k !== this.pinKey) { this.pinKey = k; this.setState({ pins: p }); } }
+    }, 500);
+  }
+  componentWillUnmount() { clearInterval(this.t); window.removeEventListener('resize', this.onR); }
+  renderVals() {
+    const D = window.EGData || {};
+    const m = this.state.w < 900;
+    const cart = (D.cart || []).concat(this.state.added);
+    const by = (d) => { const el = this.bestRef.current; if (el) el.scrollBy({ left: d * el.clientWidth * 0.75, behavior: 'smooth' }); };
+    const best = D.bestsellers || [];
+    const I = window.EGImg || { src() {}, item() {}, post() {}, cat() {}, johanna: null };
+    const SHORT = { 'Water butts and tanks': 'Water butts', 'Indoor and kitchen': 'Kitchen', 'In the garden': 'Garden', 'Knowledge hub': 'Guides' };
+    const nav = (D.nav || []).map((n) => (this.state.shortLabels && SHORT[n.label] ? Object.assign({}, n, { label: SHORT[n.label] }) : n));
+    const water = D.water || [];
+    const W = (id) => water.find((x) => x.id === id);
+    const waterRecommend = (a) => {
+      const space = a[1], want = a[2], size = a[0];
+      let first = space === 'narrow' ? 'butt100' : space === 'wall' ? 'graf' : size === 'pots' ? 'butt100' : size === 'big' ? 'barrel' : 'butt210';
+      if (want === 'look' && space !== 'narrow') first = space === 'wall' ? 'graf' : 'barrel';
+      const second = ['butt210', 'barrel', 'butt100', 'graf'].find((id) => id !== first && !(space === 'narrow' && (id === 'barrel' || id === 'graf')));
+      return [W(first), W(second), W(want === 'can' ? 'stand' : 'diverter')].filter(Boolean);
+    };
+    // Composter picks from where it lives, what goes in and how fast (build: product metafields)
+    const C = (id) => (D.composting || []).find((x) => x.id === id);
+    const compostRecommend = (a) => {
+      const where = a[0], what = a[1], speed = a[2];
+      let ids;
+      if (where === 'flat') ids = ['reencle', 'bokTwin', 'wormery'];
+      else if (what === 'all' || what === 'kitchen') ids = where === 'large' ? ['hotbin700', 'johanna', 'bokTwin'] : ['johanna', 'hotbin450', 'bokTwin'];
+      else if (where === 'large') ids = speed === 'fast' ? ['hotbin700', 'maze180', 'twobay'] : ['twobay', 'compost330', 'hotbin700'];
+      else ids = speed === 'fast' ? ['johanna', 'maze180', 'compost330'] : ['compost330', 'conv220', 'johanna'];
+      return ids.map(C).filter(Boolean);
+    };
+    const RANGE = { question: 'What are you looking for?', options: [
+      { value: 'compost', label: 'Composting', hint: 'Compost bins, hot composters, wormeries and kitchen caddies' },
+      { value: 'water', label: 'Water butts and tanks', hint: 'Collect rainwater from a downpipe for the garden' }] };
+    const COMPOST_STEPS = [
+      { question: 'Where will your composter live?', options: [
+        { value: 'flat', label: 'Indoors or a balcony', hint: 'Flat or small home' },
+        { value: 'small', label: 'A small garden', hint: 'Patio or courtyard' },
+        { value: 'garden', label: 'A medium garden', hint: 'Lawn and borders' },
+        { value: 'large', label: 'A large garden or allotment', hint: 'Lots of green waste' }] },
+      { question: 'What do you want to compost?', options: [
+        { value: 'kitchen', label: 'Kitchen scraps only' }, { value: 'garden', label: 'Garden waste only' },
+        { value: 'both', label: 'Both' }, { value: 'all', label: 'Everything, incl. cooked food' }] },
+      { question: 'How fast do you want compost?', options: [
+        { value: 'fast', label: 'As fast as possible', hint: '1 to 3 months' }, { value: 'steady', label: 'No rush', hint: '6 to 12 months' }] },
+    ];
+    const shift = (a) => ({ 0: a[1], 1: a[2], 2: a[3] });
+    return {
+      mobile: m, desktop: !m,
+      img: { hero: I.hero, heroStyle: { aspectRatio: 'auto', height: m ? '112px' : '400px' } },
+      L: {
+        gut: m ? '16px' : 'var(--eg-gutter)', bleed: m ? '-16px' : '0', bleedPad: m ? '16px' : '0',
+        heroPad: m ? '20px' : '48px', heroCols: m ? 'minmax(0,1fr)' : 'minmax(0,5fr) minmax(0,7fr)', heroGap: m ? '16px' : '64px', heroCopyGap: m ? '8px' : '20px',
+        heroImg: m ? '112px' : '400px', standfirst: m ? 'var(--eg-text-body)' : 'var(--eg-text-body-lg)',
+        catPad: m ? '8px 32px' : '16px 72px', headGap: m ? '16px' : '32px', cardGap: m ? '16px' : 'var(--eg-grid-gap)',
+        catFlow: m ? 'column' : 'row', catCols: m ? 'none' : 'repeat(4,minmax(0,1fr))', catAuto: m ? '74%' : 'auto',
+        secPad: m ? '40px' : '80px', bestAuto: m ? 'calc((100% - 16px) / 1.6)' : 'calc((100% - 3 * var(--eg-grid-gap)) / 4)',
+        stripPad: m ? '24px' : '32px',
+        bulkPad: m ? '0 32px' : '0 72px', bulkInner: m ? '20px' : '28px 40px',
+        tabPull: m ? '-24px' : '-48px', tabW: m ? '132px' : '160px',
+      },
+      catBar: (window.EGData || {}).nav ? window.EGUtil.shell(this).catBar : [], catBarB: m && window.EGUtil && window.EGUtil.navOption() === 'b', catBarC: m && window.EGUtil && window.EGUtil.navOption() === 'c',
+      nav: nav, utility: D.utility || [], scopes: D.scopes || ['All'], footerCols: D.footer,
+      // Question 1 picks the range; the next three come from that range (water butt questions are shared with the collection page)
+      finderSteps: (a) => [RANGE].concat(a[0] === 'water' ? (D.waterSteps || []) : COMPOST_STEPS),
+      finderRecommend: (a) => (a[0] === 'water' ? waterRecommend(shift(a)) : compostRecommend(shift(a))),
+      bagCount: cart.length, bagTotal: cart.reduce((s, i) => s + i.price * i.qty, 0),
+      pins: this.state.pins, pinLayer: this.pinLayer,
+      usps: [
+        { title: 'Guides and manuals', text: 'How-to guides and instruction manuals for what you buy', short: 'Guides and instruction manuals' },
+        { title: 'Made in Britain', text: 'Bestsellers from recycled plastic', short: 'Made in Britain from recycled plastic' },
+        { title: 'Expert Customer Care Team', text: 'Help before and after you buy', short: 'Expert Customer Care Team' },
+        { title: 'Online since 2001', text: 'Helping UK homes for 25 years', short: 'Online since 2001' },
+      ],
+      cats: [
+        { title: 'Water butts and tanks', text: 'Collect rainwater and cut your water bills.', cta: 'Shop water butts', label: 'Water butt in a garden', image: I.cat('Water butts and tanks') },
+        { title: 'Composting', text: 'Bins, hot composters, tumblers and wormeries.', cta: 'Shop composting', label: 'Compost bin on an allotment', image: I.cat('Composting') },
+        { title: 'Indoor and kitchen', text: 'Caddies, electric composters and bokashi.', cta: 'Shop indoor and kitchen', label: 'Kitchen caddy by the sink', image: I.cat('Indoor and kitchen') },
+        { title: 'In the garden', text: 'Planters, watering and wildlife corner.', cta: 'Shop the garden', label: 'Planters on a patio', image: I.cat('In the garden') },
+      ],
+      best: best, bestRef: this.bestRef, prevBest: () => by(-1), nextBest: () => by(1),
+      quickAdd: (p) => this.setState((s) => ({ added: s.added.some((a) => a.id === p.id) ? s.added : s.added.concat([{ id: p.id, title: p.title, variant: 'One size', price: p.price, qty: 1 }]), drawerOpen: true })),
+      recommend: () => best.slice(0, 3),
+      reviews: D.homeReviews || [],
+      blogCta: { label: 'Browse all guides', href: 'Blog Page.dc.html' },
+      posts: [
+        { title: 'How to start composting at home', excerpt: 'Everything you need to turn scraps into rich compost, whatever the size of your space.', meta: 'Guide', image: I.post('How to start composting at home') },
+        { title: 'Hot composting: compost in 1 to 3 months', excerpt: 'How hot composters work, what to put in them and how to keep the heat up all year.', meta: 'Guide', image: I.post('Hot composting: compost in 1 to 3 months') },
+        { title: 'Composting in a flat', excerpt: 'Kitchen caddies, bokashi and electric composters that fit small spaces and won\'t smell.', meta: 'Guide', image: I.post('Composting in a flat') },
+      ],
+      drawerOpen: this.state.drawerOpen, drawerItems: cart,
+      openDrawer: () => this.setState({ drawerOpen: true }), closeDrawer: () => this.setState({ drawerOpen: false }),
+    };
+  }
+}
+</script>
+</body>
+</html>

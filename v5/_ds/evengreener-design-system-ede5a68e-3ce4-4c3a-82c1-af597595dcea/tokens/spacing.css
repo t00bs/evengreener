@@ -1,0 +1,18 @@
+/* Spacing (4px base) and layout */
+:root{
+--eg-space-1:4px;--eg-space-2:8px;--eg-space-3:12px;--eg-space-4:16px;--eg-space-5:24px;
+--eg-space-6:32px;--eg-space-7:48px;--eg-space-8:64px;--eg-space-9:96px;--eg-space-10:128px;
+--eg-section-y:clamp(48px,4vw + 32px,96px); /* @kind spacing */
+--eg-container-max:1320px; /* @kind spacing */
+--eg-container-narrow:1040px; /* @kind spacing */ /* blog, editorial, content pages */
+--eg-container-text:720px; /* @kind spacing */    /* long-form reading */
+--eg-gutter:clamp(16px,2vw,24px); /* @kind spacing */
+--eg-grid-gap:clamp(16px,2.2vw,32px); /* @kind spacing */
+--eg-announce-h:32px; /* @kind spacing */
+--eg-header-main-h:64px; /* @kind spacing */ /* logo + search + account + bag */
+--eg-header-nav-h:44px; /* @kind spacing */
+--eg-header-h-desktop:140px; /* @kind spacing */  /* 32 announcement + 64 main row + 44 nav row */
+--eg-header-h-condensed:60px; /* @kind spacing */ /* on scroll down: main row only; nav returns on scroll up */
+--eg-header-h-mobile:92px; /* @kind spacing */    /* 32 announcement + 60 row */
+--eg-tap-min:44px; /* @kind spacing */
+}

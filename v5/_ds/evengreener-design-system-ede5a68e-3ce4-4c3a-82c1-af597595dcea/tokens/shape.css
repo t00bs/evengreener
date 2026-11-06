@@ -1,0 +1,12 @@
+/* The leaf: two opposite corners rounded (top-right + bottom-left), two square.
+   Hover flips to top-left + bottom-right over --eg-duration-leaf. */
+:root{
+--eg-radius-none:0;
+--eg-leaf-sm:0 12px; /* @kind radius */  /* chips, small buttons, badges */
+--eg-leaf-md:0 20px; /* @kind radius */  /* buttons */
+--eg-leaf-lg:0 40px; /* @kind radius */  /* hero media, feature images, promo tiles */
+--eg-leaf-sm-flip:12px 0; /* @kind radius */
+--eg-leaf-md-flip:20px 0; /* @kind radius */
+--eg-leaf-lg-flip:40px 0; /* @kind radius */
+--eg-radius-pill:999px; /* colour swatches, count badges, status dots */
+}

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="icon" href="data:,">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="_ds/evengreener-design-system-ede5a68e-3ce4-4c3a-82c1-af597595dcea/styles.css">
+<script src="_ds/evengreener-design-system-ede5a68e-3ce4-4c3a-82c1-af597595dcea/_ds_bundle.js"></script>
+<script src="eg-shared.js"></script>
+<style>body{margin:0;background:#fff}a{color:var(--eg-color-link)}a:hover{color:var(--eg-color-link-hover)}</style>
+</helmet>
+<div style="position:relative;background:var(--eg-white);color:var(--eg-color-text)">
+  <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.AnnouncementBar" hint-size="100%,32px"></x-import>
+  <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.Header" nav="{{ nav }}" utility-links="{{ utility }}" search-scopes="{{ scopes }}" bag-count="{{ bagCount }}" bag-total="{{ bagTotal }}" on-bag="{{ openDrawer }}" hint-size="100%,60px"></x-import>
+  <!-- Mobile category bar (28 Oct review). Option B default: one swipeable row of full category names. Option C: compact, sticky, hides on scroll down. ?nav=a|b|c -->
+  <sc-if value="{{ catBarB }}" hint-placeholder-val="{{ false }}">
+    <nav class="egx-catbar" data-note="N1" aria-label="Shop by category">
+      <ul role="list">
+        <sc-for list="{{ catBar }}" as="q" hint-placeholder-count="7">
+          <li><a href="{{ q.href }}" class="eg-chip">{{ q.label }}</a></li>
+        </sc-for>
+      </ul>
+    </nav>
+  </sc-if>
+  <sc-if value="{{ catBarC }}" hint-placeholder-val="{{ false }}">
+    <nav class="egx-catbar egx-catbar--c" data-note="N1" aria-label="Shop by category">
+      <ul role="list">
+        <sc-for list="{{ catBar }}" as="q" hint-placeholder-count="7">
+          <li><a href="{{ q.href }}" class="eg-chip">{{ q.label }}</a></li>
+        </sc-for>
+      </ul>
+    </nav>
+  </sc-if>
+  <main>
+    <div style="max-width:var(--eg-container-max);margin-inline:auto;padding-inline:{{ gut }};padding-top:{{ L.top }}">
+      <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.Breadcrumb" items="{{ crumbs }}" hint-size="160px,20px"></x-import>
+    </div>
+    <!-- 5 Nov review (Natalie): a bulk products collection and the enquiry form on one page. Sketch: tap Add to enquiry on
+         any product and it joins the list above the form. Build: a "Bulk range" collection rendered here; the picked products
+         prefill the form's Products field (ElectricForms), so the quote request arrives with product names and quantities. -->
+    <section data-note="BK1" aria-labelledby="range-title" style="padding-block:{{ L.rangePad }}">
+      <div style="max-width:var(--eg-container-max);margin-inline:auto;padding-inline:{{ gut }};display:grid;gap:{{ L.headGap }}">
+        <div style="display:grid;gap:8px;max-width:760px">
+          <h2 id="range-title" class="eg-h2" style="margin:0">Our bulk range</h2>
+          <p class="eg-muted" style="margin:0">Add the products you are interested in and they will go on your enquiry. Quantities can be a best guess.</p>
+        </div>
+        <ul role="list" style="list-style:none;margin:0;padding:0;display:grid;grid-template-columns:{{ L.rangeCols }};gap:{{ L.cardGap }}">
+          <sc-for list="{{ range }}" as="r" hint-placeholder-count="6">
+            <li style="display:grid;grid-template-columns:72px minmax(0,1fr);gap:12px;align-items:center;padding:12px;background:var(--eg-white);border:1px solid {{ r.border }};border-radius:var(--eg-leaf-sm)">
+              <img src="{{ r.image }}" alt="" style="width:72px;height:72px;object-fit:cover;background:var(--eg-color-bg-image-well);display:block">
+              <div style="display:grid;gap:8px;justify-items:start;min-width:0">
+                <span style="font-weight:500;font-size:var(--eg-text-body-sm);line-height:1.35">{{ r.title }}</span>
+                <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.Button" variant="secondary" size="sm" iconStart="{{ r.icon }}" onClick="{{ r.toggle }}" aria-pressed="{{ r.on }}" hint-size="150px,36px">{{ r.label }}</x-import>
+              </div>
+            </li>
+          </sc-for>
+        </ul>
+        <p aria-live="polite" style="margin:0;font-size:var(--eg-text-body-sm)"><strong style="font-weight:var(--eg-weight-strong)">{{ pickedCount }}</strong> {{ pickedText }}</p>
+      </div>
+    </section>
+    <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.BulkEnquiry" eyebrow="Bulk buy" title="Buying for a school, council or business?" text="Tell us what you need and our team will come back with a quote within 1 working day." points="{{ points }}" hint-size="100%,640px"></x-import>
+
+    <section aria-labelledby="how-title" style="background:var(--eg-color-bg-alt);padding-block:{{ secPad }}">
+      <div style="max-width:var(--eg-container-max);margin-inline:auto;padding-inline:{{ gut }};display:grid;gap:{{ L.headGap }}">
+        <h2 id="how-title" class="eg-h2" style="margin:0">How it works</h2>
+        <ol style="list-style:none;margin:0;padding:0;display:grid;grid-template-columns:{{ L.cols }};gap:{{ L.cardGap }}">
+          <sc-for list="{{ steps }}" as="s" hint-placeholder-count="3">
+            <li style="display:grid;gap:8px;align-content:start;padding-top:20px;border-top:1px solid var(--eg-color-border-on-alt)">
+              <span style="font:800 40px/1 var(--eg-font-display);color:var(--eg-forest-700)">{{ s.n }}</span>
+              <h3 class="eg-h4" style="margin:0">{{ s.title }}</h3>
+              <p style="margin:0;font-size:var(--eg-text-body-sm);line-height:1.6;color:var(--eg-color-text-muted)">{{ s.text }}</p>
+            </li>
+          </sc-for>
+        </ol>
+      </div>
+    </section>
+
+    <section style="padding-block:{{ secPad }}">
+      <div style="max-width:var(--eg-container-max);margin-inline:auto;padding-inline:{{ gut }};display:grid;grid-template-columns:{{ L.faqCols }};gap:{{ L.faqGap }};align-items:start">
+        <h2 class="eg-h2" style="margin:0">Bulk buying questions</h2>
+        <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.Accordion" items="{{ faqs }}" hint-size="100%,240px"></x-import>
+      </div>
+    </section>
+  </main>
+  <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.Footer" columns="{{ footerCols }}" hint-size="100%,520px"></x-import>
+  <sc-if value="{{ drawerOpen }}" hint-placeholder-val="{{ false }}">
+    <dc-import name="Cart Drawer" open="{{ true }}" items="{{ drawerItems }}" on-close="{{ closeDrawer }}" hint-size="0px,0px"></dc-import>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { w: window.innerWidth, ready: !!window.EGData, picked: ['compost330', 'caddy7'] };
+  componentDidMount() {
+    this.onR = () => this.setState({ w: window.innerWidth });
+    window.addEventListener('resize', this.onR);
+    this.t = setInterval(() => { if (!this.state.ready && window.EGData) this.setState({ ready: true }); }, 300);
+  }
+  componentWillUnmount() { clearInterval(this.t); window.removeEventListener('resize', this.onR); }
+  renderVals() {
+    const S = window.EGUtil ? window.EGUtil.shell(this) : {};
+    const D = window.EGData || {};
+    const m = this.state.w < 900;
+    const picked = this.state.picked;
+    const RANGE = ['compost330', 'conv220', 'caddy7', 'caddy5', 'butt100', 'butt210', 'bokTwin', 'johanna'];
+    const range = RANGE.map((id) => (D.catalogue || []).find((p) => p.id === id)).filter(Boolean).map((p) => {
+      const on = picked.indexOf(p.id) > -1;
+      return { title: p.title, image: p.image, on: on, label: on ? 'Added' : 'Add to enquiry', icon: on ? 'check' : 'plus', border: on ? 'var(--eg-forest-700)' : 'var(--eg-color-border)',
+        toggle: () => this.setState((s) => ({ picked: on ? s.picked.filter((x) => x !== p.id) : s.picked.concat([p.id]) })) };
+    });
+    return Object.assign(S, {
+      range: range, pickedCount: String(picked.length), pickedText: picked.length === 1 ? 'product on your enquiry. Add quantities in the form below.' : 'products on your enquiry. Add quantities in the form below.',
+      L: { rangePad: m ? '20px 8px' : '40px 16px', rangeCols: m ? 'minmax(0,1fr)' : 'repeat(4,minmax(0,1fr))', top: m ? '20px' : '40px', headGap: m ? '20px' : '32px', cols: m ? 'minmax(0,1fr)' : 'repeat(3,minmax(0,1fr))', cardGap: m ? '24px' : 'var(--eg-grid-gap)', faqCols: m ? 'minmax(0,1fr)' : 'minmax(0,4fr) minmax(0,7fr)', faqGap: m ? '20px' : '64px' },
+      crumbs: [{ label: 'Home', href: 'Home Page.dc.html' }, { label: 'Bulk enquiries' }],
+      points: ['Volume pricing from 10 units', 'Delivery to multiple sites', 'Help choosing the right products'],
+      steps: [
+        { n: '1', title: 'Tell us what you need', text: 'Products, rough quantities and where they are going. A best guess is fine.' },
+        { n: '2', title: 'Get your quote', text: 'Our team replies within 1 working day with prices and delivery options.' },
+        { n: '3', title: 'We deliver', text: 'To one address or several sites, with a single point of contact throughout.' },
+      ],
+      faqs: [
+        { title: 'What counts as a bulk order?', content: 'Usually 10 or more of the same product, or a mixed order for a school, council, housing association or business.' },
+        { title: 'Can you invoice us?', content: 'Yes. Ask for invoice payment with your quote and we will set it up for your organisation.' },
+        { title: 'Do you supply councils with branded caddies?', content: 'Get in touch with the details and our team will let you know what is possible for your order size.' },
+      ],
+    });
+  }
+}
+</script>
+</body>
+</html>

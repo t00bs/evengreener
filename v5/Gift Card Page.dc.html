@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="icon" href="data:,">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="_ds/evengreener-design-system-ede5a68e-3ce4-4c3a-82c1-af597595dcea/styles.css">
+<script src="_ds/evengreener-design-system-ede5a68e-3ce4-4c3a-82c1-af597595dcea/_ds_bundle.js"></script>
+<style>body{margin:0;background:#F1EFE7}a{color:var(--eg-color-link)}a:hover{color:var(--eg-color-link-hover)}</style>
+</helmet>
+<div style="position:relative;min-height:100vh;background:var(--eg-oat-100);color:var(--eg-color-text);display:grid;align-content:start;justify-items:center;padding:{{ L.pad }}">
+  <div style="width:100%;max-width:560px;display:grid;gap:{{ L.gap }};justify-items:center;text-align:center">
+    <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.Logo" width="{{ 160 }}" href="Home Page.dc.html" hint-size="160px,38px"></x-import>
+    <div style="display:grid;gap:8px">
+      <h1 class="eg-h2" style="margin:0">Here is your £25 gift card</h1>
+      <p class="eg-muted" style="margin:0">Use the code at checkout. It never expires.</p>
+    </div>
+
+    <div style="width:100%;aspect-ratio:1.6;background:var(--eg-forest-700);border-radius:var(--eg-leaf-lg);color:var(--eg-white);display:grid;grid-template-rows:auto 1fr auto;padding:{{ L.cardPad }};text-align:left;box-sizing:border-box">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:16px">
+        <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.Logo" variant="white" width="{{ 120 }}" hint-size="120px,28px"></x-import>
+        <span style="font:800 {{ L.amount }}/1 var(--eg-font-display);color:var(--eg-white)">£25</span>
+      </div>
+      <span></span>
+      <span class="eg-eyebrow" style="color:var(--eg-lime-400)">Gift card</span>
+    </div>
+
+    <div style="width:100%;display:grid;gap:8px;text-align:left">
+      <span class="eg-label">Your code</span>
+      <div style="display:grid;grid-template-columns:minmax(0,1fr) auto">
+        <code style="display:flex;align-items:center;min-height:48px;padding:0 16px;background:var(--eg-white);border:1px solid var(--eg-color-border);border-right:0;border-radius:0 0 0 20px;font:600 var(--eg-text-body)/1 var(--eg-font-body);letter-spacing:.12em;overflow-wrap:anywhere">EGRN 7Q4K 2M9X 8WTC</code>
+        <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.Button" icon-start="{{ copyIcon }}" onClick="{{ copy }}" hint-size="100px,48px">{{ copyLabel }}</x-import>
+      </div>
+      <p style="margin:4px 0 0;font-size:var(--eg-text-body-sm);display:flex;justify-content:space-between;gap:16px"><span>Balance</span><strong style="font-weight:600">£25.00 of £25.00</strong></p>
+    </div>
+
+    <div style="width:100%;display:grid;grid-template-columns:{{ L.btnCols }};gap:12px">
+      <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.Button" href="Home Page.dc.html" block="{{ true }}" hint-size="100%,48px">Start shopping</x-import>
+      <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.Button" variant="secondary" block="{{ true }}" onClick="{{ print }}" hint-size="100%,48px">Print gift card</x-import>
+    </div>
+    <p style="margin:0;font-size:var(--eg-text-caption);color:var(--eg-color-text-muted)">Questions? Email customer.care@evengreener.com</p>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { w: window.innerWidth, copied: false };
+  componentDidMount() { this.onR = () => this.setState({ w: window.innerWidth }); window.addEventListener('resize', this.onR); }
+  componentWillUnmount() { window.removeEventListener('resize', this.onR); clearTimeout(this.to); }
+  renderVals() {
+    const m = this.state.w < 600;
+    return {
+      L: { pad: m ? '32px 16px 48px' : '64px 24px 96px', gap: m ? '20px' : '28px', cardPad: m ? '20px' : '32px', amount: m ? '44px' : '64px', btnCols: m ? 'minmax(0,1fr)' : 'repeat(2,minmax(0,1fr))' },
+      copyLabel: this.state.copied ? 'Copied' : 'Copy', copyIcon: this.state.copied ? 'check' : undefined,
+      copy: () => { try { navigator.clipboard.writeText('EGRN7Q4K2M9X8WTC'); } catch (e) {} this.setState({ copied: true }); clearTimeout(this.to); this.to = setTimeout(() => this.setState({ copied: false }), 2000); },
+      print: () => window.print(),
+    };
+  }
+}
+</script>
+</body>
+</html>

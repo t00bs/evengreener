@@ -1,0 +1,14 @@
+/* Elevation, motion, focus. The brand is flat: shadow only on overlays. */
+:root{
+--eg-shadow-none:none;
+--eg-shadow-overlay:0 12px 32px rgba(20,51,36,0.16); /* drawers, mega menu, modals only */
+--eg-scrim:rgba(20,51,36,0.48); /* @kind color */
+--eg-ease:cubic-bezier(0.2,0.6,0.2,1); /* @kind other */
+--eg-duration-fast:160ms; /* @kind other */
+--eg-duration-leaf:330ms; /* @kind other */
+--eg-duration-reveal:600ms; /* @kind other */
+--eg-focus-ring:0 0 0 3px var(--eg-white),0 0 0 5px var(--eg-leaf-600); /* @kind shadow */
+}
+@media (prefers-reduced-motion:reduce){
+:root{--eg-duration-fast:0ms; /* @kind other */--eg-duration-leaf:0ms; /* @kind other */--eg-duration-reveal:0ms; /* @kind other */}
+}

@@ -1,0 +1,31 @@
+/* EvenGreener type tokens. Causten 800 headings, Poppins 400/500/600 everything else. v0.2: bigger display range, tighter tracking as size grows, sentence-case buttons. */
+:root{
+--eg-font-display:"Causten","Poppins",system-ui,sans-serif;
+--eg-font-body:"Poppins",system-ui,sans-serif;
+/* Fluid scale 360px -> 1440px */
+--eg-text-display:clamp(2.75rem,1.833rem + 4.074vw,5.5rem); /* @kind other */ /* 44 -> 88 hero (v0.2: more dramatic) */
+--eg-text-h1:clamp(2.25rem,1.833rem + 1.852vw,3.5rem); /* @kind other */ /* 36 -> 56 */
+--eg-text-h2:clamp(1.75rem,1.5rem + 1.111vw,2.5rem); /* @kind other */ /* 28 -> 40 */
+--eg-text-h3:clamp(1.25rem,1.083rem + 0.741vw,1.75rem); /* @kind other */ /* 20 -> 28 */
+--eg-text-h4:clamp(1.125rem,1.08rem + 0.2vw,1.25rem); /* @kind other */     /* 18 -> 20 */
+--eg-text-h5:clamp(1rem,0.96rem + 0.2vw,1.125rem); /* @kind other */        /* 16 -> 18 */
+--eg-text-body-lg:1.125rem; /* @kind font */ /* 18 */
+--eg-text-body:1rem; /* @kind font */        /* 16 */
+--eg-text-body-sm:0.875rem; /* @kind font */ /* 14 product titles, meta */
+--eg-text-button:0.9375rem; /* @kind font */ /* 15 buttons + text CTAs: sentence case, no tracking */
+--eg-text-label:0.875rem; /* @kind font */   /* 14 nav (uppercase, tracked) */
+--eg-text-caption:0.75rem; /* @kind font */  /* 12 tags, badges, eyebrows (uppercase, tracked) */
+--eg-weight-body:400; /* @kind font */
+--eg-weight-label:500; /* @kind font */
+--eg-weight-strong:600; /* @kind font */
+--eg-weight-display:800; /* @kind font */
+--eg-leading-display:1.05; /* @kind font */ /* display */
+--eg-leading-heading:1.1; /* @kind font */ /* h1, h2 */
+--eg-leading-tight:1.2; /* @kind font */ /* h3 to h5 */
+--eg-leading-snug:1.4; /* @kind font */
+--eg-leading-body:1.6; /* @kind font */
+--eg-tracking-label:0.1em; /* @kind font */
+--eg-tracking-display:-0.025em; /* @kind font */
+--eg-tracking-heading:-0.015em; /* @kind font */ /* h1, h2 */
+--eg-tracking-tight:-0.01em; /* @kind font */ /* h3 to h5 */
+}
