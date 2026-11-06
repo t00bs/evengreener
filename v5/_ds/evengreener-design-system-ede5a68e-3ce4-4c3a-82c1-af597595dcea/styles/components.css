@@ -33,6 +33,7 @@
 
 /* Icon button (wishlist, header utils) */
 .eg-icon-btn{width:48px;height:48px;flex:none;display:grid;place-items:center;border:1px solid var(--eg-color-border-strong);border-radius:0 20px 0 0;background:var(--eg-white);color:var(--eg-color-text);cursor:pointer;transition:background-color var(--eg-duration-fast) var(--eg-ease),color var(--eg-duration-fast) var(--eg-ease)}
+.eg-icon-btn--prev{border-radius:20px 0 0 0}
 .eg-icon-btn:hover{background:var(--eg-color-bg-selected)}
 .eg-icon-btn[aria-pressed="true"]{background:var(--eg-color-bg-selected);color:var(--eg-color-text-brand)}
 .eg-icon-btn[aria-pressed="true"] svg{fill:currentColor}

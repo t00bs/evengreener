@@ -2831,6 +2831,7 @@ function ProductCarousel({
   }, /*#__PURE__*/React.createElement(__ds_scope.IconButton, {
     icon: "chevron-left",
     label: "Previous products",
+    className: "eg-icon-btn--prev",
     onClick: () => by(-1)
   }), /*#__PURE__*/React.createElement(__ds_scope.IconButton, {
     icon: "chevron-right",
