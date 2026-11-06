@@ -102,6 +102,7 @@
             <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.ColourSwatches" label="Colour" options="{{ swatches }}" default-value="Green" size="lg" hint-size="96px,70px"></x-import>
           </div>
 
+          <sc-if value="{{ inStock }}" hint-placeholder-val="{{ true }}">
           <div data-note="6" ref="{{ buyRef }}" class="eg-buy-row" style="flex-wrap:nowrap">
             <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.QuantityStepper" value="{{ qty }}" onChange="{{ setQty }}" min="{{ 1 }}" label="Quantity" hint-size="128px,48px"></x-import>
             <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.Button" onClick="{{ addToBag }}" style="flex:1;display:flex" block="{{ true }}" hint-size="100%,48px">Add to bag</x-import>
@@ -115,6 +116,20 @@
             <button ref="{{ payTrigRef }}" type="button" onClick="{{ openPay }}" aria-haspopup="dialog" aria-expanded="{{ payOpen }}" aria-controls="pay-later-panel" class="eg-link-cta" style="background-color:transparent;font-size:var(--eg-text-body-sm);min-height:24px">See options</button>
           </p>
           <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.StockNote" status="in" hint-size="100%,22px">In stock. Free UK delivery over £65, usually 2 to 4 working days.</x-import>
+          </sc-if>
+          <!-- Sold out (T-086, 5 Nov): the chosen option is out of stock. Sold out is said once, in the stock note, and the button slot holds one
+               Email me when it's back button. No quantity, no Spread the cost line, no second bar. Build: STOQ back-in-stock via its JS API. -->
+          <sc-if value="{{ soldOut }}" hint-placeholder-val="{{ false }}">
+            <div data-note="S1" style="display:grid;gap:12px">
+              <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.StockNote" status="out" hint-size="100%,22px">{{ soldOutText }}</x-import>
+              <div ref="{{ buyRef }}" class="eg-buy-row" style="flex-wrap:nowrap">
+                <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.Button" onClick="{{ openNotify }}" iconStart="mail" aria-haspopup="dialog" style="flex:1;display:flex" block="{{ true }}" hint-size="100%,48px">Email me when it’s back</x-import>
+                <sc-if value="{{ desktop }}" hint-placeholder-val="{{ false }}">
+                  <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.IconButton" icon="heart" label="{{ wishLabel }}" pressed="{{ wished }}" onClick="{{ toggleWish }}" hint-size="48px,48px"></x-import>
+                </sc-if>
+              </div>
+            </div>
+          </sc-if>
 
           <div data-note="8" style="display:grid;gap:6px;padding-top:4px;border-top:1px solid var(--eg-color-border);padding-top:16px">
             <p id="desc" style="margin:0;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:{{ descClamp }};overflow:hidden;text-wrap:pretty">Recycle all your food waste, including cooked food, meat, fish and dairy, along with garden waste, into rich compost. The insulated, ventilated design keeps the heap working hot through the year, even in winter, and the wide lid makes it easy to add scraps straight from the kitchen caddy. Most households can expect finished compost in 4 to 6 months.</p>
@@ -171,7 +186,7 @@
         <span style="font-size:var(--eg-text-body-sm);line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Green Johanna 330L Compost Bin</span>
         <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.Price" price="{{ price }}" hint-size="80px,22px"></x-import>
       </div>
-      <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.Button" onClick="{{ addToBag }}" hint-size="136px,48px">Add to bag</x-import>
+      <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.Button" onClick="{{ stickyAct }}" iconStart="{{ stickyIcon }}" hint-size="136px,48px">{{ stickyLabel }}</x-import>
     </div>
   </sc-if>
 
@@ -220,6 +235,8 @@ class Component extends DCLogic {
       let n = 0; const go = () => { const f = this.focusables(); if (f.length) f[0].focus(); else if (n++ < 20) requestAnimationFrame(go); }; go();
     });
   }
+  // Back in stock (T-086): the shared EGNotify panel in eg-shared.js. In the build this is window._RestockRocket.openModal() from STOQ.
+  openNotify(trigger) { if (window.EGNotify) window.EGNotify.open({ title: 'Green Johanna 330L Compost Bin', variant: this.state.cap + ', Green', image: window.EGImg && window.EGImg.johanna && window.EGImg.johanna[5].src, trigger: trigger }); }
   closePay() {
     if (!this.state.payOpen) return;
     this.setState({ payOpen: false }, () => { document.documentElement.style.overflow = ''; const t = this.payTrigRef.current; if (t) t.focus(); });
@@ -248,7 +265,10 @@ class Component extends DCLogic {
     window.addEventListener('scroll', this.onS, { passive: true });
     this.t = setInterval(() => {
       if (!this.state.ready && window.EGData) this.setState({ ready: true });
-      if (U() && !this.flagsRead) { this.flagsRead = true; this.notes = U().param('notes') != null; if (U().param('drawer') != null) this.setState({ drawerOpen: true, bag: 1 }); if (U().param('pay') != null) this.openPay(); }
+      if (U() && !this.flagsRead) { this.flagsRead = true; this.notes = U().param('notes') != null; if (U().param('drawer') != null) this.setState({ drawerOpen: true, bag: 1 }); if (U().param('pay') != null) this.openPay();
+        // ?soldout=1 opens on the sold-out option; ?notify=1 also opens the back in stock panel (T-086).
+        if (U().param('soldout') != null || U().param('notify') != null) this.setState({ cap: 'With jacket' });
+        if (U().param('notify') != null) setTimeout(() => this.openNotify(), 600); }
       this.onS();
       if (this.notes && U()) { const p = U().pins(this.pinLayer.current); const k = JSON.stringify(p); if (k !== this.pinKey) { this.pinKey = k; this.setState({ pins: p }); } }
     }, 500);
@@ -261,8 +281,11 @@ class Component extends DCLogic {
       { kind: 'lifestyle', label: 'In a garden border' }, { kind: 'packshot', label: 'Front packshot' }, { kind: 'packshot', label: 'Lid open' },
       { kind: 'lifestyle', label: 'Adding kitchen scraps' }, { kind: 'packshot', label: 'Base hatch' }, { kind: 'lifestyle', label: 'Finished compost' },
     ];
-    const caps = [{ value: '330L', label: '330L', price: 124.99 }, { value: 'With jacket', label: 'With jacket', price: 199.99 }];
-    const price = (caps.find((c) => c.value === this.state.cap) || caps[0]).price;
+    // Sample stock (T-086): the With jacket option is sold out so the back in stock state can be reviewed. Shopify: variant.available.
+    const caps = [{ value: '330L', label: '330L', price: 124.99, stock: 'in' }, { value: 'With jacket', label: 'With jacket', price: 199.99, stock: 'out' }];
+    const capNow = caps.find((c) => c.value === this.state.cap) || caps[0];
+    const price = capNow.price;
+    const soldOut = capNow.stock === 'out';
     const extrasData = [{ id: 'thermo', title: 'Compost Thermometer', price: 19.99 }, { id: 'caddy7', title: 'Straight 7 Litre Green Kitchen Caddy', price: 9.99 }].map((x) => Object.assign(x, { image: window.EGImg && window.EGImg.item(x) }));
     const quotes = [
       { rating: 5, name: 'Sarah', quote: 'Takes everything, even cooked leftovers.' },
@@ -311,6 +334,11 @@ class Component extends DCLogic {
       addToBag: () => this.setState((s) => ({ bag: s.bag + s.qty, drawerOpen: true })),
       wished: this.state.wished, wishLabel: this.state.wished ? 'Remove from wishlist' : 'Add to wishlist', toggleWish: () => this.setState((s) => ({ wished: !s.wished })),
       showSticky: m && this.state.showSticky && !this.state.drawerOpen && !this.state.payOpen,
+      inStock: !soldOut, soldOut: soldOut,
+      soldOutText: 'Sold out',
+      openNotify: (e) => this.openNotify(e && e.currentTarget),
+      stickyLabel: soldOut ? 'Email me' : 'Add to bag', stickyIcon: soldOut ? 'mail' : undefined,
+      stickyAct: soldOut ? (e) => this.openNotify(e && e.currentTarget) : () => this.setState((s) => ({ bag: s.bag + s.qty, drawerOpen: true })),
       buyRef: this.buyRef,
       descClamp: this.state.descOpen ? 'unset' : 3, descOpen: this.state.descOpen, descLabel: this.state.descOpen ? 'Read less' : 'Read more',
       toggleDesc: () => this.setState((s) => ({ descOpen: !s.descOpen })),
