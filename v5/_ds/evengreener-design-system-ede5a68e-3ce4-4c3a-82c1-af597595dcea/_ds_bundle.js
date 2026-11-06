@@ -481,6 +481,7 @@ function Media({
   src,
   alt = '',
   label,
+  hoverSrc,
   children,
   className = '',
   style
@@ -493,7 +494,12 @@ function Media({
     src: src,
     alt: alt,
     loading: "lazy"
-  }) : label || null, children ? /*#__PURE__*/React.createElement("div", {
+  }) : label || null, src && hoverSrc ? /*#__PURE__*/React.createElement("img", {
+    className: "eg-product-card__hover",
+    src: hoverSrc,
+    alt: "",
+    loading: "lazy"
+  }) : null, children ? /*#__PURE__*/React.createElement("div", {
     className: "eg-media__badges"
   }, children) : null);
 }
@@ -888,13 +894,9 @@ function ProductCard({
     kind: p.kind || 'packshot',
     src: p.image,
     alt: "",
-    label: p.imageLabel || (p.kind === 'lifestyle' ? 'Lifestyle' : 'Packshot on mist')
-  }, badges.length ? badges : null, p.hoverImage ? /*#__PURE__*/React.createElement("img", {
-    className: "eg-product-card__hover",
-    src: p.hoverImage,
-    alt: "",
-    loading: "lazy"
-  }) : null));
+    label: p.imageLabel || (p.kind === 'lifestyle' ? 'Lifestyle' : 'Packshot on mist'),
+    hoverSrc: p.hoverImage
+  }, badges.length ? badges : null));
   // 5 Nov review: cutout first, lifestyle shot on hover (p.hoverImage). Products with no cutout yet show the lifestyle shot only.
   const quick = onQuickView ? /*#__PURE__*/React.createElement("div", {
     className: "eg-product-card__quick"

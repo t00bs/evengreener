@@ -351,7 +351,7 @@
     var k = keyFor(o); if (!k) return o;
     if (o.kind === 'lifestyle') { o.kind = 'packshot'; o.imageLabel = 'Packshot on mist'; o.image = img(k, 600); }
     var lk = HOVER[k] || ('L_' + k);
-    if (IMG_PATHS[lk]) o.hoverImage = img(lk, 600);
+    if (IMG_PATHS[lk] && IMG_PATHS[lk] !== IMG_PATHS[k]) o.hoverImage = img(lk, 600);
     return o;
   }
   [bestsellers, composting, water, catalogue, cart, [aerator]].forEach(function (l) { l.forEach(addHover); l.forEach(addImg); });
@@ -454,7 +454,7 @@
       '@media (prefers-reduced-motion:reduce){.egx-catbar--c{transition:none}}',
       /* 5 Nov: cutout first, lifestyle on hover */
       '.eg-product-card__media .eg-media{position:relative}',
-      '.eg-product-card__hover{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity var(--eg-duration-fast,.2s) var(--eg-ease,ease);pointer-events:none;z-index:0}',
+      '.eg-media>img.eg-product-card__hover{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;padding:0;opacity:0;transition:opacity var(--eg-duration-fast,.2s) var(--eg-ease,ease);pointer-events:none;z-index:0}',
       '@media (hover:hover){.eg-product-card:hover .eg-product-card__hover,.eg-product-card:focus-within .eg-product-card__hover{opacity:1}}',
       '@media (prefers-reduced-motion:reduce){.eg-product-card__hover{transition:none}}',
       /* 5 Nov: quick view (eye) button on related products */
@@ -558,7 +558,7 @@
   };
 })();
 
-/* Back in stock sign-up (T-086, 5 Nov). One "Email me when it's back" panel for the product page and sold-out product cards.
+/* Back in stock sign-up (5 Nov). One "Email me when it's back" panel for the product page and sold-out product cards.
    Styled like the Spread the cost panel: bottom sheet under 900px, small dialog above, Esc closes, Tab stays inside.
    Build: EvenGreener keep STOQ (Preorder, Back In Stock). The product page button calls STOQ's JS API,
    window._RestockRocket.openModal(), and STOQ's form takes these styles through its custom CSS setting

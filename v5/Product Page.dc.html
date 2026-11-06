@@ -110,14 +110,14 @@
               <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.IconButton" icon="heart" label="{{ wishLabel }}" pressed="{{ wished }}" onClick="{{ toggleWish }}" hint-size="48px,48px"></x-import>
             </sc-if>
           </div>
-          <!-- Spread the cost (T-056, 5 Nov review): one quiet text line under the buy row, opens the Pay Later panel. No logos under Add to bag. -->
+          <!-- Spread the cost (5 Nov review): one quiet text line under the buy row, opens the Pay Later panel. No logos under Add to bag. -->
           <p data-note="P1" style="margin:{{ L.payPull }} 0 0;display:flex;flex-wrap:wrap;align-items:center;column-gap:8px;font-size:var(--eg-text-body-sm);line-height:1.4">
             <span>Spread the cost from {{ perMonth }} a month.</span>
             <button ref="{{ payTrigRef }}" type="button" onClick="{{ openPay }}" aria-haspopup="dialog" aria-expanded="{{ payOpen }}" aria-controls="pay-later-panel" class="eg-link-cta" style="background-color:transparent;font-size:var(--eg-text-body-sm);min-height:24px">See options</button>
           </p>
           <x-import component-from-global-scope="EvenGreenerDesignSystem_ede5a6.StockNote" status="in" hint-size="100%,22px">In stock. Free UK delivery over £65, usually 2 to 4 working days.</x-import>
           </sc-if>
-          <!-- Sold out (T-086, 5 Nov): the chosen option is out of stock. Sold out is said once, in the stock note, and the button slot holds one
+          <!-- Sold out (5 Nov): the chosen option is out of stock. Sold out is said once, in the stock note, and the button slot holds one
                Email me when it's back button. No quantity, no Spread the cost line, no second bar. Build: STOQ back-in-stock via its JS API. -->
           <sc-if value="{{ soldOut }}" hint-placeholder-val="{{ false }}">
             <div data-note="S1" style="display:grid;gap:12px">
@@ -210,7 +210,7 @@
     </div>
   </sc-if>
 
-  <!-- Spread the cost panel (T-056). Bottom sheet under 900px, small dialog above. In the build each row is the provider's own message: Shopify's payment_terms banner, PayPal's Pay Later message and Klarna's On-site Messaging placement. Klarna (T-058) is already enabled at checkout on EG and GGS; GG and SW would need it switched on in Shopify Payments first. Learn more sits inline after each row's sub line so three rows fit a 390x844 sheet without scrolling. -->
+  <!-- Spread the cost panel. Bottom sheet under 900px, small dialog above. In the build each row is the provider's own message: Shopify's payment_terms banner, PayPal's Pay Later message and Klarna's On-site Messaging placement. Klarna is already enabled at checkout on EG and GGS; GG and SW would need it switched on in Shopify Payments first. Learn more sits inline after each row's sub line so three rows fit a 390x844 sheet without scrolling. -->
   <sc-if value="{{ payOpen }}" hint-placeholder-val="{{ false }}">
     <div>
       <div class="eg-scrim" onClick="{{ closePay }}" aria-hidden="true"></div>
@@ -255,7 +255,7 @@ class Component extends DCLogic {
       let n = 0; const go = () => { const f = this.focusables(); if (f.length) f[0].focus(); else if (n++ < 20) requestAnimationFrame(go); }; go();
     });
   }
-  // Back in stock (T-086): the shared EGNotify panel in eg-shared.js. In the build this is window._RestockRocket.openModal() from STOQ.
+  // Back in stock: the shared EGNotify panel in eg-shared.js. In the build this is window._RestockRocket.openModal() from STOQ.
   openNotify(trigger) { if (window.EGNotify) window.EGNotify.open({ title: 'Green Johanna 330L Compost Bin', variant: this.state.cap + ', Green', image: window.EGImg && window.EGImg.johanna && window.EGImg.johanna[5].src, trigger: trigger }); }
   closePay() {
     if (!this.state.payOpen) return;
@@ -286,7 +286,7 @@ class Component extends DCLogic {
     this.t = setInterval(() => {
       if (!this.state.ready && window.EGData) this.setState({ ready: true });
       if (U() && !this.flagsRead) { this.flagsRead = true; this.notes = U().param('notes') != null; if (U().param('drawer') != null) this.setState({ drawerOpen: true, bag: 1 }); if (U().param('pay') != null) this.openPay();
-        // ?soldout=1 opens on the sold-out option; ?notify=1 also opens the back in stock panel (T-086).
+        // ?soldout=1 opens on the sold-out option; ?notify=1 also opens the back in stock panel.
         if (U().param('soldout') != null || U().param('notify') != null) this.setState({ cap: 'With jacket' });
         if (U().param('notify') != null) setTimeout(() => this.openNotify(), 600); }
       this.onS();
@@ -301,7 +301,7 @@ class Component extends DCLogic {
       { kind: 'lifestyle', label: 'In a garden border' }, { kind: 'packshot', label: 'Front packshot' }, { kind: 'packshot', label: 'Lid open' },
       { kind: 'lifestyle', label: 'Adding kitchen scraps' }, { kind: 'packshot', label: 'Base hatch' }, { kind: 'lifestyle', label: 'Finished compost' },
     ];
-    // Sample stock (T-086): the With jacket option is sold out so the back in stock state can be reviewed. Shopify: variant.available.
+    // Sample stock: the With jacket option is sold out so the back in stock state can be reviewed. Shopify: variant.available.
     const caps = [{ value: '330L', label: '330L', price: 124.99, stock: 'in' }, { value: 'With jacket', label: 'With jacket', price: 199.99, stock: 'out' }];
     const capNow = caps.find((c) => c.value === this.state.cap) || caps[0];
     const price = capNow.price;
@@ -351,7 +351,7 @@ class Component extends DCLogic {
       payOptions: [
         { title: 'Pay in 3 with Shop Pay', mark: 'Shop Pay', amount: '3 interest-free instalments of £' + (Math.floor(price / 3 * 100) / 100).toFixed(2), sub: 'Choose Shop Pay at checkout.', learn: (e) => e.preventDefault() },
         { title: 'Pay in 3 with PayPal', mark: 'PayPal', amount: '3 interest-free payments of £' + (Math.floor(price / 3 * 100) / 100).toFixed(2), sub: 'Choose PayPal at checkout. You can also pay the full amount in 30 days.', learn: (e) => e.preventDefault() },
-        // Klarna (T-058): already enabled at checkout on EG and GGS via Shopify Payments. In the build this row is Klarna's On-site Messaging placement, which renders Klarna's own approved copy and disclosure.
+        // Klarna: already enabled at checkout on EG and GGS via Shopify Payments. In the build this row is Klarna's On-site Messaging placement, which renders Klarna's own approved copy and disclosure.
         { title: 'Pay in 3 with Klarna', mark: 'Klarna', amount: '3 interest-free instalments of £' + (Math.floor(price / 3 * 100) / 100).toFixed(2), sub: 'Choose Klarna at checkout.', learn: (e) => e.preventDefault() },
       ],
       excerpts: (m ? quotes.slice(0, 1) : quotes).map((q) => Object.assign({}, q, { inlineLink: m })),
