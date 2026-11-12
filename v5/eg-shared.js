@@ -557,7 +557,18 @@
     { title: 'Contact us', text: 'Ask our Customer Care Team. We reply within 1 working day.', cta: 'Get in touch', href: PG.contact, image: img('L_harco', 900) }
   ];
   window.EGData = { hubSections: hubSections, waterFacets: waterFacets, waterSteps: waterSteps, foodWaste: foodWaste, pages: PG, nav: nav, utility: utility, scopes: scopes, footer: footer, bestsellers: bestsellers, homeReviews: homeReviews, cart: cart, aerator: aerator, payments: payments, composting: composting, water: water, catalogue: catalogue, compostFacets: compostFacets, facetsFor: facetsFor, filterFn: filterFn, capTest: capTest, priceTest: priceTest, posts: posts, orders: orders, addresses: addresses, manuals: manuals };
-  window.EGUtil = { pins: pins, fmt: fmt, param: param, shell: shell, waterRecommend: waterRecommend, navOption: navOption };
+  // Composter finder picks (Natalie, 12 Nov): question 2 sorts by what goes in.
+  //   food = bokashi, electric, food waste digester, wormery; kitchen = standard composters;
+  //   garden_kitchen = standard composters and tumblers; garden_food = hot composters.
+  function compostRecommend(a) {
+    var where = a[0], what = a[1], speed = a[2], ids;
+    if (what === 'food' || where === 'flat') ids = ['reencle', 'bokTwin', 'wormery'];
+    else if (what === 'garden_food') ids = where === 'large' ? ['hotbin700', 'johanna', 'hotbin450'] : ['johanna', 'hotbin450', 'hotbin700'];
+    else if (what === 'kitchen') ids = ['conv220', 'compost330', 'beehive'];
+    else ids = where === 'large' ? ['twobay', 'compost330', 'maze180'] : speed === 'fast' ? ['maze180', 'compost330', 'conv220'] : ['compost330', 'conv220', 'maze180'];
+    return ids.map(function (id) { return composting.filter(function (x) { return x.id === id; })[0]; }).filter(Boolean);
+  }
+  window.EGUtil = { pins: pins, fmt: fmt, param: param, shell: shell, waterRecommend: waterRecommend, compostRecommend: compostRecommend, navOption: navOption };
   window.EGImg = {
     src: img, item: itemImg,
     post: function (t, w) { return POST[t] ? img(POST[t], w || 900) : undefined; },

@@ -4,15 +4,15 @@
 <meta charset="utf-8">
 <link rel="icon" href="data:,">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="./support.js?v=6nov4"></script>
+<script src="./support.js?v=12nov1"></script>
 </head>
 <body>
 <x-dc>
 <helmet>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="_ds/evengreener-design-system-ede5a68e-3ce4-4c3a-82c1-af597595dcea/styles.css?v=6nov4">
-<script src="_ds/evengreener-design-system-ede5a68e-3ce4-4c3a-82c1-af597595dcea/_ds_bundle.js?v=6nov4"></script>
-<script src="eg-shared.js?v=6nov4"></script>
+<link rel="stylesheet" href="_ds/evengreener-design-system-ede5a68e-3ce4-4c3a-82c1-af597595dcea/styles.css?v=12nov1">
+<script src="_ds/evengreener-design-system-ede5a68e-3ce4-4c3a-82c1-af597595dcea/_ds_bundle.js?v=12nov1"></script>
+<script src="eg-shared.js?v=12nov1"></script>
 <style>body{margin:0;background:#fff}a{color:var(--eg-color-link)}a:hover{color:var(--eg-color-link-hover)}</style>
 </helmet>
 <div style="position:relative;background:var(--eg-white);color:var(--eg-color-text)">
@@ -195,15 +195,8 @@ class Component extends DCLogic {
     };
     // Composter picks from where it lives, what goes in and how fast (build: product metafields)
     const C = (id) => (D.composting || []).find((x) => x.id === id);
-    const compostRecommend = (a) => {
-      const where = a[0], what = a[1], speed = a[2];
-      let ids;
-      if (where === 'flat') ids = ['reencle', 'bokTwin', 'wormery'];
-      else if (what === 'all' || what === 'kitchen') ids = where === 'large' ? ['hotbin700', 'johanna', 'bokTwin'] : ['johanna', 'hotbin450', 'bokTwin'];
-      else if (where === 'large') ids = speed === 'fast' ? ['hotbin700', 'maze180', 'twobay'] : ['twobay', 'compost330', 'hotbin700'];
-      else ids = speed === 'fast' ? ['johanna', 'maze180', 'compost330'] : ['compost330', 'conv220', 'johanna'];
-      return ids.map(C).filter(Boolean);
-    };
+    // Composter picks by what goes in (Natalie, 12 Nov): shared with the composting collection page (eg-shared.js)
+    const compostRecommend = (a) => window.EGUtil.compostRecommend(a);
     const RANGE = { question: 'What are you looking for?', options: [
       { value: 'compost', label: 'Composting', hint: 'Compost bins, hot composters, wormeries and kitchen caddies' },
       { value: 'water', label: 'Water butts and tanks', hint: 'Collect rainwater from a downpipe for the garden' }] };
@@ -214,8 +207,10 @@ class Component extends DCLogic {
         { value: 'garden', label: 'A medium garden', hint: 'Lawn and borders' },
         { value: 'large', label: 'A large garden or allotment', hint: 'Lots of green waste' }] },
       { question: 'What do you want to compost?', options: [
-        { value: 'kitchen', label: 'Kitchen scraps only' }, { value: 'garden', label: 'Garden waste only' },
-        { value: 'both', label: 'Both' }, { value: 'all', label: 'Everything, incl. cooked food' }] },
+        { value: 'food', label: 'Food waste only', hint: 'Any food waste' },
+        { value: 'kitchen', label: 'Kitchen waste only', hint: 'Fruit and veg peelings, paper and cardboard' },
+        { value: 'garden_kitchen', label: 'Garden and kitchen waste', hint: 'Garden waste, peelings and cardboard' },
+        { value: 'garden_food', label: 'Garden and food waste', hint: 'Garden waste plus any food waste' }] },
       { question: 'How fast do you want compost?', options: [
         { value: 'fast', label: 'As fast as possible', hint: '1 to 3 months' }, { value: 'steady', label: 'No rush', hint: '6 to 12 months' }] },
     ];

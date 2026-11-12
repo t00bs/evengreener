@@ -2614,17 +2614,21 @@ const STEPS = [{
 }, {
   question: 'What do you want to compost?',
   options: [{
+    value: 'food',
+    label: 'Food waste only',
+    hint: 'Any food waste'
+  }, {
     value: 'kitchen',
-    label: 'Kitchen scraps only'
+    label: 'Kitchen waste only',
+    hint: 'Fruit and veg peelings, paper and cardboard'
   }, {
-    value: 'garden',
-    label: 'Garden waste only'
+    value: 'garden_kitchen',
+    label: 'Garden and kitchen waste',
+    hint: 'Garden waste, peelings and cardboard'
   }, {
-    value: 'both',
-    label: 'Both'
-  }, {
-    value: 'all',
-    label: 'Everything, incl. cooked food'
+    value: 'garden_food',
+    label: 'Garden and food waste',
+    hint: 'Garden waste plus any food waste'
   }]
 }, {
   question: 'How fast do you want compost?',
